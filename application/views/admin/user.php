@@ -18,6 +18,7 @@
 							<tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" width="1px">NO</th>
 								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" width="1px">Nama</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center" width="1px">Role</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center" width="1px">Status</th>
 								<th class="text-secondary opacity-7" rowspan="2" width="1px"></th>
@@ -28,6 +29,7 @@
                                 <tr>
                                     <td class="text-center"><?= $no++ ?>. </td>
                                     <td><?= $row->username ?></td>
+                                    <td><?= $row->nama ?></td>
                                     <td><button type="button" class="btn btn-sm w-100 <?= ($row->role == 1) ? 'btn-success' : 'btn-primary' ?>"><?= ($row->role == 1) ? 'Admin' : 'Petugas' ?></button></td>
                                     <td><button type="button" class="btn btn-sm w-100 <?= ($row->status == 1) ? 'btn-success' : 'btn-danger' ?>"><?= ($row->status == 1) ? 'Active' : 'Non Active' ?></button></td>
                                     <td>
