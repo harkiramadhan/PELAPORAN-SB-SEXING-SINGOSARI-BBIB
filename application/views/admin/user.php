@@ -30,10 +30,10 @@
                                     <td class="text-center"><?= $no++ ?>. </td>
                                     <td><?= $row->username ?></td>
                                     <td><?= $row->nama ?></td>
-                                    <td><button type="button" class="btn btn-sm w-100 <?= ($row->role == 1) ? 'btn-success' : 'btn-primary' ?>"><?= ($row->role == 1) ? 'Admin' : 'Petugas' ?></button></td>
-                                    <td><button type="button" class="btn btn-sm w-100 <?= ($row->status == 1) ? 'btn-success' : 'btn-danger' ?>"><?= ($row->status == 1) ? 'Active' : 'Non Active' ?></button></td>
+                                    <td><button type="button" class="btn btn-sm w-100 mb-0 <?= ($row->role == 1) ? 'btn-success' : 'btn-primary' ?>"><?= ($row->role == 1) ? 'Admin' : 'Petugas' ?></button></td>
+                                    <td><button type="button" class="btn btn-sm w-100 mb-0 <?= ($row->status == 1) ? 'btn-success' : 'btn-danger' ?>"><?= ($row->status == 1) ? 'Active' : 'Non Active' ?></button></td>
                                     <td>
-                                        <button type="button" class="btn btn-sm w-100 btn-info"><i class="fas fa-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-sm w-100 mb-0 btn-info"><i class="fas fa-pencil-alt"></i></button>
                                     </td>
                                 </tr>
                             <?php } ?>

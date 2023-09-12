@@ -27,7 +27,7 @@
                                     <td class="text-center"><?= $no++ ?>. </td>
                                     <td><?= $row->peternak ?></td>
                                     <td>
-                                        <button type="button" class="btn btn-sm w-100 btn-info"><i class="fas fa-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-sm w-100 mb-0 btn-info"><i class="fas fa-pencil-alt"></i></button>
                                     </td>
                                 </tr>
                             <?php } ?>
