@@ -11,13 +11,24 @@ class Peternak extends CI_Controller{
 
     function index(){
         $var = [
-            'title' => 'Peternak - PELAPORAN SB SEXING SINGOSARI BBIB',
+            'title' => 'Peternak - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Peternak',
             'peternak' => $this->db->get('peternak')
         ];
 
         $this->load->view('admin/layout/header', $var);
         $this->load->view('admin/peternak', $var);
+        $this->load->view('admin/layout/footer', $var);
+    }
+
+    function tambah(){
+        $var = [
+            'title' => 'Tambah - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
+            'pages' => 'Tambah Peternak'
+        ];
+
+        $this->load->view('admin/layout/header', $var);
+        $this->load->view('admin/peternak-tambah', $var);
         $this->load->view('admin/layout/footer', $var);
     }
 }

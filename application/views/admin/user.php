@@ -7,7 +7,7 @@
 						<h4 class="text-lg-start text-center mb-lg-0 mb-3">Daftar Petugas</h4>
 					</div>
 					<div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center">
-						<button class="btn bg-gradient-dark mb-0"><i class="fas fa-plus me-2"></i> PETUGAS</button>
+						<a href="<?= site_url('admin/user/tambah') ?>" class="btn bg-gradient-dark mb-0"><i class="fas fa-plus me-2"></i> PETUGAS</a>
 					</div>
 				</div>
 			</div>

@@ -3,11 +3,30 @@
 		<div class="card mb-4">
 			<div class="card-header pb-4 border-bottom">
 				<div class="row">
-					<div class="col-lg-9 col-12">
+					<div class="col-lg-8 col-12">
 						<h4 class="text-lg-start text-center mb-lg-0 mb-3">Daftar Laporan Pelaksanaan IB</h4>
 					</div>
-					<div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center">
-						<button class="btn bg-gradient-dark mb-0"><i class="fas fa-plus me-2"></i> LAPORAN</button>
+					<div class="col-lg-4 col-12 d-flex justify-content-lg-end justify-content-center">
+						<div class="d-flex">
+							<div class="dropdown me-2">
+								<a href="#" class="btn btn-outline-dark dropdown-toggle mb-0" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+									<i class="fas  fa-file-pdf me-2 mb-0"></i> Export Dokumen
+								</a>
+								<ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdownMenuLink2">
+									<li>
+										<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalExportSatuBulan">
+											<i class="fas  fa-file-pdf me-2"></i> 1 Bulan
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalExportBulanan">
+											<i class="fas  fa-file-pdf me-2"></i> > 1 Bulan
+										</a>
+									</li>
+								</ul>
+							</div>
+							<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn bg-gradient-dark mb-0 d-inline"><i class="fas fa-plus me-2"></i> LAPORAN</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -69,8 +88,8 @@
 									</td>
 									<td class="align-top">
 										<div class="btn-group">
-
-											<button class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-folder"></i></button>
+											<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-eye"></i></a>
+											<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-folder"></i></a>
 											<button class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></button>
 										</div>
 									</td>
@@ -82,4 +101,94 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+
+<!-- MODAL MODAL -->
+
+<div class="modal fade" id="modalExportSatuBulan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id=""><i class="fas fa-upload fa-md text-dark me-2 ms-1" aria-hidden="true"></i>Export Laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+						<div class="col-12 col-lg-6 mb-2">
+							<label class="ms-0">Pilih Bulan</label>
+							<select class="form-control" name="kewarganegaraan_ayah">
+								<option selected="" disabled="">- Pilih Bulan -</option>
+								<option value="Januari">Januari</option>
+								<option value="Februari">Februari</option>
+								<option value="Maret">Maret</option>
+							</select>
+						</div>
+						<div class="col-12 col-lg-6">
+							<label class="ms-0">Pilih Tahun</label>
+							<select class="form-control" name="kewarganegaraan_ayah">
+								<option selected="" disabled="">- Pilih Tahun -</option>
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+							</select>
+						</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn m-0 me-2" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn bg-gradient-primary m-0">Export Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalExportBulanan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id=""><i class="fas fa-upload fa-md text-dark me-2 ms-1" aria-hidden="true"></i>Export Laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+						<div class="col-12 col-lg-4 mb-2">
+							<label class="ms-0">Pilih Bulan Awal</label>
+							<select class="form-control" name="kewarganegaraan_ayah">
+								<option selected="" disabled="">- Pilih Bulan -</option>
+								<option value="Januari">Januari</option>
+								<option value="Februari">Februari</option>
+								<option value="Maret">Maret</option>
+							</select>
+						</div>
+						<div class="col-12 col-lg-4 mb-2">
+							<label class="ms-0">Pilih Bulan Akhir</label>
+							<select class="form-control" name="kewarganegaraan_ayah">
+								<option selected="" disabled="">- Pilih Bulan -</option>
+								<option value="Januari">Januari</option>
+								<option value="Februari">Februari</option>
+								<option value="Maret">Maret</option>
+							</select>
+						</div>
+						<div class="col-12 col-lg-4">
+							<label class="ms-0">Pilih Tahun</label>
+							<select class="form-control" name="kewarganegaraan_ayah">
+								<option selected="" disabled="">- Pilih Tahun -</option>
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+							</select>
+						</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn m-0 me-2" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn bg-gradient-primary m-0">Export Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

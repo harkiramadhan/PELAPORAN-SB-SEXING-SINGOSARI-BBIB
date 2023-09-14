@@ -50,21 +50,13 @@
             <div class="col-12 mt-2">
                 <label class="ms-0">Tanggal Inseminasi Buatan</label>
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="me-2 nomor-sub">1.</span>
-                    <input class="multisteps-form__input form-control" value="" type="date" name="" required="">
-                </div>                 
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="me-2 nomor-sub">2.</span>
-                    <input class="multisteps-form__input form-control" value="" type="date" name="" required="">
-                </div>                 
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="me-2 nomor-sub">3.</span>
-                    <input class="multisteps-form__input form-control" value="" type="date" name="" required="">
-                </div>                 
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="me-2 nomor-sub">4.</span>
-                    <input class="multisteps-form__input form-control" value="" type="date" name="" required="">
-                </div>                 
+                    <span class="me-2 nomor-sub">1</span>
+                    <input class="multisteps-form__input form-control" value="" type="date" name="sub_topik[]" required="">
+                    <button type="button" class="btn btn-icon-only btn-danger mb-0 ms-2 d-flex align-items-center justify-content-center"><i class="fas fa-trash" aria-hidden="true"></i></button>
+                </div>
+                <button type="button" class="btn btn-sm mb-0 btn-outline-light mx-auto w-100 text-dark btn-add-sub-topik">
+                    <i class="fas fa-plus me-2" aria-hidden="true"></i>Tanggal Inseminasi Buatan
+                </button>              
             </div>
             <hr class="horizontal dark mt-4 mb-3">
             <!-- PKB -->
