@@ -7,26 +7,7 @@
 						<h4 class="text-lg-start text-center mb-lg-0 mb-3">Daftar Laporan Pelaksanaan IB</h4>
 					</div>
 					<div class="col-lg-4 col-12 d-flex justify-content-lg-end justify-content-center">
-						<div class="d-flex">
-							<div class="dropdown me-2">
-								<a href="#" class="btn btn-outline-dark dropdown-toggle mb-0" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
-									<i class="fas  fa-file-pdf me-2 mb-0"></i> Export Dokumen
-								</a>
-								<ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdownMenuLink2">
-									<li>
-										<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalExportSatuBulan">
-											<i class="fas  fa-file-pdf me-2"></i> 1 Bulan
-										</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalExportBulanan">
-											<i class="fas  fa-file-pdf me-2"></i> > 1 Bulan
-										</a>
-									</li>
-								</ul>
-							</div>
-							<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn bg-gradient-dark mb-0 d-inline"><i class="fas fa-plus me-2"></i> LAPORAN</a>
-						</div>
+						<a href="<?= site_url('petugas/pelaporan/tambah') ?>" class="btn bg-gradient-dark mb-0 d-inline"><i class="fas fa-plus me-2"></i> LAPORAN</a>
 					</div>
 				</div>
 			</div>
@@ -36,7 +17,7 @@
 						<thead>
 							<tr>
                                 <th class="text-uppercase text-sm" width="1px">#</th>
-								<th class="text-uppercase text-sm">Petugas</th>
+								<th class="text-uppercase text-sm">Lokasi</th>
 								<th class="text-uppercase text-sm" width="1px">Peternak</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">Akseptor</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">Bull</th>
@@ -52,7 +33,6 @@
 								<tr class="border: none;">
 									<td class="text-center fw-normal text-sm align-top"><?= $no++ ?>. </td>
 									<td class="align-top" >
-										<p class="fw-bold text-sm text-dark mb-0"><?= $row->nama ?></p>
                                         <p class="fw-normal text-sm text-sm mb-0" style="margin-top: -2px;">Lokasi Petugas Inseminasi</p>
 									</td>
 									<td class="fw-normal text-sm align-top"><?= $row->peternak ?></td>
@@ -88,8 +68,8 @@
 									</td>
 									<td class="align-top">
 										<div class="btn-group">
-											<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-eye"></i></a>
-											<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-folder"></i></a>
+											<a href="<?= site_url('petugas/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-eye"></i></a>
+											<a href="<?= site_url('petugas/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-folder"></i></a>
 											<button class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></button>
 										</div>
 									</td>

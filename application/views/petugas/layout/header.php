@@ -22,8 +22,8 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
 	</head>
-	<body class="g-sidenav-show   bg-gray-100">
-		<div class="min-height-300 bg-primary position-absolute w-100"></div>
+	<body class="g-sidenav-show bg-gray-100">
+		<div class="min-height-300 bg-gradient-primary position-absolute w-100"></div>
 		<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
 			<div class="div pb-">
 				<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -40,7 +40,7 @@
 			<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link <?= ($this->uri->segment(2) == 'dashboard') ? 'active' : '' ?>" href="<?= site_url('admin/dashboard') ?>">
+						<a class="nav-link <?= ($this->uri->segment(2) == 'dashboard') ? 'active' : '' ?>" href="<?= site_url('petugas/dashboard') ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 								<i class="fas fa-home text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
@@ -48,27 +48,11 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link <?= ($this->uri->segment(2) == 'pelaporan') ? 'active' : '' ?>" href="<?= site_url('admin/pelaporan') ?>">
+						<a class="nav-link <?= ($this->uri->segment(2) == 'pelaporan') ? 'active' : '' ?>" href="<?= site_url('petugas/pelaporan') ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 								<i class="fas fa-list text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
 							<span class="nav-link-text fw-bold ms-1">Pelaporan IB</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link <?= ($this->uri->segment(2) == 'peternak') ? 'active' : '' ?>" href="<?= site_url('admin/peternak') ?>">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="fas fa-users text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
-							</div>
-							<span class="nav-link-text fw-bold ms-1">Peternak</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link <?= ($this->uri->segment(2) == 'user') ? 'active' : '' ?>" href="<?= site_url('admin/user') ?>">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="fas fa-user-shield text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
-							</div>
-							<span class="nav-link-text fw-bold ms-1">Petugas</span>
 						</a>
 					</li>
 				</ul>
