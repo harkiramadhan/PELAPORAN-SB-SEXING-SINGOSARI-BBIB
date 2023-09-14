@@ -11,7 +11,7 @@ class Pelaporan extends CI_Controller{
 
     function index(){
         $var = [
-            'title' => 'Pelaporan - PELAPORAN SB SEXING SINGOSARI BBIB',
+            'title' => 'Pelaporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Pelaporan',
             'laporan' => $this->db->select('l.*, u.username, u.nama, p.peternak')
                                 ->from('laporan l')
@@ -24,4 +24,16 @@ class Pelaporan extends CI_Controller{
         $this->load->view('admin/pelaporan', $var);
         $this->load->view('admin/layout/footer', $var);
     }
+
+    function tambah(){
+        $var = [
+            'title' => 'Tambah Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
+            'pages' => 'Tambah Laporan'
+        ];
+
+        $this->load->view('admin/layout/header', $var);
+        $this->load->view('admin/pelaporan-tambah', $var);
+        $this->load->view('admin/layout/footer', $var);
+    }
+
 }

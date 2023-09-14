@@ -1,24 +1,11 @@
-<!--
-=========================================================
-* Argon Dashboard 2 - v2.0.4
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-		<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="<?= base_url('assets/img/brand/logo-primary.png') ?>">
+		<link rel="icon" type="image/png" href="<?= base_url('assets/img/brand/logo-primary.png') ?>">
 		<title> <?= @$title ?> </title>
 		<!--     Fonts and icons     -->
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -28,6 +15,7 @@
 		<!-- Font Awesome Icons -->
 		<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 		<link href="<?= base_url('assets/css/nucleo-svg.css') ?>" rel="stylesheet" />
+		<link href="<?= base_url('assets/css/custom.css') ?>" rel="stylesheet" />
 		<!-- CSS Files -->
 		<link id="pagestyle" href="<?= base_url('assets/css/argon-dashboard.css?v=2.0.4') ?>" rel="stylesheet" />
 
@@ -37,11 +25,15 @@
 	<body class="g-sidenav-show   bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
 		<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
-			<div class="sidenav-header">
+			<div class="div pb-">
 				<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-				<a class="navbar-brand m-0" href="<?= site_url('admin/dashboard') ?>" target="_blank">
-					<img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-					<span class="ms-1 font-weight-bold">Argon Dashboard 2</span>
+				<a class="navbar-brand m-0 mb-3 text-center pb-0" href="<?= site_url('admin/dashboard') ?>">
+					<img src="<?= base_url('assets/img/brand/logo-primary.png" class=" mb-2" style="max-height: 100px;" alt="main_logo') ?>">
+					<br>
+					<span class="ms-1 font-weight-bold ms-auto">Pelaporan Inseminasi Buatan
+						<br>
+						BBIB Singosari
+					</span>
 				</a>
 			</div>
 			<hr class="horizontal dark mt-0">
@@ -50,33 +42,33 @@
 					<li class="nav-item">
 						<a class="nav-link <?= ($this->uri->segment(2) == 'dashboard') ? 'active' : '' ?>" href="<?= site_url('admin/dashboard') ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+								<i class="fas fa-home text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
-							<span class="nav-link-text ms-1">Dashboard</span>
+							<span class="nav-link-text fw-bold ms-1">Dashboard</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link <?= ($this->uri->segment(2) == 'pelaporan') ? 'active' : '' ?>" href="<?= site_url('admin/pelaporan') ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="fas fa-users text-warning text-sm opacity-10"></i>
+								<i class="fas fa-list text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
-							<span class="nav-link-text ms-1">Pelaporan SB</span>
+							<span class="nav-link-text fw-bold ms-1">Pelaporan SB</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link <?= ($this->uri->segment(2) == 'peternak') ? 'active' : '' ?>" href="<?= site_url('admin/peternak') ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="fas fa-users text-warning text-sm opacity-10"></i>
+								<i class="fas fa-users text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
-							<span class="nav-link-text ms-1">Peternak</span>
+							<span class="nav-link-text fw-bold ms-1">Peternak</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link <?= ($this->uri->segment(2) == 'user') ? 'active' : '' ?>" href="<?= site_url('admin/user') ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="fas fa-users text-warning text-sm opacity-10"></i>
+								<i class="fas fa-user-shield text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
-							<span class="nav-link-text ms-1">User</span>
+							<span class="nav-link-text fw-bold ms-1">Petugas</span>
 						</a>
 					</li>
 				</ul>
@@ -89,11 +81,11 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
 							<li class="breadcrumb-item text-sm">
-								<a class="opacity-5 text-white" href="javascript:;">Pages</a>
+								<a class="opacity-5 text-white" href="javascript:;"><i class="fa fa-home me-sm-1"></i>Beranda</a>
 							</li>
 							<li class="breadcrumb-item text-sm text-white active" aria-current="page"><?= $pages ?></li>
 						</ol>
-						<h6 class="font-weight-bolder text-white mb-0"><?= $pages ?></h6>
+						<h5 class="font-weight-bolder text-white mb-0 mt-3">Menu <?= $pages ?></h5>
 					</nav>
 					<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 						<div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -102,10 +94,10 @@
 						<ul class="navbar-nav  justify-content-end">
 							<li class="nav-item d-flex align-items-center">
 								<a href="
-																		<?= site_url('auth/logout') ?>" class="nav-link text-white font-weight-bold px-0">
+									<?= site_url('auth/logout') ?>" class="nav-link text-white font-weight-bold px-0 bg-gradient-dark shadow py-3 px-4 rounded-pill">
 									<i class="fa fa-user me-sm-1"></i>
 									<span class="d-sm-inline d-none">
-										<strong>LOGOUT </span>
+									<strong>LOGOUT </span>
 								</a>
 							</li>
 						</ul>

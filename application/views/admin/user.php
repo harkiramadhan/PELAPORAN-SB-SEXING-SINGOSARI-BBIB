@@ -1,40 +1,54 @@
 <div class="row">
 	<div class="col-12">
 		<div class="card mb-4">
-			<div class="card-header pb-0">
+			<div class="card-header pb-4 border-bottom">
 				<div class="row">
-                    <div class="col-lg-9">
-                        <h6>Daftar User</h6>
-                    </div>
-                    <div class="col-lg-3">
-                        <button class="btn btn-sm btn-success w-100"><i class="fas fa-plus me-2"></i> USER</button>
-                    </div>
-                </div>
+					<div class="col-lg-9 col-12">
+						<h4 class="text-lg-start text-center mb-lg-0 mb-3">Daftar Petugas</h4>
+					</div>
+					<div class="col-lg-3 col-12 d-flex justify-content-lg-end justify-content-center">
+						<button class="btn bg-gradient-dark mb-0"><i class="fas fa-plus me-2"></i> PETUGAS</button>
+					</div>
+				</div>
 			</div>
 			<div class="card-body px-0 pt-0 pb-2">
 				<div class="table-responsive p-3">
-					<table class="table align-items-center mb-0 table-stiped table-bordered" id="table">
+                    <table class="table table-hover align-items-center mb-0 table-striped" id="table">
 						<thead>
 							<tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" width="1px">NO</th>
-								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" width="1px">Nama</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center" width="1px">Role</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center" width="1px">Status</th>
-								<th class="text-secondary opacity-7" rowspan="2" width="1px"></th>
+                                <th class="text-uppercase text-sm text-center" width="1px">#</th>
+								<th class="text-uppercase text-sm text-center">Username</th>
+                                <th class="text-uppercase text-sm text-center">Nama</th>
+                                <th class="text-uppercase text-sm text-center" width="2px">Role</th>
+                                <th class="text-uppercase text-sm text-center" width="2px">Status</th>
+								<th class="text-sm text-center" width="1px">Aksi </th>
 							</tr>
 						</thead>
 						<tbody>
                             <?php $no = 1; foreach($user->result() as $row){ ?>
                                 <tr>
                                     <td class="text-center"><?= $no++ ?>. </td>
-                                    <td><?= $row->username ?></td>
-                                    <td><?= $row->nama ?></td>
-                                    <td><button type="button" class="btn btn-sm w-100 mb-0 <?= ($row->role == 1) ? 'btn-success' : 'btn-primary' ?>"><?= ($row->role == 1) ? 'Admin' : 'Petugas' ?></button></td>
-                                    <td><button type="button" class="btn btn-sm w-100 mb-0 <?= ($row->status == 1) ? 'btn-success' : 'btn-danger' ?>"><?= ($row->status == 1) ? 'Active' : 'Non Active' ?></button></td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm w-100 mb-0 btn-info"><i class="fas fa-pencil-alt"></i></button>
+                                    <td class="text-sm">
+                                        <?= $row->username ?>
                                     </td>
+                                    <td class="text-sm fw-normal"><?= $row->nama ?></td>
+                                    <td valign="middle" class="text-center text-sm fw-normal" stlye="vertical-align: middle;">
+                                    <?= ($row->role == 1) ? 'Admin' : 'Petugas' ?>    
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center text-sm">
+                                            <button class="btn btn-icon-only btn-rounded <?= ($row->status == 1) ? 'btn-outline-success' : 'btn-outline-danger' ?> mb-0 me-2 btn-sm d-flex align-items-center justify-content-center">
+                                                <i class="fas <?= ($row->status == 1) ? 'fa-check' : 'fa-times' ?>" aria-hidden="true"></i>
+                                            </button>
+                                            <span class="fw-normal text-sm"><?= ($row->status == 1) ? 'Aktif' : 'Tidak Aktif' ?></span>
+                                        </div>
+                                    </td>
+                                    <td>
+										<div class="btn-group">
+											<button class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-edit"></i></button>
+											<button class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></button>
+										</div>
+									</td>
                                 </tr>
                             <?php } ?>
 						</tbody>

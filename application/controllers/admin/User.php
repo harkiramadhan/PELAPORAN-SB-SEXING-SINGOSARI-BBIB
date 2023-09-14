@@ -11,8 +11,8 @@ class User extends CI_Controller{
 
     function index(){
         $var = [
-            'title' => 'User - PELAPORAN SB SEXING SINGOSARI BBIB',
-            'pages' => 'User',
+            'title' => 'Petugas - PELAPORAN SB SEXING SINGOSARI BBIB',
+            'pages' => 'Petugas',
             'user' => $this->db->get('user')
         ];
 
