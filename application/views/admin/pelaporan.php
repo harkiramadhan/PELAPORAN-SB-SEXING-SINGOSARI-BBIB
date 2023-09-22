@@ -118,25 +118,25 @@
                     <div class="row">
 						<div class="col-12 col-lg-6 mb-2">
 							<label class="ms-0">Pilih Bulan</label>
-							<select class="form-control" name="bulan">
+							<select class="form-control" name="bulan" required>
 								<option selected="" disabled="">- Pilih Bulan -</option>
 								<?php
 									$range = range(1, 12);
 									foreach($range as $r){
 								?>
-									<option value="<?= $r ?>"> <?= bulan($r) ?></option>
+									<option <?= ((int)date('m') == $r) ? 'selected' : '' ?> value="<?= $r ?>"> <?= bulan($r) ?></option>
 								<?php } ?>
 							</select>
 						</div>
 						<div class="col-12 col-lg-6">
 							<label class="ms-0">Pilih Tahun</label>
-							<select class="form-control" name="tahun">
+							<select class="form-control" name="tahun" required>
 								<option selected="" disabled="">- Pilih Tahun -</option>
 								<?php 
 									$range = range(date('Y-m-d', strtotime("-5 year", time())), date('Y'));
 									foreach($range as $r){
 								?>
-									<option value="<?= $r ?>"> <?= $r ?></option>
+									<option <?= (date('Y') == $r) ? 'selected' : '' ?> value="<?= $r ?>"> <?= $r ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -163,29 +163,38 @@
                     <div class="row">
 						<div class="col-12 col-lg-4 mb-2">
 							<label class="ms-0">Pilih Bulan Awal</label>
-							<select class="form-control" name="kewarganegaraan_ayah">
+							<select class="form-control" name="bulan_awal" required>
 								<option selected="" disabled="">- Pilih Bulan -</option>
-								<option value="Januari">Januari</option>
-								<option value="Februari">Februari</option>
-								<option value="Maret">Maret</option>
+								<?php
+									$range = range(1, 12);
+									foreach($range as $r){
+								?>
+									<option <?= ((int)date('m') == $r) ? 'selected' : '' ?> value="<?= $r ?>"> <?= bulan($r) ?></option>
+								<?php } ?>
 							</select>
 						</div>
 						<div class="col-12 col-lg-4 mb-2">
 							<label class="ms-0">Pilih Bulan Akhir</label>
-							<select class="form-control" name="kewarganegaraan_ayah">
+							<select class="form-control" name="bulan_akhir" required>
 								<option selected="" disabled="">- Pilih Bulan -</option>
-								<option value="Januari">Januari</option>
-								<option value="Februari">Februari</option>
-								<option value="Maret">Maret</option>
+								<?php
+									$range = range(1, 12);
+									foreach($range as $r){
+								?>
+									<option <?= ((int)date('m') == $r) ? 'selected' : '' ?> value="<?= $r ?>"> <?= bulan($r) ?></option>
+								<?php } ?>
 							</select>
 						</div>
 						<div class="col-12 col-lg-4">
 							<label class="ms-0">Pilih Tahun</label>
-							<select class="form-control" name="kewarganegaraan_ayah">
+							<select class="form-control" name="tahun" required>
 								<option selected="" disabled="">- Pilih Tahun -</option>
-								<option value="2022">2022</option>
-								<option value="2023">2023</option>
-								<option value="2024">2024</option>
+								<?php 
+									$range = range(date('Y-m-d', strtotime("-5 year", time())), date('Y'));
+									foreach($range as $r){
+								?>
+									<option <?= (date('Y') == $r) ? 'selected' : '' ?> value="<?= $r ?>"> <?= $r ?></option>
+								<?php } ?>
 							</select>
 						</div>
                     </div>

@@ -131,7 +131,7 @@ class Excel extends CI_Controller{
         $writer = new Xlsx($spreadsheet);
 
         // Set the file name for the Excel file
-        $filename = 'Laporan Agustus 2023 - Inseminasi Buatan BBIB Singosari.xlsx';
+        $filename = 'Laporan ' . bulan($bulan) . ' ' . $tahun . ' - Inseminasi Buatan BBIB Singosari.xlsx';
 
         // Set headers for downloading the Excel file
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
