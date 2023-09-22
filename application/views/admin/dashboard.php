@@ -7,7 +7,7 @@
                         <div class="d-flex">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Laporan Masuk</p>
-                                <h2 class="font-weight-bolder mb-0">44</h2>
+                                <h2 class="font-weight-bolder mb-0"><?= $laporan ?></h2>
                             </div>
                             <div class="icon icon-shape bg-gradient-dark text-center ms-auto">
                                 <i class="fas fa-users text-lg opacity-10" aria-hidden="true"></i>
@@ -20,7 +20,7 @@
 						<div class="d-flex">
 							<div class="numbers">
 								<p class="text-sm mb-0 text-uppercase font-weight-bold">Peternak</p>
-								<h2 class="font-weight-bolder mb-0">5</h2>
+								<h2 class="font-weight-bolder mb-0"><?= $peternak ?></h2>
 							</div>
 							<div class="icon icon-shape bg-gradient-dark text-center ms-auto">
 								<i class="fas fa-users text-lg opacity-10" aria-hidden="true"></i>
@@ -33,7 +33,7 @@
 						<div class="d-flex">
 							<div class="numbers">
 								<p class="text-sm mb-0 text-uppercase font-weight-bold">Petugas</p>
-								<h2 class="font-weight-bolder mb-0">40</h2>
+								<h2 class="font-weight-bolder mb-0"><?= $petugas ?></h2>
 							</div>
 							<div class="icon icon-shape bg-gradient-dark text-center ms-auto">
 								<i class="fas fa-users text-lg opacity-10" aria-hidden="true"></i>

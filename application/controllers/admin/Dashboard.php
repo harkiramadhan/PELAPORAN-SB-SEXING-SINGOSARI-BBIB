@@ -12,7 +12,10 @@ class Dashboard extends CI_Controller{
     function index(){
         $var = [
             'title' => 'Dashboard Admin - PELAPORAN SB SEXING SINGOSARI BBIB',
-            'pages' => 'Dashboard'
+            'pages' => 'Dashboard',
+            'laporan' => $this->db->select('id')->get('laporan')->num_rows(),
+            'peternak'  => $this->db->select('id')->get('peternak')->num_rows(),
+            'petugas' => $this->db->select('id')->get('user')->num_rows()
         ];
 
         $this->load->view('admin/layout/header', $var);
