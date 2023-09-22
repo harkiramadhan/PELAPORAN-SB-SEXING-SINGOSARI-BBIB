@@ -17,10 +17,12 @@
 						<thead>
 							<tr>
                                 <th class="text-uppercase text-sm text-center" width="1px">#</th>
-								<th class="text-uppercase text-sm text-center">Username</th>
-                                <th class="text-uppercase text-sm text-center">Nama</th>
-                                <th class="text-uppercase text-sm text-center" width="2px">Role</th>
-                                <th class="text-uppercase text-sm text-center" width="2px">Status</th>
+								<th class="text-uppercase text-sm">Username</th>
+                                <th class="text-uppercase text-sm" width="1px">Nama</th>
+								<th class="text-uppercase text-sm" width="1px">L/P</th>
+								<th class="text-uppercase text-sm" width="1px">No. WA</th>
+                                <th class="text-uppercase text-sm text-center" width="1px">Role</th>
+                                <th class="text-uppercase text-sm text-center" width="1px">Status</th>
 								<th class="text-sm text-center" width="1px">Aksi </th>
 							</tr>
 						</thead>
@@ -28,10 +30,10 @@
                             <?php $no = 1; foreach($user->result() as $row){ ?>
                                 <tr>
                                     <td class="text-center"><?= $no++ ?>. </td>
-                                    <td class="text-sm">
-                                        <?= $row->username ?>
-                                    </td>
+                                    <td class="text-sm"><?= $row->username ?></td>
                                     <td class="text-sm fw-normal"><?= $row->nama ?></td>
+									<td class="text-sm fw-normal"><?= $row->jenkel ?></td>
+									<td class="text-sm fw-normal"><?= $row->nowa ?></td>
                                     <td valign="middle" class="text-center text-sm fw-normal" stlye="vertical-align: middle;">
                                     <?= ($row->role == 1) ? 'Admin' : 'Petugas' ?>    
                                     </td>
@@ -45,8 +47,8 @@
                                     </td>
                                     <td>
 										<div class="btn-group">
-											<button class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-edit"></i></button>
-											<button class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></button>
+											<a href="<?= site_url('admin/user/edit/' . $row->id) ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-edit"></i></a>
+											<a href="<?= site_url('admin/user/remove/' . $row->id) ?>" class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></a>
 										</div>
 									</td>
                                 </tr>

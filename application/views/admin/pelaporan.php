@@ -53,7 +53,7 @@
 									<td class="text-center fw-normal text-sm align-top"><?= $no++ ?>. </td>
 									<td class="align-top" >
 										<p class="fw-bold text-sm text-dark mb-0"><?= $row->nama ?></p>
-                                        <p class="fw-normal text-sm text-sm mb-0" style="margin-top: -2px;">Lokasi Petugas Inseminasi</p>
+                                        <p class="fw-normal text-sm text-sm mb-0" style="margin-top: -2px;"><?= $row->lokasi ?></p>
 									</td>
 									<td class="fw-normal text-sm align-top"><?= $row->peternak ?></td>
 									<td class="fw-normal text-sm align-top text-center">
@@ -88,9 +88,9 @@
 									</td>
 									<td class="align-top">
 										<div class="btn-group">
-											<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-eye"></i></a>
-											<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-folder"></i></a>
-											<button class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></button>
+											<a href="" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-eye"></i></a>
+											<a href="<?= site_url('admin/pelaporan/edit/' . $row->id) ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-pencil-alt"></i></a>
+											<a href="<?= site_url('admin/pelaporan/remove/' . $row->id) ?>" class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></a>
 										</div>
 									</td>
 								</tr>

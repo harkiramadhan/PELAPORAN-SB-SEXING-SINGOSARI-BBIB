@@ -116,6 +116,53 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+
+
+  <script>
+    $('#input-username').keyup(function(){
+      var username = $(this).val()
+      var id = $(this).attr('data-id')
+      $.ajax({
+        url: '<?= site_url('admin/user/checkUsername') ?>',
+        type: 'get',
+        data: {username: username, id: id},
+        success: function(res){
+          if(res === 200){
+            $('.form-username').removeClass('has-danger')
+            $('.form-username').addClass('has-success')
+            $('#input-username').removeClass('is-invalid')
+            $('#input-username').addClass('is-valid')
+          }else{
+            $('.form-username').removeClass('has-success')
+            $('.form-username').addClass('has-danger')
+            $('#input-username').removeClass('is-valid')
+            $('#input-username').addClass('is-invalid')
+          }
+        }
+      })
+    })
+
+    $('.btn-add-tgl').click(function(){
+      var count = parseInt($('.nomor-sub:last').text()) + 1
+
+      $('.hasil').append("<div class='d-flex align-items-center justify-content-between mb-2' id='form" + count + "'>\
+                  <span class='me-2 nomor-sub'>" + count + ". </span>\
+                  <input class='multisteps-form__input form-control' value='' type='date' name='tgl_ib[]' required=''>\
+                  <button type='button' class='btn btn-icon-only btn-danger mb-0 ms-2 d-flex align-items-center justify-content-center btn-remove-tgl' data-id='" + count + "'><i class='fas fa-trash' aria-hidden='true'></i></button>\
+                </div>")
+      count++
+
+      $('.btn-remove-tgl').click(function(){
+          var id = $(this).attr('data-id')
+          $('#form' + id).remove()
+      })
+    })
+
+    $('.btn-remove-tgl').click(function(){
+      var id = $(this).attr('data-id')
+      $('#form' + id).remove()
+    })
+  </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
