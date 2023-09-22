@@ -16,7 +16,8 @@ class Excel extends CI_Controller{
     }
 
     function laporansatubulan(){
-       
+        $bulan = $this->input->post('bulan', TRUE);
+        $tahun = $this->input->post('tahun', TRUE);
         // Create a new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
@@ -24,7 +25,7 @@ class Excel extends CI_Controller{
 
         // HEADER
         $activeWorksheet->setCellValue('A1', 'REKAP PEMANTAUAN SEMEN BEKU SEXING');
-        $activeWorksheet->setCellValue('A2', 'AGUSTUS 2023');
+        $activeWorksheet->setCellValue('A2', strtoupper(bulan($bulan)) . " " . $tahun);
         $activeWorksheet->mergeCells('A1:H1');
         $activeWorksheet->mergeCells('A2:H2');
         
