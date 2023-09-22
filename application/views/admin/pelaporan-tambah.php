@@ -18,15 +18,15 @@
                 <label class="ms-0">Nama Petugas</label>
                 <input class="multisteps-form__input form-control" name="" type="text" placeholder="" value="Alfian Rahmatullah" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled>
             </div>
-            <div class="col-12 mt-2">
+            <div class="col-lg-6 col-12 mt-2">
                 <label class="ms-0">Lokasi</label>
                 <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="">
             </div>
-            <div class="col-12 mt-2">
+            <div class="col-lg-6 col-12 mt-2">
                 <label class="ms-0">Peternak</label>
                 <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="">
             </div>
-            <div class="col-12 mt-2">
+            <div class="col-lg-6 col-12 mt-2">
                 <label class="ms-0">Akkseptor</label>
                 <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="">
             </div>
@@ -38,7 +38,11 @@
                 <label class="ms-0">Kode Bull</label>
                 <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="">
             </div>
-            <div class="col-12 mt-2">
+            <div class="col-lg-6 col-12 mt-2">
+                <label class="ms-0">Kode Batch</label>
+                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="">
+            </div>
+            <div class="col-lg-6 col-12 mt-2">
                 <label class="ms-0">Jenis Semen Beku</label>
                 <select class="form-control" name="kewarganegaraan_ayah">
                     <option selected="" disabled="">- Pilih Jenis -</option>
