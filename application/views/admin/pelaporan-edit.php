@@ -6,21 +6,30 @@
     </div>
 </div>
 
-<form action="<?= site_url('admin/pelaporan/update/' . $laporan->id) ?>" method="post">
+<?php if($this->session->userdata('role') == 1): ?>
+    <form action="<?= site_url('admin/pelaporan/update/' . $laporan->id) ?>" method="post">
+<?php else: ?>
+    <form action="<?= site_url('petugas/pelaporan/update/' . $laporan->id) ?>" method="post">
+<?php endif; ?>
     <div class="card mb-3">
         <div class="card-body">
             <div class="row mt-0">
                 <!-- INSEMINASI BUATAN -->
                 <h6 class="text-sm text-secondary mb-2 text-uppercase">Inseminasi Buatan</h6>
-                <div class="col-12 mt-0">
-                    <label class="ms-0">Nama Petugas</label>
-                    <select class="form-control" name="user_id">
-                        <option selected="" disabled="">- Pilih Petugas -</option>
-                        <?php foreach($petugas->result() as $pt){ ?>
-                            <option <?= ($laporan->user_id == $pt->id) ? 'selected' : '' ?> value="<?= $pt->id ?>"><?= $pt->nama ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
+                <?php if($this->session->userdata('role') == 1): ?>
+                    <div class="col-12 mt-0">
+                        <label class="ms-0">Nama Petugas</label>
+                        <select class="form-control" name="user_id">
+                            <option selected="" disabled="">- Pilih Petugas -</option>
+                            <?php foreach($petugas->result() as $pt){ ?>
+                                <option <?= ($laporan->user_id == $pt->id) ? 'selected' : '' ?> value="<?= $pt->id ?>"><?= $pt->nama ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                <?php else: ?>
+                    <input type="hidden" name="user_id" value="<?= $this->session->userdata('user_id') ?>">
+                <?php endif; ?>
+
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Lokasi</label>
                     <input class="multisteps-form__input form-control" name="lokasi" value="<?= $laporan->lokasi ?>" type="text" placeholder="" required="">
