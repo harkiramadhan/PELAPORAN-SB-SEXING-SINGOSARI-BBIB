@@ -3,7 +3,7 @@ class Dashboard extends CI_Controller{
     function __construct(){
         parent::__construct();
 
-        if(!$this->session->userdata('role') == 1){
+        if(!$this->session->userdata('role') == 2){
             $this->session->set_flashdata('error', "Silahkah Login Terlebih Dahulu");
             redirect('auth','refresh');
         }
@@ -11,8 +11,9 @@ class Dashboard extends CI_Controller{
 
     function index(){
         $var = [
-            'title' => 'Dashboard Petugas - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
-            'pages' => 'Dashboard Petugas'
+            'title' => 'Dashboard Petugas - PELAPORAN SB SEXING SINGOSARI BBIB',
+            'pages' => 'Dashboard',
+            'laporan' => $this->db->select('id')->get_where('laporan', ['user_id' => $this->session->userdata('user_id')])->num_rows()
         ];
 
         $this->load->view('petugas/layout/header', $var);

@@ -33,7 +33,7 @@
 								<tr class="border: none;">
 									<td class="text-center fw-normal text-sm align-top"><?= $no++ ?>. </td>
 									<td class="align-top" >
-                                        <p class="fw-normal text-sm text-sm mb-0" style="margin-top: -2px;">Lokasi Petugas Inseminasi</p>
+                                        <p class="fw-normal text-sm text-sm mb-0" style="margin-top: -2px;"><?= $row->lokasi ?></p>
 									</td>
 									<td class="fw-normal text-sm align-top"><?= $row->peternak ?></td>
 									<td class="fw-normal text-sm align-top text-center">
@@ -69,7 +69,7 @@
 									<td class="align-top">
 										<div class="btn-group">
 											<a href="<?= site_url('petugas/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-eye"></i></a>
-											<a href="<?= site_url('petugas/pelaporan/tambah') ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-folder"></i></a>
+											<a href="<?= site_url('petugas/pelaporan/edit/' . $row->id) ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-pencil-alt"></i></a>
 											<button class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></button>
 										</div>
 									</td>

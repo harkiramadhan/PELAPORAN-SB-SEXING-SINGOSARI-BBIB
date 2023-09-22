@@ -54,10 +54,14 @@
                 <div class="card-body">
                   <form role="form" method="POST" action="<?= site_url('auth/login') ?>">
                     <div class="mb-3">
-                      <input value="<?= $this->session->flashdata('username') ?>" type="text" class="form-control form-control-lg" placeholder="username" aria-label="username" name="username">
+                      <div class="form-group <?= ($this->session->flashdata('usr_error')) ? 'has-danger' : '' ?>">
+                        <input value="<?= $this->session->flashdata('username') ?>" type="text" class="form-control form-control-lg <?= ($this->session->flashdata('usr_error')) ? 'is-invalid' : '' ?>" placeholder="username" aria-label="username" name="username">
+                      </div>
                     </div>
                     <div class="mb-3">
-                      <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" name="password">
+                      <div class="form-group <?= ($this->session->flashdata('pwd_error')) ? 'has-danger' : '' ?>">
+                        <input type="password" class="form-control form-control-lg <?= ($this->session->flashdata('pwd_error')) ? 'is-invalid' : '' ?>" placeholder="Password" aria-label="Password" name="password">
+                      </div>
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">LOGIN</button>
