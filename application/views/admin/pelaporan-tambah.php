@@ -31,6 +31,10 @@
                     <input type="hidden" name="user_id" value="<?= $this->session->userdata('user_id') ?>">
                 <?php endif; ?>
                 <div class="col-lg-6 col-12 mt-2">
+                    <label class="ms-0">Tanggal Laporan</label>
+                    <input class="multisteps-form__input form-control" name="date" type="date" placeholder="" required="">
+                </div>
+                <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Lokasi</label>
                     <input class="multisteps-form__input form-control" name="lokasi" type="text" placeholder="" required="">
                 </div>

@@ -58,6 +58,7 @@ class Pelaporan extends CI_Controller{
     function create(){
         $this->db->insert('laporan', [
             'user_id' => $this->input->post('user_id', TRUE),
+            'date' => $this->input->post('date', TRUE),
             'lokasi' => $this->input->post('lokasi', TRUE),
             'peternak_id' => $this->input->post('peternak_id', TRUE),
             'akseptor' => $this->input->post('akseptor', TRUE),
@@ -103,6 +104,7 @@ class Pelaporan extends CI_Controller{
 
         $this->db->where('id', $id)->update('laporan', [
             'user_id' => $this->input->post('user_id', TRUE),
+            'date' => $this->input->post('date', TRUE),
             'lokasi' => $this->input->post('lokasi', TRUE),
             'peternak_id' => $this->input->post('peternak_id', TRUE),
             'akseptor' => $this->input->post('akseptor', TRUE),
