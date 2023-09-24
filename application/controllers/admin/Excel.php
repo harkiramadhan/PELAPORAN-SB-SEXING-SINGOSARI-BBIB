@@ -269,7 +269,19 @@ class Excel extends CI_Controller{
     }
 
     function laporanlokasi(){
+        $bulan = $this->input->post('bulan', TRUE);
+        $tahun = $this->input->post('tahun', TRUE);
        
+
+        $data = $this->db->select('l.*, u.username, u.nama, p.nama peternak')
+                        ->from('laporan l')
+                        ->join('user u', 'l.user_id = u.id')
+                        ->join('peternak p', 'l.peternak_id = p.id')
+                        // ->where([
+                        //     'MONTH(l.date)' => sprintf("%02d", $bulan)
+                        // ])
+                        ->get();
+
         // Create a new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
@@ -326,7 +338,7 @@ class Excel extends CI_Controller{
         $activeWorksheet->setCellValue('M8', '-');
         $activeWorksheet->setCellValue('N8', 'Tanggal');
         $activeWorksheet->setCellValue('O8', 'jtn');
-        $activeWorksheet->setCellValue('O8', 'btn');
+        $activeWorksheet->setCellValue('P8', 'btn');
         
         // MERGE
         $activeWorksheet->mergeCells('A7:A8');
@@ -365,8 +377,50 @@ class Excel extends CI_Controller{
                 ],
             ],
         ];
-        $activeWorksheet->getStyle('A7:R10')->applyFromArray($borderStyle);
+        $activeWorksheet->getStyle('A7:R8')->applyFromArray($borderStyle);
 
+        $activeWorksheet->getStyle('A')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('G')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('H')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('I')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('L')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('M')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('O')->getAlignment()->setHorizontal('center');
+        $activeWorksheet->getStyle('P')->getAlignment()->setHorizontal('center');
+
+        $no = 1;
+        $excel_row = 9;
+        foreach($data->result() as $row){
+            $dataIB = [];
+            $ib = $this->db->order_by('tgl', "ASC")->get_where('ib', ['id_laporan' => $row->id])->result();
+
+            foreach($ib as $i){
+                array_push($dataIB, mediumdate_indo(date('Y-m-d', strtotime($i->tgl))));
+            }
+
+            $activeWorksheet->getStyle('A' . $excel_row . ':R' . $excel_row)->applyFromArray($borderStyle);
+            $activeWorksheet->getStyle('J' . $excel_row)->getAlignment()->setWrapText(true);
+
+            $activeWorksheet->setCellValueByColumnAndRow(1, $excel_row, $no++);
+            $activeWorksheet->setCellValueByColumnAndRow(2, $excel_row, $row->peternak);
+            $activeWorksheet->setCellValueByColumnAndRow(3, $excel_row, $row->akseptor);
+            $activeWorksheet->setCellValueByColumnAndRow(4, $excel_row, $row->nama_bull);
+            $activeWorksheet->setCellValueByColumnAndRow(5, $excel_row, $row->kode_bull);
+            $activeWorksheet->setCellValueByColumnAndRow(6, $excel_row, $row->kode_batch);
+            $activeWorksheet->setCellValueByColumnAndRow(7, $excel_row, ($row->sexing == 'y') ? 'v' : '');
+            $activeWorksheet->setCellValueByColumnAndRow(8, $excel_row, ($row->sexing == 'x') ? 'v' : '');
+            $activeWorksheet->setCellValueByColumnAndRow(9, $excel_row, ($row->sexing == 'n') ? 'v' : '');
+            $activeWorksheet->setCellValueByColumnAndRow(10, $excel_row, _createmDashList($dataIB));
+            $activeWorksheet->setCellValueByColumnAndRow(11, $excel_row, mediumdate_indo(date('Y-m-d', strtotime($row->tgl_pkb))));
+            $activeWorksheet->setCellValueByColumnAndRow(12, $excel_row, $row->bunting);
+            $activeWorksheet->setCellValueByColumnAndRow(13, $excel_row, $row->tidak_bunting);
+            $activeWorksheet->setCellValueByColumnAndRow(14, $excel_row, mediumdate_indo(date('Y-m-d', strtotime($row->tgl_kelahiran))));
+            $activeWorksheet->setCellValueByColumnAndRow(15, $excel_row, $row->jantan);
+            $activeWorksheet->setCellValueByColumnAndRow(16, $excel_row, $row->betina);
+            $excel_row++;
+        }
+
+        $activeWorksheet->getRowDimension('J')->setRowHeight(-1);
 
         $activeWorksheet->getColumnDimension('A')->setWidth(5);
         $activeWorksheet->getColumnDimension('B')->setWidth(20);
@@ -378,10 +432,10 @@ class Excel extends CI_Controller{
         $activeWorksheet->getColumnDimension('H')->setWidth(10);
         $activeWorksheet->getColumnDimension('I')->setWidth(10);
         $activeWorksheet->getColumnDimension('J')->setWidth(15);
-        $activeWorksheet->getColumnDimension('K')->setWidth(15);
+        $activeWorksheet->getColumnDimension('K')->setWidth(20);
         $activeWorksheet->getColumnDimension('L')->setWidth(5);
         $activeWorksheet->getColumnDimension('M')->setWidth(5);
-        $activeWorksheet->getColumnDimension('N')->setWidth(15);
+        $activeWorksheet->getColumnDimension('N')->setWidth(20);
         $activeWorksheet->getColumnDimension('O')->setWidth(5);
         $activeWorksheet->getColumnDimension('P')->setWidth(5);
         $activeWorksheet->getColumnDimension('Q')->setWidth(15);

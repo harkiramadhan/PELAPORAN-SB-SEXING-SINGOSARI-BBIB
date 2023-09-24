@@ -115,7 +115,7 @@
                 <h5 class="modal-title" id=""><i class="fas fa-upload fa-md text-dark me-2 ms-1" aria-hidden="true"></i>Export Laporan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form action="<?= site_url('admin/excel/laporansatubulan') ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= site_url('admin/excel/laporanlokasi') ?>" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row">
 						<div class="col-12 col-lg-6 mb-2">
