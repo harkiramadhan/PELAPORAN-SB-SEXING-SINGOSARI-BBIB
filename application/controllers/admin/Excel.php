@@ -420,7 +420,7 @@ class Excel extends CI_Controller{
             $excel_row++;
         }
 
-        $activeWorksheet->getRowDimension('J')->setRowHeight(-1);
+        // $activeWorksheet->getRowDimension('J')->setRowHeight(-1);
 
         $activeWorksheet->getColumnDimension('A')->setWidth(5);
         $activeWorksheet->getColumnDimension('B')->setWidth(20);
