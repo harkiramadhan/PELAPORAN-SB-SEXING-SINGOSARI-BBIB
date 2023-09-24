@@ -37,77 +37,89 @@
                             <h6 class="text-sm text-secondary mb-2 text-uppercase">Inseminasi Buatan</h6>
                             <div class="col-12 mt-0">
                                 <label class="ms-0">Nama Petugas</label>
-                                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" value="Alfian Rahmatullah" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="" disabled="">
+                                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" value="<?= $laporan->petugas ?>" readonly="">
                             </div>
-                            <div class="col-12 mt-2">
+                            <div class="col-lg-6 mt-2">
+                                <label class="ms-0">Tanggal Laporan</label>
+                                <input class="multisteps-form__input form-control" name="date" value="<?= $laporan->date ?>" type="date" readonly="">
+                            </div>
+                            <div class="col-lg-6 mt-2">
                                 <label class="ms-0">Lokasi</label>
-                                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->lokasi ?>" readonly="">
                             </div>
-                            <div class="col-12 mt-2">
+                            <div class="col-lg-6 mt-2">
                                 <label class="ms-0">Peternak</label>
-                                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->peternak ?>" readonly="">
                             </div>
-                            <div class="col-12 mt-2">
+                            <div class="col-lg-6 mt-2">
                                 <label class="ms-0">Akkseptor</label>
-                                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->akseptor ?>" readonly="">
                             </div>
                             <div class="col-lg-6 col-12 mt-2">
                                 <label class="ms-0">Nama Bull</label>
-                                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->nama_bull ?>" readonly="">
                             </div>
                             <div class="col-lg-6 col-12 mt-2">
                                 <label class="ms-0">Kode Bull</label>
-                                <input class="multisteps-form__input form-control" name="" type="text" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->kode_bull ?>" readonly="">
                             </div>
-                            <div class="col-12 mt-2">
+                            <div class="col-lg-6 col-12 mt-2">
+                                <label class="ms-0">Kode Batch</label>
+                                <input class="multisteps-form__input form-control" name="kode_batch" value="<?= $laporan->kode_batch ?>" type="text" readonly="">
+                            </div>
+                            <div class="col-lg-6 mt-2">
                                 <label class="ms-0">Jenis Semen Beku</label>
-                                <select class="form-control" name="kewarganegaraan_ayah">
-                                    <option selected="" disabled="">- Pilih Jenis -</option>
-                                    <option value="Sexing x">Sexing x</option>
-                                    <option value="Sexing y">Sexing y</option>
-                                    <option value="Unsexing">Unsexing</option>
+                                <select class="form-control" readonly>
+                                    <option>- Pilih Jenis -</option>
+                                    <option <?= ($laporan->sexing == 'x') ? 'selected' : '' ?> value="x">Sexing x</option>
+                                    <option <?= ($laporan->sexing == 'y') ? 'selected' : '' ?> value="y">Sexing y</option>
+                                    <option <?= ($laporan->sexing == 'n') ? 'selected' : '' ?> value="n">Unsexing</option>
                                 </select>
                             </div>
                             <div class="col-12 mt-2">
                                 <label class="ms-0">Tanggal Inseminasi Buatan</label>
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <span class="me-2 nomor-sub">1</span>
-                                    <input class="multisteps-form__input form-control" value="" type="date" name="" required="" disabled="">
-                                </div>      
+                                <?php if($ib->num_rows() > 0): ?>
+                                    <?php $no=1; foreach($ib->result() as $row): ?>
+                                        <div class="d-flex align-items-center justify-content-between mb-2" id="form__<?= $row->id ?>">
+                                            <span class="me-2 nomor-sub"><?= $no++ ?>.</span>
+                                            <input class="multisteps-form__input form-control" value="<?= $row->tgl ?>" type="date" name="tgl_ib[]" required="" readonly>
+                                        </div>    
+                                    <?php endforeach; ?>
+                                <?php endif; ?>    
                             </div>
                             <hr class="horizontal dark mt-4 mb-3">
                             <!-- PKB -->
                             <h6 class="text-sm text-secondary mb-2 text-uppercase">PELAYANAN PEMERIKSAAN KEBUNTINGAN (PKB) &amp; Kelahiran</h6>
                             <div class="col-lg-6 col-12 mt-2">
                                 <label class="ms-0">PKB</label>
-                                <input class="multisteps-form__input form-control" name="" type="date" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="date" value="<?= $laporan->tgl_pkb ?>" readonly="">
                             </div>
                             <div class="col-lg-3 col-12 mt-2">
                                 <label class="ms-0">+ (Bunting)</label>
-                                <input class="multisteps-form__input form-control" name="" type="number" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->bunting ?>" readonly="">
                             </div>
                             <div class="col-lg-3 col-12 mt-2">
                                 <label class="ms-0">- (Tidak Bunting)</label>
-                                <input class="multisteps-form__input form-control" name="" type="number" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->tidak_bunting ?>" readonly="">
                             </div>
                             <!-- KELAHIRAN -->
                             <div class="col-lg-6 col-12 mt-2">
                                 <label class="ms-0">Kelahiran</label>
-                                <input class="multisteps-form__input form-control" name="" type="date" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="date" value="<?= $laporan->tgl_kelahiran ?>" readonly="">
                             </div>
                             <div class="col-lg-3 col-12 mt-2">
                                 <label class="ms-0">Jantan</label>
-                                <input class="multisteps-form__input form-control" name="" type="number" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->jantan ?>" readonly="">
                             </div>
                             <div class="col-lg-3 col-12 mt-2">
                                 <label class="ms-0">Betina</label>
-                                <input class="multisteps-form__input form-control" name="" type="number" placeholder="" onfocus="focused(this)" onfocusout="defocused(this)" required="" disabled="">
+                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->betina ?>" readonly="">
                             </div>
                             <hr class="horizontal dark mt-4 mb-3">
                             <!-- PKB -->
                             <h6 class="text-sm text-secondary mb-2 text-uppercase">KETERANGAN</h6>
                             <div class="col-lg-12 col-12 mt-2">
-                                <textarea class="form-control" placeholder="Tulis keterangan" id="" style="height: 100px"></textarea>
+                                <textarea class="form-control" placeholder="Tulis keterangan" id="" style="height: 100px" readonly><?= $laporan->keterangan ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -133,107 +145,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="<?= base_url('assets/js/core/popper.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/core/bootstrap.min.js') ?>"></script>
-    <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
-    <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js') ?>"></script>
-    <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script>
-        $('#table').DataTable();
-
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
-
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-        new Chart(ctx1, {
-        type: "line",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-            label: "Mobile apps",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#5e72e4",
-            backgroundColor: gradientStroke1,
-            borderWidth: 3,
-            fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-            maxBarThickness: 6
-
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-            legend: {
-                display: false,
-            }
-            },
-            interaction: {
-            intersect: false,
-            mode: 'index',
-            },
-            scales: {
-            y: {
-                grid: {
-                drawBorder: false,
-                display: true,
-                drawOnChartArea: true,
-                drawTicks: false,
-                borderDash: [5, 5]
-                },
-                ticks: {
-                display: true,
-                padding: 10,
-                color: '#fbfbfb',
-                font: {
-                    size: 11,
-                    family: "Open Sans",
-                    style: 'normal',
-                    lineHeight: 2
-                },
-                }
-            },
-            x: {
-                grid: {
-                drawBorder: false,
-                display: false,
-                drawOnChartArea: false,
-                drawTicks: false,
-                borderDash: [5, 5]
-                },
-                ticks: {
-                display: true,
-                color: '#ccc',
-                padding: 20,
-                font: {
-                    size: 11,
-                    family: "Open Sans",
-                    style: 'normal',
-                    lineHeight: 2
-                },
-                }
-            },
-            },
-        },
-        });
-    </script>
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
-            damping: '0.5'
-        }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="<?= base_url('assets/js/argon-dashboard.min.js?v=2.0.4') ?>"></script>
     </body>
 

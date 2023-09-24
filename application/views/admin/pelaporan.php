@@ -90,7 +90,7 @@
 									</td>
 									<td class="align-top">
 										<div class="btn-group">
-											<a href="" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-eye"></i></a>
+											<a href="<?= site_url('webview/laporan/' . md5($row->id)) ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0" target="_BLANK"><i class="fas fa-eye"></i></a>
 											<a href="<?= site_url('admin/pelaporan/edit/' . $row->id) ?>" class="btn btn-sm btn-dark px-3 me-2 mb-0"><i class="fas fa-pencil-alt"></i></a>
 											<a href="<?= site_url('admin/pelaporan/remove/' . $row->id) ?>" class="btn btn-sm btn-danger px-3 mb-0"><i class="fas fa-trash"></i></a>
 										</div>
