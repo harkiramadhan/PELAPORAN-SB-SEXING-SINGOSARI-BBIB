@@ -431,7 +431,7 @@ class Excel extends CI_Controller{
         $activeWorksheet->getColumnDimension('G')->setWidth(10);
         $activeWorksheet->getColumnDimension('H')->setWidth(10);
         $activeWorksheet->getColumnDimension('I')->setWidth(10);
-        $activeWorksheet->getColumnDimension('J')->setWidth(15);
+        $activeWorksheet->getColumnDimension('J')->setWidth(20);
         $activeWorksheet->getColumnDimension('K')->setWidth(20);
         $activeWorksheet->getColumnDimension('L')->setWidth(5);
         $activeWorksheet->getColumnDimension('M')->setWidth(5);

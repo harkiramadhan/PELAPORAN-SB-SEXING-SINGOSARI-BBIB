@@ -435,11 +435,11 @@
         if (count($items) == 1) {
             return array_pop($items);
         }elseif (count($items) == 2) {
-            return implode(" \n ", $items);
+            return implode("\n", $items);
         }else {
             $last = array_pop($items);
-            $list = implode(" \n ", $items);
-            $list .= " \n " . $last;
+            $list = implode("\n", $items);
+            $list .= " \n" . $last;
             return $list;
         }
     }
