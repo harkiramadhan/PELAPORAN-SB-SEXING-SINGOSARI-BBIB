@@ -97,11 +97,11 @@
                             <div class="col-lg-4 col-12 mt-2">
                                 <label class="ms-0"></label> <br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="bunting" value="1" <?= ($laporan->bunting == 1) ? 'checked' : '' ?> id="customRadioBunting1" readonly>
+                                    <input class="form-check-input" type="radio" name="bunting" value="1" <?= ($laporan->bunting == 1) ? 'checked' : '' ?> id="customRadioBunting1" disabled>
                                     <label class="custom-control-label" for="customRadioBunting1"><strong><i class="fas fa-plus me-2"></i></strong> Bunting</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="bunting" value="0" <?= ($laporan->bunting == 0) ? 'checked' : '' ?> id="customRadioBunting2" readonly>
+                                    <input class="form-check-input" type="radio" name="bunting" value="0" <?= ($laporan->bunting == 0) ? 'checked' : '' ?> id="customRadioBunting2" disabled>
                                     <label class="custom-control-label" for="customRadioBunting2"><strong><i class="fas fa-minus me-2"></i></strong> Tidak Bunting</label>
                                 </div>
                             </div>
@@ -113,11 +113,11 @@
                             <div class="col-lg-4 col-12 mt-2">
                                 <label class="ms-0"></label> <br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="kelamin" value="1" <?= ($laporan->kelamin == 1) ? 'checked' : '' ?> id="customRadioKelamin1" readonly>
+                                    <input class="form-check-input" type="radio" name="kelamin" value="1" <?= ($laporan->kelamin == 1) ? 'checked' : '' ?> id="customRadioKelamin1" disabled>
                                     <label class="custom-control-label" for="customRadioKelamin1"><strong><i class="fas fa-mars me-2"></i></strong> Jantan</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="kelamin" value="0" <?= ($laporan->kelamin == 0) ? 'checked' : '' ?> id="customRadioKelamin2" readonly>
+                                    <input class="form-check-input" type="radio" name="kelamin" value="0" <?= ($laporan->kelamin == 0) ? 'checked' : '' ?> id="customRadioKelamin2" disabled>
                                     <label class="custom-control-label" for="customRadioKelamin2"><strong><i class="fas fa-venus me-2"></i></strong> Betina</label>
                                 </div>
                             </div>
