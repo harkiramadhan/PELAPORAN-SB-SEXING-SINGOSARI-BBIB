@@ -273,10 +273,15 @@ class Excel extends CI_Controller{
         $tahun = $this->input->post('tahun', TRUE);
        
 
-        $data = $this->db->select('l.*, u.username, u.nama, p.nama peternak')
+        $data = $this->db->select('l.*, u.username, u.nama, p.nama peternak, b.bull nama_bull, b.kode kode_bull')
+                        ->select("CONCAT(kab.name , ', ', kec.name, ', ', kel.name) as lokasi")
                         ->from('laporan l')
                         ->join('user u', 'l.user_id = u.id')
                         ->join('peternak p', 'l.peternak_id = p.id')
+                        ->join('bull b', 'l.bull_id = b.id', 'LEFT')
+                        ->join('regencies kab', 'l.kabupaten_id = kab.code', 'LEFT')
+                        ->join('districts kec', 'l.kecamatan_id = kec.code', 'LEFT')
+                        ->join('villages kel', 'l.kelurahan_id = kel.code', 'LEFT')
                         // ->where([
                         //     'MONTH(l.date)' => sprintf("%02d", $bulan)
                         // ])
@@ -412,11 +417,11 @@ class Excel extends CI_Controller{
             $activeWorksheet->setCellValueByColumnAndRow(9, $excel_row, ($row->sexing == 'n') ? 'v' : '');
             $activeWorksheet->setCellValueByColumnAndRow(10, $excel_row, _createmDashList($dataIB));
             $activeWorksheet->setCellValueByColumnAndRow(11, $excel_row, mediumdate_indo(date('Y-m-d', strtotime($row->tgl_pkb))));
-            $activeWorksheet->setCellValueByColumnAndRow(12, $excel_row, $row->bunting);
-            $activeWorksheet->setCellValueByColumnAndRow(13, $excel_row, $row->tidak_bunting);
+            $activeWorksheet->setCellValueByColumnAndRow(12, $excel_row, ($row->bunting == 1) ? 'v' : 'x');
+            $activeWorksheet->setCellValueByColumnAndRow(13, $excel_row, ($row->bunting == 0) ? 'v' : 'x');
             $activeWorksheet->setCellValueByColumnAndRow(14, $excel_row, mediumdate_indo(date('Y-m-d', strtotime($row->tgl_kelahiran))));
-            $activeWorksheet->setCellValueByColumnAndRow(15, $excel_row, $row->jantan);
-            $activeWorksheet->setCellValueByColumnAndRow(16, $excel_row, $row->betina);
+            $activeWorksheet->setCellValueByColumnAndRow(15, $excel_row, ($row->kelamin == 1) ? 'v' : 'x');
+            $activeWorksheet->setCellValueByColumnAndRow(16, $excel_row, ($row->kelamin == 0) ? 'v' : 'x');
             $excel_row++;
         }
 
