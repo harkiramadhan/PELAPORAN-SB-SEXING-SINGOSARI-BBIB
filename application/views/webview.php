@@ -90,30 +90,36 @@
                             <hr class="horizontal dark mt-4 mb-3">
                             <!-- PKB -->
                             <h6 class="text-sm text-secondary mb-2 text-uppercase">PELAYANAN PEMERIKSAAN KEBUNTINGAN (PKB) &amp; Kelahiran</h6>
-                            <div class="col-lg-6 col-12 mt-2">
+                            <div class="col-lg-8 col-12 mt-2">
                                 <label class="ms-0">PKB</label>
-                                <input class="multisteps-form__input form-control" type="date" value="<?= $laporan->tgl_pkb ?>" readonly="">
+                                <input class="multisteps-form__input form-control" name="tgl_pkb" value="<?= $laporan->tgl_pkb ?>" type="date" placeholder="" readonly="">
                             </div>
-                            <div class="col-lg-3 col-12 mt-2">
-                                <label class="ms-0">+ (Bunting)</label>
-                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->bunting ?>" readonly="">
-                            </div>
-                            <div class="col-lg-3 col-12 mt-2">
-                                <label class="ms-0">- (Tidak Bunting)</label>
-                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->tidak_bunting ?>" readonly="">
+                            <div class="col-lg-4 col-12 mt-2">
+                                <label class="ms-0"></label> <br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="bunting" value="1" <?= ($laporan->bunting == 1) ? 'checked' : '' ?> id="customRadioBunting1" readonly>
+                                    <label class="custom-control-label" for="customRadioBunting1"><strong><i class="fas fa-plus me-2"></i></strong> Bunting</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="bunting" value="0" <?= ($laporan->bunting == 0) ? 'checked' : '' ?> id="customRadioBunting2" readonly>
+                                    <label class="custom-control-label" for="customRadioBunting2"><strong><i class="fas fa-minus me-2"></i></strong> Tidak Bunting</label>
+                                </div>
                             </div>
                             <!-- KELAHIRAN -->
-                            <div class="col-lg-6 col-12 mt-2">
+                            <div class="col-lg-8 col-12 mt-2">
                                 <label class="ms-0">Kelahiran</label>
-                                <input class="multisteps-form__input form-control" type="date" value="<?= $laporan->tgl_kelahiran ?>" readonly="">
+                                <input class="multisteps-form__input form-control" name="tgl_kelahiran" value="<?= $laporan->tgl_kelahiran ?>" type="date" placeholder="" readonly="">
                             </div>
-                            <div class="col-lg-3 col-12 mt-2">
-                                <label class="ms-0">Jantan</label>
-                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->jantan ?>" readonly="">
-                            </div>
-                            <div class="col-lg-3 col-12 mt-2">
-                                <label class="ms-0">Betina</label>
-                                <input class="multisteps-form__input form-control" type="number" value="<?= $laporan->betina ?>" readonly="">
+                            <div class="col-lg-4 col-12 mt-2">
+                                <label class="ms-0"></label> <br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="kelamin" value="1" <?= ($laporan->kelamin == 1) ? 'checked' : '' ?> id="customRadioKelamin1" readonly>
+                                    <label class="custom-control-label" for="customRadioKelamin1"><strong><i class="fas fa-mars me-2"></i></strong> Jantan</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="kelamin" value="0" <?= ($laporan->kelamin == 0) ? 'checked' : '' ?> id="customRadioKelamin2" readonly>
+                                    <label class="custom-control-label" for="customRadioKelamin2"><strong><i class="fas fa-venus me-2"></i></strong> Betina</label>
+                                </div>
                             </div>
                             <hr class="horizontal dark mt-4 mb-3">
                             <!-- PKB -->
@@ -131,7 +137,7 @@
                                 <div class="copyright text-center text-sm text-muted text-lg-start">
                                     © <script>
                                     document.write(new Date().getFullYear())
-                                    </script>2023
+                                    </script><?= date('Y') ?>
                                     <strong>PELAPORAN SB SEXING SINGOSARI BBIB</strong>
                                 </div>
                             </div>
