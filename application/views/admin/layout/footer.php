@@ -121,6 +121,55 @@
     }
   </script>
 
+  <script>
+    $("#provinsi").change(function() {
+        var provinsi_id = $(this).val();
+        $.ajax({
+            url: "<?= site_url('admin/pelaporan/getKabupaten'); ?>",
+            method: "POST",
+            data: { provinsi_id: provinsi_id },
+            dataType: "json",
+            success: function(data) {
+              $("#kabupaten").html('<option value="">Pilih Kabupaten</option>');
+              data.forEach(function(item) {
+                  $("#kabupaten").append('<option value="' + item.code + '">' + item.name + '</option>');
+              });
+            }
+        });
+    });
+
+    $("#kabupaten").change(function() {
+        var kabupaten_id = $(this).val();
+        $.ajax({
+            url: "<?= site_url('admin/pelaporan/getKecamatan'); ?>",
+            method: "POST",
+            data: { kabupaten_id: kabupaten_id },
+            dataType: "json",
+            success: function(data) {
+              $("#kecamatan").html('<option value="">Pilih Kecamatan</option>');
+              data.forEach(function(item) {
+                  $("#kecamatan").append('<option value="' + item.code + '">' + item.name + '</option>');
+              });
+            }
+        });
+    });
+
+    $("#kecamatan").change(function() {
+        var kecamatan_id = $(this).val();
+        $.ajax({
+            url: "<?= site_url('admin/pelaporan/getKelurahan'); ?>",
+            method: "POST",
+            data: { kecamatan_id: kecamatan_id },
+            dataType: "json",
+            success: function(data) {
+              $("#kelurahan").html('<option value="">Pilih Kelurahan</option>');
+              data.forEach(function(item) {
+                  $("#kelurahan").append('<option value="' + item.code + '">' + item.name + '</option>');
+              });
+            }
+        });
+    });
+  </script>
 
   <script>
     $('#input-username').keyup(function(){

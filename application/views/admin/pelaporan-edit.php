@@ -34,10 +34,39 @@
                     <label class="ms-0">Tanggal Laporan</label>
                     <input class="multisteps-form__input form-control" name="date" value="<?= $laporan->date ?>" type="date" placeholder="" required="">
                 </div>
-                <div class="col-lg-6 col-12 mt-2">
-                    <label class="ms-0">Lokasi</label>
-                    <input class="multisteps-form__input form-control" name="lokasi" value="<?= $laporan->lokasi ?>" type="text" placeholder="" required="">
+                
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-12 mt-2">
+                            <label class="ms-0">Kota/Kabupaten</label>
+                            <select class="form-control select2 data-kabupaten" id="kabupaten" name="kabupaten_id" required>
+                                <option selected="" disabled="">- Pilih Kota/Kabupaten -</option>
+                                <?php foreach($kabupaten->result() as $kab){ ?>
+                                    <option value="<?= $kab->code ?>" <?= ($laporan->kabupaten_id == $kab->code) ? 'selected' : '' ?>> <?= $kab->name ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-12 mt-2">
+                            <label class="ms-0">Kecamatan</label>
+                            <select class="form-control select2 data-kabupaten" id="kecamatan" name="kecamatan_id" required>
+                                <option disabled="">- Pilih Kecamatan -</option>
+                                <?php if($detail->kecamatan_name): ?>
+                                    <option selected value="<?= $laporan->kecamatan_id ?>"> <?= $detail->kecamatan_name ?></option>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-12 mt-2">
+                            <label class="ms-0">Kelurahan/Desa</label>
+                            <select class="form-control select2 data-kabupaten" id="kelurahan" name="kelurahan_id" required>
+                                <option disabled="">- Pilih Kelurahan -</option>
+                                <?php if($detail->kelurahan_name): ?>
+                                    <option selected value="<?= $laporan->kelurahan_id ?>"> <?= $detail->kelurahan_name ?></option>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Peternak</label>
                     <select class="form-control" name="peternak_id" required>

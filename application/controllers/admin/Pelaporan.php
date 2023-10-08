@@ -16,10 +16,14 @@ class Pelaporan extends CI_Controller{
 
 
         $laporan = $this->db->select('l.*, u.username, u.nama, p.nama peternak, b.bull nama_bull, b.kode kode_bull')
+                                ->select("CONCAT(kab.name , ', ', kec.name, ', ', kel.name) as lokasi")
                                 ->from('laporan l')
                                 ->join('user u', 'l.user_id = u.id')
                                 ->join('peternak p', 'l.peternak_id = p.id')
                                 ->join('bull b', 'l.bull_id = b.id', 'LEFT')
+                                ->join('regencies kab', 'l.kabupaten_id = kab.code', 'LEFT')
+                                ->join('districts kec', 'l.kecamatan_id = kec.code', 'LEFT')
+                                ->join('villages kel', 'l.kelurahan_id = kel.code', 'LEFT')
                                 ->get();
         $var = [
             'title' => 'Pelaporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
@@ -38,7 +42,8 @@ class Pelaporan extends CI_Controller{
             'pages' => 'Tambah Laporan',
             'peternak' => $this->db->get('peternak'),
             'petugas' => $this->db->get('user'),
-            'bull' => $this->db->get('bull')
+            'bull' => $this->db->get('bull'),
+            'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 
         $this->load->view('admin/layout/header', $var);
@@ -47,14 +52,31 @@ class Pelaporan extends CI_Controller{
     }
 
     function edit($id){
+        $detail = $this->db->select('l.*, u.username, u.nama, p.nama peternak, b.bull nama_bull, b.kode kode_bull')
+                                ->select("kab.name as kabupaten_name")
+                                ->select("kec.name as kecamatan_name")
+                                ->select("kel.name as kelurahan_name")
+                                ->from('laporan l')
+                                ->join('user u', 'l.user_id = u.id')
+                                ->join('peternak p', 'l.peternak_id = p.id')
+                                ->join('bull b', 'l.bull_id = b.id', 'LEFT')
+                                ->join('regencies kab', 'l.kabupaten_id = kab.code', 'LEFT')
+                                ->join('districts kec', 'l.kecamatan_id = kec.code', 'LEFT')
+                                ->join('villages kel', 'l.kelurahan_id = kel.code', 'LEFT')
+                                ->where([
+                                    'l.id' => $id
+                                ])->get()->row();
+
         $var = [
             'title' => 'Edit Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Edit Laporan',
             'peternak' => $this->db->get('peternak'),
             'petugas' => $this->db->get('user'),
+            'detail' => $detail,
             'laporan' => $this->db->get_where('laporan', ['id' => $id])->row(),
             'ib' => $this->db->get_where('ib', ['id_laporan' => $id]),
-            'bull' => $this->db->get('bull')
+            'bull' => $this->db->get('bull'),
+            'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 
         $this->load->view('admin/layout/header', $var);
@@ -66,7 +88,9 @@ class Pelaporan extends CI_Controller{
         $this->db->insert('laporan', [
             'user_id' => $this->input->post('user_id', TRUE),
             'date' => $this->input->post('date', TRUE),
-            'lokasi' => $this->input->post('lokasi', TRUE),
+            'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
+            'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
+            'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
             'peternak_id' => $this->input->post('peternak_id', TRUE),
             'akseptor' => $this->input->post('akseptor', TRUE),
             'bull_id' => $this->input->post('bull_id', TRUE),
@@ -109,7 +133,9 @@ class Pelaporan extends CI_Controller{
         $this->db->where('id', $id)->update('laporan', [
             'user_id' => $this->input->post('user_id', TRUE),
             'date' => $this->input->post('date', TRUE),
-            'lokasi' => $this->input->post('lokasi', TRUE),
+            'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
+            'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
+            'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
             'peternak_id' => $this->input->post('peternak_id', TRUE),
             'akseptor' => $this->input->post('akseptor', TRUE),
             'bull_id' => $this->input->post('bull_id', TRUE),
@@ -140,5 +166,25 @@ class Pelaporan extends CI_Controller{
         }
         
         redirect($_SERVER['HTTP_REFERER']);
+    }
+
+
+    /* Ajax Here */
+    function getKabupaten(){
+        $provinsi_id = $this->input->post('provinsi_id', TRUE);
+        $get = $this->db->get_where('regencies', ['province_code' => $provinsi_id])->result();
+        $this->output->set_content_type('application/json')->set_output(json_encode($get));
+    }
+
+    function getKecamatan(){
+        $kabupaten_id = $this->input->post('kabupaten_id', TRUE);
+        $get = $this->db->get_where('districts', ['regency_code' => $kabupaten_id])->result();
+        $this->output->set_content_type('application/json')->set_output(json_encode($get));
+    }
+
+    function getKelurahan(){
+        $kecamatan_id = $this->input->post('kecamatan_id', TRUE);
+        $get = $this->db->get_where('villages', ['district_code' => $kecamatan_id])->result();
+        $this->output->set_content_type('application/json')->set_output(json_encode($get));
     }
 }
