@@ -22,8 +22,12 @@
   <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
-    $('#table').DataTable();
+    $(document).ready(function(){
+      $('.select2').select2();
+      $('#table').DataTable();
+    })
 
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 

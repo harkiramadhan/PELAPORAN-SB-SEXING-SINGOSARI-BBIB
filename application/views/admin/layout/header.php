@@ -21,6 +21,8 @@
 
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	</head>
 	<body class="g-sidenav-show   bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -53,6 +55,14 @@
 								<i class="fas fa-list text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
 							<span class="nav-link-text fw-bold ms-1">Pelaporan IB</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link <?= ($this->uri->segment(2) == 'bull') ? 'active' : '' ?>" href="<?= site_url('admin/bull') ?>">
+							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="fas fa-hippo text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
+							</div>
+							<span class="nav-link-text fw-bold ms-1">Bull</span>
 						</a>
 					</li>
 					<li class="nav-item">

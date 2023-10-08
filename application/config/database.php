@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '128.199.246.81',
-	'username' => 'dev',
-	'password' => 'Bb1bD3vS3rv3r',
+	'hostname' => '127.0.0.1',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'PELAPORAN-SB-SEXING-SINGOSARI-BBIB',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

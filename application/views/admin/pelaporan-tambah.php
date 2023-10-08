@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Peternak</label>
-                    <select class="form-control" name="peternak_id">
+                    <select class="form-control" name="peternak_id" required>
                         <option selected="" disabled="">- Pilih Peternak -</option>
                         <?php foreach($peternak->result() as $p){ ?>
                             <option value="<?= $p->id ?>"><?= $p->nama ?></option>
@@ -52,12 +52,13 @@
                     <input class="multisteps-form__input form-control" name="akseptor" type="text" placeholder="" required="">
                 </div>
                 <div class="col-lg-6 col-12 mt-2">
-                    <label class="ms-0">Nama Bull</label>
-                    <input class="multisteps-form__input form-control" name="nama_bull" type="text" placeholder="" required="">
-                </div>
-                <div class="col-lg-6 col-12 mt-2">
-                    <label class="ms-0">Kode Bull</label>
-                    <input class="multisteps-form__input form-control" name="kode_bull" type="text" placeholder="" required="">
+                    <label class="ms-0">Bull</label>
+                    <select class="form-control select2" name="bull_id" required>
+                        <option selected="" disabled="">- Pilih Bull -</option>
+                        <?php foreach($bull->result() as $b){ ?>
+                            <option value="<?= $b->id ?>"><?= $b->kode . " - " . $b->bull ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Kode Batch</label>
@@ -92,30 +93,36 @@
                 <hr class="horizontal dark mt-4 mb-3">
                 <!-- PKB -->
                 <h6 class="text-sm text-secondary mb-2 text-uppercase">PELAYANAN PEMERIKSAAN KEBUNTINGAN (PKB) & Kelahiran</h6>
-                <div class="col-lg-6 col-12 mt-2">
+                <div class="col-lg-8 col-12 mt-2">
                     <label class="ms-0">PKB</label>
                     <input class="multisteps-form__input form-control" name="tgl_pkb" type="date" placeholder="" required="">
                 </div>
-                <div class="col-lg-3 col-12 mt-2">
-                    <label class="ms-0">+ (Bunting)</label>
-                    <input class="multisteps-form__input form-control" name="bunting" type="number" placeholder="" required="">
-                </div>
-                <div class="col-lg-3 col-12 mt-2">
-                    <label class="ms-0">- (Tidak Bunting)</label>
-                    <input class="multisteps-form__input form-control" name="tidak_bunting" type="number" placeholder="" required="">
+                <div class="col-lg-4 col-12 mt-2">
+                    <label class="ms-0"></label> <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bunting" value="1" id="customRadioBunting1" required>
+                        <label class="custom-control-label" for="customRadioBunting1"><strong><i class="fas fa-plus me-2"></i></strong> Bunting</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bunting" value="0" id="customRadioBunting2" required>
+                        <label class="custom-control-label" for="customRadioBunting2"><strong><i class="fas fa-minus me-2"></i></strong> Tidak Bunting</label>
+                    </div>
                 </div>
                 <!-- KELAHIRAN -->
-                <div class="col-lg-6 col-12 mt-2">
+                <div class="col-lg-8 col-12 mt-2">
                     <label class="ms-0">Kelahiran</label>
                     <input class="multisteps-form__input form-control" name="tgl_kelahiran" type="date" placeholder="" required="">
                 </div>
-                <div class="col-lg-3 col-12 mt-2">
-                    <label class="ms-0">Jantan</label>
-                    <input class="multisteps-form__input form-control" name="jantan" type="number" placeholder="" required="">
-                </div>
-                <div class="col-lg-3 col-12 mt-2">
-                    <label class="ms-0">Betina</label>
-                    <input class="multisteps-form__input form-control" name="betina" type="number" placeholder="" required="">
+                <div class="col-lg-4 col-12 mt-2">
+                    <label class="ms-0"></label> <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="kelamin" value="1" id="customRadioKelamin1" required>
+                        <label class="custom-control-label" for="customRadioKelamin1"><strong><i class="fas fa-mars me-2"></i></strong> Jantan</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="kelamin" value="0" id="customRadioKelamin2" required>
+                        <label class="custom-control-label" for="customRadioKelamin2"><strong><i class="fas fa-venus me-2"></i></strong> Betina</label>
+                    </div>
                 </div>
                 <hr class="horizontal dark mt-4 mb-3">
                 <!-- PKB -->
