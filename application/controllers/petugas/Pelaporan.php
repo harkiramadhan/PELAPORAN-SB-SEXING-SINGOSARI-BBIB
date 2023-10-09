@@ -37,7 +37,9 @@ class Pelaporan extends CI_Controller{
             'title' => 'Tambah Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Tambah Laporan',
             'peternak' => $this->db->get('peternak'),
-            'petugas' => $this->db->get('user')
+            'petugas' => $this->db->get('user'),
+            'bull' => $this->db->get('bull'),
+            'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 
         $this->load->view('petugas/layout/header', $var);

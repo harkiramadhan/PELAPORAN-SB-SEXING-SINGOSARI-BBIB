@@ -21,6 +21,7 @@
 
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
 		<div class="min-height-300 bg-gradient-primary position-absolute w-100"></div>
