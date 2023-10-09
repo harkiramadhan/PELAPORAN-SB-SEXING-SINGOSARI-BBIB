@@ -18,7 +18,7 @@
                 <!-- INSEMINASI BUATAN -->
                 <h6 class="text-sm text-secondary mb-2 text-uppercase">Inseminasi Buatan</h6>
                 <?php if($this->session->userdata('role') == 1): ?>
-                    <div class="col-12 mt-0">
+                    <div class="col-lg-6 col-12 mt-2">
                         <label class="ms-0">Nama Petugas</label>
                         <select class="form-control" name="user_id">
                             <option selected="" disabled="">- Pilih Petugas -</option>
@@ -73,11 +73,11 @@
                     </select>
                 </div>
                 <div class="col-lg-6 col-12 mt-2">
-                    <label class="ms-0">Akkseptor</label>
+                    <label class="ms-0">Akkseptor  <i class="fw-normal">(Sesuai dengan kode irtag)</i></label>
                     <input class="multisteps-form__input form-control" name="akseptor" type="text" placeholder="" required="">
                 </div>
                 <div class="col-lg-6 col-12 mt-2">
-                    <label class="ms-0">Bull</label>
+                    <label class="ms-0">Bull <i class="fw-normal">(Kode Bull - Nama Bull)</i></label>
                     <select class="form-control select2" name="bull_id" required>
                         <option selected="" disabled="">- Pilih Bull -</option>
                         <?php foreach($bull->result() as $b){ ?>
@@ -124,11 +124,11 @@
                 </div>
                 <div class="col-lg-4 col-12 mt-2">
                     <label class="ms-0"></label> <br>
-                    <div class="form-check">
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="bunting" value="1" id="customRadioBunting1" required>
                         <label class="custom-control-label" for="customRadioBunting1"><strong><i class="fas fa-plus me-2"></i></strong> Bunting</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="bunting" value="0" id="customRadioBunting2" required>
                         <label class="custom-control-label" for="customRadioBunting2"><strong><i class="fas fa-minus me-2"></i></strong> Tidak Bunting</label>
                     </div>
@@ -140,11 +140,11 @@
                 </div>
                 <div class="col-lg-4 col-12 mt-2">
                     <label class="ms-0"></label> <br>
-                    <div class="form-check">
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="kelamin" value="1" id="customRadioKelamin1" required>
                         <label class="custom-control-label" for="customRadioKelamin1"><strong><i class="fas fa-mars me-2"></i></strong> Jantan</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="kelamin" value="0" id="customRadioKelamin2" required>
                         <label class="custom-control-label" for="customRadioKelamin2"><strong><i class="fas fa-venus me-2"></i></strong> Betina</label>
                     </div>
