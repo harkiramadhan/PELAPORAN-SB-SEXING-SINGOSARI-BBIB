@@ -24,6 +24,12 @@
 		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
+		<style>
+			.modal-backdrop{
+				width: 100% !important;
+				height: 100% !important;
+			}
+		</style>
 		<div class="min-height-300 bg-gradient-primary position-absolute w-100"></div>
 		<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
 			<div class="div pb-">
