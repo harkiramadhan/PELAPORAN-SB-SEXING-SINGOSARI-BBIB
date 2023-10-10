@@ -81,7 +81,7 @@
                     <select class="form-control select2" name="bull_id" required>
                         <option selected="" disabled="">- Pilih Bull -</option>
                         <?php foreach($bull->result() as $b){ ?>
-                            <option value="<?= $b->id ?>"><?= $b->kode . " - " . $b->bull ?></option>
+                            <option value="<?= $b->id ?>"><?= $b->kode . " - " . $b->bull . " - " . $b->rumpun ?></option>
                         <?php } ?>
                     </select>
                 </div>

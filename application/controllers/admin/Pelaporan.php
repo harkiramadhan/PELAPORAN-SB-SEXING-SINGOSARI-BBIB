@@ -41,12 +41,16 @@ class Pelaporan extends CI_Controller{
     }
 
     function tambah(){
+        $bull = $this->db->select('b.*, r.rumpun')
+                        ->from('bull b')
+                        ->join('rumpun r', 'b.id_rumpun = r.id')
+                        ->get();
         $var = [
             'title' => 'Tambah Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Tambah Laporan',
             'peternak' => $this->db->get('peternak'),
             'petugas' => $this->db->get('user'),
-            'bull' => $this->db->get('bull'),
+            'bull' => $bull,
             'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 
@@ -71,6 +75,11 @@ class Pelaporan extends CI_Controller{
                                     'l.id' => $id
                                 ])->get()->row();
 
+        $bull = $this->db->select('b.*, r.rumpun')
+                        ->from('bull b')
+                        ->join('rumpun r', 'b.id_rumpun = r.id')
+                        ->get();
+
         $var = [
             'title' => 'Edit Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Edit Laporan',
@@ -79,7 +88,7 @@ class Pelaporan extends CI_Controller{
             'detail' => $detail,
             'laporan' => $this->db->get_where('laporan', ['id' => $id])->row(),
             'ib' => $this->db->get_where('ib', ['id_laporan' => $id]),
-            'bull' => $this->db->get('bull'),
+            'bull' => $bull,
             'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 

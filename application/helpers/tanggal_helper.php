@@ -250,8 +250,15 @@
 
     if(!function_exists('umur')) {
         function umur($date){
-            $age = date_diff(date_create($date), date_create('now'))->y;
-            return $age;
+            $birthDate = new DateTime($date);
+            $today = new DateTime("today");
+            if ($birthDate > $today) { 
+                exit("0 tahun 0 bulan 0 hari");
+            }
+            $y = $today->diff($birthDate)->y;
+            $m = $today->diff($birthDate)->m;
+            $d = $today->diff($birthDate)->d;
+            return $y . "." . $m;
         }
     }
 

@@ -55,13 +55,17 @@
                                 <label class="ms-0">Akkseptor</label>
                                 <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->akseptor ?>" readonly="">
                             </div>
-                            <div class="col-lg-6 col-12 mt-2">
+                            <div class="col-lg-4 col-12 mt-2">
                                 <label class="ms-0">Nama Bull</label>
                                 <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->nama_bull ?>" readonly="">
                             </div>
-                            <div class="col-lg-6 col-12 mt-2">
+                            <div class="col-lg-4 col-12 mt-2">
                                 <label class="ms-0">Kode Bull</label>
                                 <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->kode_bull ?>" readonly="">
+                            </div>
+                            <div class="col-lg-4 col-12 mt-2">
+                                <label class="ms-0">Rumpun</label>
+                                <input class="multisteps-form__input form-control" type="text" value="<?= $laporan->rumpun ?>" readonly="">
                             </div>
                             <div class="col-lg-6 col-12 mt-2">
                                 <label class="ms-0">Kode Batch</label>

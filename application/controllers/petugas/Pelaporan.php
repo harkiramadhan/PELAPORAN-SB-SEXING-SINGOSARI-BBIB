@@ -42,12 +42,16 @@ class Pelaporan extends CI_Controller{
     }
 
     function tambah(){
+        $bull = $this->db->select('b.*, r.rumpun')
+                        ->from('bull b')
+                        ->join('rumpun r', 'b.id_rumpun = r.id')
+                        ->get();
         $var = [
             'title' => 'Tambah Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Tambah Laporan',
             'peternak' => $this->db->get('peternak'),
             'petugas' => $this->db->get('user'),
-            'bull' => $this->db->get('bull'),
+            'bull' => $bull,
             'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 
@@ -57,13 +61,35 @@ class Pelaporan extends CI_Controller{
     }
 
     function edit($id){
+        $detail = $this->db->select('l.*, u.username, u.nama, p.nama peternak, b.bull nama_bull, b.kode kode_bull')
+                            ->select("kab.name as kabupaten_name")
+                            ->select("kec.name as kecamatan_name")
+                            ->select("kel.name as kelurahan_name")
+                            ->from('laporan l')
+                            ->join('user u', 'l.user_id = u.id')
+                            ->join('peternak p', 'l.peternak_id = p.id')
+                            ->join('bull b', 'l.bull_id = b.id', 'LEFT')
+                            ->join('regencies kab', 'l.kabupaten_id = kab.code', 'LEFT')
+                            ->join('districts kec', 'l.kecamatan_id = kec.code', 'LEFT')
+                            ->join('villages kel', 'l.kelurahan_id = kel.code', 'LEFT')
+                            ->where([
+                                'l.id' => $id
+                            ])->get()->row();
+
+        $bull = $this->db->select('b.*, r.rumpun')
+                        ->from('bull b')
+                        ->join('rumpun r', 'b.id_rumpun = r.id')
+                        ->get();
         $var = [
             'title' => 'Edit Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Edit Laporan',
             'peternak' => $this->db->get('peternak'),
             'petugas' => $this->db->get('user'),
+            'detail' => $detail,
             'laporan' => $this->db->get_where('laporan', ['id' => $id])->row(),
-            'ib' => $this->db->get_where('ib', ['id_laporan' => $id])
+            'ib' => $this->db->get_where('ib', ['id_laporan' => $id]),
+            'bull' => $bull,
+            'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 
         $this->load->view('petugas/layout/header', $var);
@@ -147,19 +173,18 @@ class Pelaporan extends CI_Controller{
         $this->db->where('id', $id)->update('laporan', [
             'user_id' => $this->input->post('user_id', TRUE),
             'date' => $this->input->post('date', TRUE),
-            'lokasi' => $this->input->post('lokasi', TRUE),
+            'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
+            'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
+            'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
             'peternak_id' => $this->input->post('peternak_id', TRUE),
             'akseptor' => $this->input->post('akseptor', TRUE),
-            'nama_bull' => $this->input->post('nama_bull', TRUE),
-            'kode_bull' => $this->input->post('kode_bull', TRUE),
+            'bull_id' => $this->input->post('bull_id', TRUE),
             'kode_batch' => $this->input->post('kode_batch', TRUE),
             'sexing' => $this->input->post('sexing', TRUE),
             'tgl_pkb' => $this->input->post('tgl_pkb', TRUE),
             'bunting' => $this->input->post('bunting', TRUE),
-            'tidak_bunting' => $this->input->post('tidak_bunting', TRUE),
             'tgl_kelahiran' => $this->input->post('tgl_kelahiran', TRUE),
-            'jantan' => $this->input->post('jantan', TRUE),
-            'betina' => $this->input->post('betina', TRUE),
+            'kelamin' => $this->input->post('kelamin', TRUE),
             'keterangan' => $this->input->post('keterangan', TRUE)
         ]);
         if($this->db->affected_rows() > 0){

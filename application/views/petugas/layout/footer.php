@@ -29,6 +29,13 @@
       $(".select2-tags").select2({
         tags: true
       });
+
+      $('select:not(.normal)').each(function () {
+          $(this).select2({
+              dropdownParent: $(this).parent()
+          });
+      }); 
+      
       $('#table').DataTable();
 
       $('#filter-peternak').change(function(){

@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
 
 		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 	<body class="g-sidenav-show   bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -55,6 +56,14 @@
 								<i class="fas fa-list text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
 							</div>
 							<span class="nav-link-text fw-bold ms-1">Pelaporan IB</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link <?= ($this->uri->segment(2) == 'rumpun') ? 'active' : '' ?>" href="<?= site_url('admin/rumpun') ?>">
+							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="fas fa-cow text-dark text-sm opacity-10" style="margin-top: -7px;"></i>
+							</div>
+							<span class="nav-link-text fw-bold ms-1">Rumpun</span>
 						</a>
 					</li>
 					<li class="nav-item">

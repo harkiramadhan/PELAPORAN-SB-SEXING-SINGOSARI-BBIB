@@ -1,3 +1,13 @@
+<style>
+    .select2-container {
+        width: 100% !important;
+        padding: 0;
+    }
+
+    .select2-container.select2-container--default.select2-container--open  {
+       z-index: 5000;
+    }
+</style>
 <div class="row">
 	<div class="col-12">
 		<div class="card mb-4">
@@ -18,7 +28,14 @@
 							<tr>
                                 <th class="text-uppercase text-sm text-center" width="1px">#</th>
 								<th class="text-uppercase text-sm" width="1px">KODE</th>
-                                <th class="text-uppercase text-sm" width="1px">BULL</th>
+                                <th class="text-uppercase text-sm">BULL</th>
+                                <th class="text-uppercase text-sm" width="1px">RUMPUN</th>
+                                <th class="text-uppercase text-sm" width="1px">Umur</th>
+                                <th class="text-uppercase text-sm" width="1px">Tanggal Lahir</th>
+                                <th class="text-uppercase text-sm" width="1px">Asal</th>
+                                <th class="text-uppercase text-sm" width="1px">Dana</th>
+                                <th class="text-uppercase text-sm" width="1px">Tanggal Penerimaan</th>
+                                <th class="text-uppercase text-sm" width="1px">Kondisi</th>
 								<th class="text-sm text-center" width="1px">Aksi </th>
 							</tr>
 						</thead>
@@ -27,7 +44,16 @@
                                 <tr>
                                     <td class="text-center"><?= $no++ ?>. </td>
                                     <td class="text-sm"><?= $row->kode ?></td>
-                                    <td class="text-sm fw-normal"><?= $row->bull ?></td>
+                                    <td class="text-sm"><?= $row->bull ?></td>
+                                    <td class="text-sm"><?= $row->rumpun ?></td>
+                                    <td class="text-sm"><?= ($row->tgl_lahir) ? umur($row->tgl_lahir) : '' ?></td>
+                                    <td class="text-sm"><?= ($row->tgl_lahir) ? mediumdate_indo(date('Y-m-d', strtotime($row->tgl_lahir))) : '' ?></td>
+                                    <td class="text-sm"><?= $row->asal ?></td>
+                                    <td class="text-sm"><?= $row->dana ?></td>
+                                    <td class="text-sm"><?= ($row->tgl_terima) ? mediumdate_indo(date('Y-m-d', strtotime($row->tgl_terima))) : '' ?></td>
+                                    <td class="text-sm">
+                                        <?= $row->kondisi ?>
+                                    </td>
                                     <td>
 										<div class="btn-group">
 											<button type="button" class="btn btn-sm btn-dark px-3 me-2 mb-0" data-bs-toggle="modal" data-bs-target="#edit-bull-<?= $row->id ?>"><i class="fas fa-edit"></i></button>
@@ -36,7 +62,7 @@
 									</td>
                                 </tr>
 
-                                <div class="modal fade" id="edit-bull-<?= $row->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade modal-edit" id="edit-bull-<?= $row->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -47,7 +73,15 @@
                                             </div>
                                             <form action="<?= site_url('admin/bull/update/' . $row->id) ?>" method="post">
                                                 <div class="modal-body">
-                                                    <div class="form-group">
+                                                    <label for="">Rumpun <small class="text-danger"><strong>*</strong></small></label> <br>
+                                                    <select name="id_rumpun" id="" class="form-control select2 w-100" required>
+                                                        <option value=""> - Pilih Rumpun</option>
+                                                        <?php foreach($rumpun->result() as $r){ ?>
+                                                            <option value="<?= $r->id ?>" <?= ($r->id == $row->id_rumpun) ? 'selected' : '' ?>> <?= $r->rumpun ?></option>
+                                                        <?php } ?>
+                                                    </select>
+
+                                                    <div class="form-group mt-2">
                                                         <label for="">KODE BULL <small class="text-danger"><strong>*</strong></small></label>
                                                         <input type="text" name="kode" value="<?= $row->kode ?>" class="form-control" required>
                                                     </div>
@@ -55,6 +89,31 @@
                                                     <div class="form-group">
                                                         <label for="">BULL <small class="text-danger"><strong>*</strong></small></label>
                                                         <input type="text" name="bull" value="<?= $row->bull ?>" class="form-control" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="">Tanggal Lahir <small class="text-danger"><strong>*</strong></small></label>
+                                                        <input type="date" name="tgl_lahir" value="<?= $row->tgl_lahir ?>" class="form-control" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="">Asal <small class="text-danger"><strong>*</strong></small></label>
+                                                        <input type="text" name="asal" value="<?= $row->asal ?>" class="form-control" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="">Dana Pengadaan <small class="text-danger"><strong>*</strong></small></label>
+                                                        <input type="text" name="dana" value="<?= $row->dana ?>" class="form-control" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="">Tanggal Di Terima <small class="text-danger"><strong>*</strong></small></label>
+                                                        <input type="date" name="tgl_terima" value="<?= $row->tgl_terima ?>" class="form-control" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="">Kondisi</label>
+                                                        <textarea name="kondisi" id="" cols="10" rows="5" class="form-control"><?= $row->kondisi ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -112,7 +171,15 @@
             </div>
             <form action="<?= site_url('admin/bull/create') ?>" method="post">
                 <div class="modal-body">
-                    <div class="form-group">
+                    <label for="">Rumpun <small class="text-danger"><strong>*</strong></small></label> <br>
+                    <select name="id_rumpun" id="" class="form-control select2-bull w-100" required>
+                        <option value=""> - Pilih Rumpun</option>
+                        <?php foreach($rumpun->result() as $r){ ?>
+                            <option value="<?= $r->id ?>"> <?= $r->rumpun ?></option>
+                        <?php } ?>
+                    </select>
+                        
+                    <div class="form-group mt-2">
                         <label for="">KODE BULL <small class="text-danger"><strong>*</strong></small></label>
                         <input type="text" name="kode" class="form-control" required>
                     </div>
@@ -121,6 +188,32 @@
                         <label for="">BULL <small class="text-danger"><strong>*</strong></small></label>
                         <input type="text" name="bull" class="form-control" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="">Tanggal Lahir <small class="text-danger"><strong>*</strong></small></label>
+                        <input type="date" name="tgl_lahir" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Asal <small class="text-danger"><strong>*</strong></small></label>
+                        <input type="text" name="asal" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Dana Pengadaan <small class="text-danger"><strong>*</strong></small></label>
+                        <input type="text" name="dana" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Tanggal Di Terima <small class="text-danger"><strong>*</strong></small></label>
+                        <input type="date" name="tgl_terima" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Kondisi</label>
+                        <textarea name="kondisi" id="" cols="10" rows="5" class="form-control"></textarea>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">BATAL</button>
