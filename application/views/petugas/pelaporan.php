@@ -30,7 +30,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no=1; foreach($laporan->result() as $row){ ?>
+							<?php 
+								$no=1; foreach($laporan->result() as $row){ 
+									$ib = $this->db->get('ib', ['id_laporan' => $row->id]);
+							?>
 								<tr class="border: none;">
 									<td class="text-center fw-normal text-sm align-top"><?= $no++ ?>. </td>
 									<td class="align-top" >
@@ -54,19 +57,37 @@
 									</td>
 									<td class="fw-normal text-sm align-top text-center"><?= $row->kode_batch ?></td>
 									<td class="fw-normal text-sm align-top text-center">
-										<div class="d-flex justify-content-center">
-											<button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-check" aria-hidden="true"></i></button>
-										</div>	
+										<?php if($ib->num_rows() > 0): ?>
+											<div class="d-flex justify-content-center">
+												<button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-check" aria-hidden="true"></i></button>
+											</div>	
+										<?php else: ?>
+											<div class="d-flex justify-content-center">
+												<button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-times" aria-hidden="true"></i></button>
+											</div>	
+										<?php endif; ?>
 									</td>
 									<td class="fw-normal text-sm align-top text-center">
-										<div class="d-flex justify-content-center">
-											<button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-check" aria-hidden="true"></i></button>
-										</div>	
+										<?php if($row->tgl_pkb): ?>
+											<div class="d-flex justify-content-center">
+												<button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-check" aria-hidden="true"></i></button>
+											</div>	
+										<?php else: ?>
+											<div class="d-flex justify-content-center">
+												<button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-times" aria-hidden="true"></i></button>
+											</div>	
+										<?php endif; ?>
 									</td>
 									<td class="fw-normal text-sm align-top text-center">
-										<div class="d-flex justify-content-center">
-											<button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-check" aria-hidden="true"></i></button>
-										</div>	
+										<?php if($row->tgl_kelahiran): ?>
+											<div class="d-flex justify-content-center">
+												<button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-check" aria-hidden="true"></i></button>
+											</div>	
+										<?php else: ?>
+											<div class="d-flex justify-content-center">
+												<button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-times" aria-hidden="true"></i></button>
+											</div>	
+										<?php endif; ?>
 									</td>
 									<td class="align-top">
 										<div class="btn-group">

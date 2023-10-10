@@ -13,10 +13,15 @@ class Pelaporan extends CI_Controller{
         $var = [
             'title' => 'Pelaporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Pelaporan',
-            'laporan' => $this->db->select('l.*, u.username, u.nama, p.nama peternak')
+            'laporan' => $this->db->select('l.*, u.username, u.nama, p.nama peternak, b.bull nama_bull, b.kode kode_bull')
+                                ->select("CONCAT(kab.name , ', ', kec.name, ', ', kel.name) as lokasi")
                                 ->from('laporan l')
                                 ->join('user u', 'l.user_id = u.id')
                                 ->join('peternak p', 'l.peternak_id = p.id')
+                                ->join('bull b', 'l.bull_id = b.id', 'LEFT')
+                                ->join('regencies kab', 'l.kabupaten_id = kab.code', 'LEFT')
+                                ->join('districts kec', 'l.kecamatan_id = kec.code', 'LEFT')
+                                ->join('villages kel', 'l.kelurahan_id = kel.code', 'LEFT')
                                 ->where([
                                     'l.user_id' => $this->session->userdata('user_id')
                                 ])->get()
@@ -32,7 +37,9 @@ class Pelaporan extends CI_Controller{
             'title' => 'Tambah Laporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Tambah Laporan',
             'peternak' => $this->db->get('peternak'),
-            'petugas' => $this->db->get('user')
+            'petugas' => $this->db->get('user'),
+            'bull' => $this->db->get('bull'),
+            'kabupaten' => $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()
         ];
 
         $this->load->view('petugas/layout/header', $var);
