@@ -23,7 +23,13 @@
   <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script>
-    $('#table').DataTable();
+    $(document).ready(function(){
+      $('.select2').select2();
+      $(".select2-tags").select2({
+        tags: true
+      });
+      $('#table').DataTable();
+    })
 
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 

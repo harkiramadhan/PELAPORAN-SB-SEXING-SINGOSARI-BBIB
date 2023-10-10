@@ -65,7 +65,7 @@
 
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Peternak</label>
-                    <select class="form-control" name="peternak_id" required>
+                    <select class="form-control select2-tags" name="peternak_id" required>
                         <option selected="" disabled="">- Pilih Peternak -</option>
                         <?php foreach($peternak->result() as $p){ ?>
                             <option value="<?= $p->id ?>"><?= $p->nama ?></option>

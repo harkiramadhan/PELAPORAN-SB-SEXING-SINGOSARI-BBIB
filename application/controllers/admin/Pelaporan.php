@@ -85,23 +85,50 @@ class Pelaporan extends CI_Controller{
     }
 
     function create(){
-        $this->db->insert('laporan', [
-            'user_id' => $this->input->post('user_id', TRUE),
-            'date' => $this->input->post('date', TRUE),
-            'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
-            'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
-            'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
-            'peternak_id' => $this->input->post('peternak_id', TRUE),
-            'akseptor' => $this->input->post('akseptor', TRUE),
-            'bull_id' => $this->input->post('bull_id', TRUE),
-            'kode_batch' => $this->input->post('kode_batch', TRUE),
-            'sexing' => $this->input->post('sexing', TRUE),
-            'tgl_pkb' => $this->input->post('tgl_pkb', TRUE),
-            'bunting' => $this->input->post('bunting', TRUE),
-            'tgl_kelahiran' => $this->input->post('tgl_kelahiran', TRUE),
-            'kelamin' => $this->input->post('kelamin', TRUE),
-            'keterangan' => $this->input->post('keterangan', TRUE)
-        ]);
+        if(is_numeric($this->input->post('peternak_id', TRUE))){
+            $this->db->insert('laporan', [
+                'user_id' => $this->input->post('user_id', TRUE),
+                'date' => $this->input->post('date', TRUE),
+                'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
+                'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
+                'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
+                'peternak_id' => $this->input->post('peternak_id', TRUE),
+                'akseptor' => $this->input->post('akseptor', TRUE),
+                'bull_id' => $this->input->post('bull_id', TRUE),
+                'kode_batch' => $this->input->post('kode_batch', TRUE),
+                'sexing' => $this->input->post('sexing', TRUE),
+                'tgl_pkb' => $this->input->post('tgl_pkb', TRUE),
+                'bunting' => $this->input->post('bunting', TRUE),
+                'tgl_kelahiran' => $this->input->post('tgl_kelahiran', TRUE),
+                'kelamin' => $this->input->post('kelamin', TRUE),
+                'keterangan' => $this->input->post('keterangan', TRUE)
+            ]);
+        }else{
+            $this->db->insert('peternak', [
+                'nama' => $this->input->post('peternak_id', TRUE)
+            ]);
+            if($this->db->affected_rows() > 0){
+                $peternakid = $this->db->insert_id();
+                $this->db->insert('laporan', [
+                    'user_id' => $this->input->post('user_id', TRUE),
+                    'date' => $this->input->post('date', TRUE),
+                    'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
+                    'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
+                    'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
+                    'peternak_id' => $peternakid,
+                    'akseptor' => $this->input->post('akseptor', TRUE),
+                    'bull_id' => $this->input->post('bull_id', TRUE),
+                    'kode_batch' => $this->input->post('kode_batch', TRUE),
+                    'sexing' => $this->input->post('sexing', TRUE),
+                    'tgl_pkb' => $this->input->post('tgl_pkb', TRUE),
+                    'bunting' => $this->input->post('bunting', TRUE),
+                    'tgl_kelahiran' => $this->input->post('tgl_kelahiran', TRUE),
+                    'kelamin' => $this->input->post('kelamin', TRUE),
+                    'keterangan' => $this->input->post('keterangan', TRUE)
+                ]);
+            }
+        }
+        
         if($this->db->affected_rows() > 0){
             $laporanid = $this->db->insert_id();
             foreach($this->input->post('tgl_ib[]', TRUE) as $d){
