@@ -21,6 +21,7 @@
 
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
 		<div class="min-height-300 bg-gradient-primary position-absolute w-100"></div>
@@ -75,7 +76,16 @@
 						<div class="ms-md-auto pe-md-3 d-flex align-items-center">
 							<p></p>
 						</div>
-						<ul class="navbar-nav  justify-content-end">
+						<ul class="navbar-nav justify-content-end">
+							<li class="nav-item d-xl-none ps-3 d-flex align-items-center me-4">
+								<a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+									<div class="sidenav-toggler-inner">
+									<i class="sidenav-toggler-line bg-white"></i>
+									<i class="sidenav-toggler-line bg-white"></i>
+									<i class="sidenav-toggler-line bg-white"></i>
+									</div>
+								</a>
+							</li>
 							<li class="nav-item d-flex align-items-center">
 								<a href="
 									<?= site_url('auth/logout') ?>" class="nav-link text-white font-weight-bold px-0 bg-gradient-dark shadow py-3 px-4 rounded-pill">
