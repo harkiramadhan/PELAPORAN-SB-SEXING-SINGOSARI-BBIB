@@ -10,6 +10,43 @@
 						<a href="<?= site_url('petugas/pelaporan/tambah') ?>" class="btn bg-gradient-dark mb-0 d-inline"><i class="fas fa-plus me-2"></i> LAPORAN</a>
 					</div>
 				</div>
+
+				<div class="row mt-5">
+					<div class="col-lg-3">
+						<label for="">Filter Peternak</label> <br>
+						<select name="" id="filter-peternak" class="form-control select2">
+							<option value=""> - Pilih Peternak</option>
+							<?php foreach($peternak->result() as $pt){ ?>
+								<option value="<?= $pt->id ?>" <?= ($pt->id == $this->input->get('pt', TRUE)) ? 'selected' : '' ?>> <?= $pt->nama ?></option>
+							<?php } ?>
+						</select>
+					</div>
+
+					<div class="col-lg-3">
+						<label for="">Filter Bulan</label> <br>
+						<select name="" id="filter-month" class="form-control select2">
+							<option value=""> - Pilih Bulan</option>
+							<?php foreach(range(1, 12) as $m){ ?>
+								<option value="<?= sprintf("%02d", $m) ?>" <?= (sprintf("%02d", $m) == $this->input->get('m', TRUE)) ? 'selected' : '' ?>> <?= bulan($m) ?></option>
+							<?php } ?>
+						</select>
+					</div>
+
+					<div class="col-lg-3">
+						<label for="">Filter Tahun</label> <br>
+						<select name="" id="filter-year" class="form-control select2">
+							<option value=""> - Pilih Tahun</option>
+							<?php foreach(range(date('Y', strtotime('-5 year')), date('Y')) as $y){ ?>
+								<option value="<?= $y ?>" <?= ($y == $this->input->get('y', TRUE)) ? 'selected' : '' ?>> <?= $y ?></option>
+							<?php } ?>
+						</select>
+					</div>
+
+					<div class="col-lg-3">
+						<label for=""></label><br>
+						<a href="<?= site_url('admin/pelaporan') ?>" class="btn btn-danger w-100 mt-1"><i class="fa fa-rotate-right me-2"></i> Reset Filter</a>
+					</div>
+				</div>
 			</div>
 			<div class="card-body px-0 pt-0 pb-2">
 				<div class="table-responsive p-3">

@@ -13,6 +13,8 @@ class Pelaporan extends CI_Controller{
         ($this->input->get('date', TRUE)) ? $this->db->where('l.date', $this->input->get('date', TRUE)) : NULL;
         ($this->input->get('pt', TRUE)) ? $this->db->where('l.peternak_id', $this->input->get('pt', TRUE)) : NULL;
         ($this->input->get('pg', TRUE)) ? $this->db->where('l.user_id', $this->input->get('pg', TRUE)) : NULL;
+        ($this->input->get('m', TRUE)) ? $this->db->where('MONTH(l.date)', $this->input->get('m', TRUE)) : NULL;
+        ($this->input->get('y', TRUE)) ? $this->db->where('YEAR(l.date)', $this->input->get('y', TRUE)) : NULL;
 
 
         $laporan = $this->db->select('l.*, u.username, u.nama, p.nama peternak, b.bull nama_bull, b.kode kode_bull')
@@ -28,7 +30,9 @@ class Pelaporan extends CI_Controller{
         $var = [
             'title' => 'Pelaporan - Sistem Pelaporan Inseminasi Buatan BBIB Singosari',
             'pages' => 'Pelaporan',
-            'laporan' => $laporan
+            'laporan' => $laporan,
+            'peternak' => $this->db->get('peternak'),
+            'petugas' => $this->db->get('user')
         ];
 
         $this->load->view('admin/layout/header', $var);
