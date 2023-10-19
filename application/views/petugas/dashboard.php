@@ -29,6 +29,58 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-12">
+                <div class="card z-index-2 mt-4">
+                    <div class="card-header p-3 pb-0">
+                        <p class="text-sm mb-0 text-uppercase font-weight-bold">GRAFIK LAPORAN IB 2023</p>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="chart">
+                        <canvas id="laporanib" class="chart-canvas" height="600" style="display: block; box-sizing: border-box; height: 200px; width: 635px;" width="1270"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card z-index-2 mt-4">
+                    <div class="card-header p-3 pb-0">
+                        <p class="text-sm mb-0 text-uppercase font-weight-bold">GRAFIK PKB 2023</p>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="chart">
+                        <canvas id="laporanib" class="chart-canvas" height="600" style="display: block; box-sizing: border-box; height: 200px; width: 635px;" width="1270"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card z-index-2 mt-4">
+                    <div class="card-header p-3 pb-0">
+                        <p class="text-sm mb-0 text-uppercase font-weight-bold">GRAFIK KELAHIRAN IB 2023</p>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="chart">
+                        <canvas id="laporanib" class="chart-canvas" height="600" style="display: block; box-sizing: border-box; height: 200px; width: 635px;" width="1270"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card z-index-2 mt-4">
+                    <div class="card-header p-3 pb-0">
+                        <p class="text-sm mb-0 text-uppercase font-weight-bold">JENIS SEXING 2023</p>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="chart">
+                        <canvas id="jenissexing" class="chart-canvas" height="600" style="display: block; box-sizing: border-box; height: 300px; width: 635px;" width="1270"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
         </div>
     </div>
