@@ -8,9 +8,9 @@
 </div>
 
 <?php if($this->session->userdata('role') == 1): ?>
-    <form action="<?= site_url('admin/pelaporan/create') ?>" method="post">
+    <form action="<?= site_url('admin/pelaporan/create') ?>" method="post" enctype="multipart/form-data" >
 <?php else: ?>
-    <form action="<?= site_url('petugas/pelaporan/create') ?>" method="post">
+    <form action="<?= site_url('petugas/pelaporan/create') ?>" method="post" enctype="multipart/form-data" >
 <?php endif; ?>
     <div class="card mb-3">
         <div class="card-body">
@@ -20,8 +20,8 @@
                 <?php if($this->session->userdata('role') == 1): ?>
                     <div class="col-lg-4 col-12 mt-2">
                         <label class="ms-0">Nama Petugas <span class="text-warning">*</span></label>
-                        <select class="form-control" name="user_id">
-                            <option selected="" disabled="">- Pilih Petugas -</option>
+                        <select class="form-control" name="user_id" required>
+                            <option selected="">- Pilih Petugas -</option>
                             <?php foreach($petugas->result() as $pt){ ?>
                                 <option value="<?= $pt->id ?>"><?= $pt->nama ?></option>
                             <?php } ?>
@@ -40,12 +40,12 @@
                     <label class="ms-0">Metode Sexing <span class="text-warning">*</span></label>
                     <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="bunting" value="1" id="customRadioBunting1" required>
-                        <label class="custom-control-label" for="customRadioBunting1"><strong><i class="fas fa-star me-2"></i></strong></label>
+                        <input class="form-check-input" type="radio" name="metode" value="1" id="customRadioMetode1" required>
+                        <label class="custom-control-label" for="customRadioMetode1"><strong><i class="fas fa-star me-2"></i></strong></label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="bunting" value="0" id="customRadioBunting2" required>
-                        <label class="custom-control-label" for="customRadioBunting2"><strong><i class="fa fa-star-o me-2"></i></strong></label>
+                        <input class="form-check-input" type="radio" name="metode" value="0" id="customRadioMetode2" required>
+                        <label class="custom-control-label" for="customRadioMetode2"><strong><i class="fa fa-star-o me-2"></i></strong></label>
                     </div>
                 </div>
 
@@ -75,38 +75,29 @@
                     </div>
                 </div>
 
-
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Peternak <span class="text-warning">*</span></label>
-                    <select class="form-control select2-tags" name="peternak_id" required>
+                    <select class="form-control select2-tags" name="peternak_id" id="select-peternak" required>
                         <option selected="" disabled="">- Pilih Peternak -</option>
                         <?php foreach($peternak->result() as $p){ ?>
                             <option value="<?= $p->id ?>"><?= $p->nama ?></option>
                         <?php } ?>
                     </select>
                 </div>
+
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Nomor Anggota  <i class="fw-normal">(Kosongkan jika tidak ada)</i></label>
-                    <input class="multisteps-form__input form-control" name="akseptor" type="text" placeholder="" required="">
-                </div>
-
-                
-                
-                <div class="col-lg-6 col-12 mt-2">
-                    <label class="ms-0">Akkseptor  <i class="fw-normal">(Sesuai dengan kode irtag)</i></label>
-                    <input class="multisteps-form__input form-control" name="akseptor" type="text" placeholder="" required="">
+                    <input class="multisteps-form__input form-control" name="no_anggota" type="text" placeholder="" id="no-anggota">
                 </div>
                 
                 <div class="col-lg-6 col-12 mt-2">
-                    <label class="ms-0">Upload Foto Akkseptor </label>
-                    <div class="row">
-                        <div class="col-10">
-                            <input class="form-control" name="img" type="file" id="image-source" onchange="previewImage();">
-                        </div>
-                        <div class="col-2"> 
-                            <button type="submit" class="btn bg-gradient-dark w-100 m-0"><i class="fas fa-eye"></i></button>
-                        </div>
-                    </div>
+                    <label class="ms-0">Akseptor  <i class="fw-normal">(Sesuai dengan kode irtag)</i></label>
+                    <input class="multisteps-form__input form-control" name="akseptor" type="text" placeholder="">
+                </div>
+                
+                <div class="col-lg-6 col-12 mt-2">
+                    <label class="ms-0">Upload Foto Akseptor </label>
+                    <input class="form-control" name="img" type="file" id="image-source" onchange="previewImage();">
                 </div>
 
                 <hr class="horizontal dark mt-4 mb-3">
@@ -114,90 +105,53 @@
                 <!-- IB -->
                 <h6 class="text-sm text-secondary mb-2 text-uppercase">INSEMINASI BUATAN</h6>
 
-                <div class="col-lg-5 col-12 mt-2">
-                    <label class="ms-0">Tanggal Inseminasi Buatan <span class="text-warning">*</span></label>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <span class="me-2 nomor-sub">1.</span>
-                        <input class="multisteps-form__input form-control border-2" value="" type="date" name="tgl_ib[]" required="">
+                <div class="row tanggal-ib" id="clone-1">
+                    <div class="col-lg-5 col-12 mt-2">
+                        <label class="ms-0">Tanggal Inseminasi Buatan <span class="text-warning">*</span></label>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="me-2 nomor-sub">1.</span>
+                            <input class="multisteps-form__input form-control border-2" value="" type="date" name="tgl_ib[]" required="">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-12 mt-2">
+                        <label class="ms-0">Bull <i class="fw-normal">(Kode Bull - Nama Bull) </i><span class="text-warning">*</span></label>
+                        <select class="form-control select2" name="bull_id[]" required>
+                            <option selected="" disabled="">- Pilih Bull -</option>
+                            <?php foreach($bull->result() as $b){ ?>
+                                <option value="<?= $b->id ?>"><?= $b->kode . " - " . $b->bull . " - " . $b->rumpun ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     
-                </div>
-
-                <div class="col-lg-2 col-12 mt-2">
-                    <label class="ms-0">Bull <i class="fw-normal">(Kode Bull - Nama Bull) </i><span class="text-warning">*</span></label>
-                    <select class="form-control select2" name="bull_id" required>
-                        <option selected="" disabled="">- Pilih Bull -</option>
-                        <?php foreach($bull->result() as $b){ ?>
-                            <option value="<?= $b->id ?>"><?= $b->kode . " - " . $b->bull . " - " . $b->rumpun ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                
-                <div class="col-lg-2 col-12 mt-2">
-                    <label class="ms-0">Jenis Semen Beku <span class="text-warning">*</span></label>
-                    <select class="form-control" name="sexing" required>
-                        <option selected="" disabled="">- Pilih Jenis -</option>
-                        <option value="x">Sexing x</option>
-                        <option value="y">Sexing y</option>
-                        <option value="n">Unsexing</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-2 col-12 mt-2">
-                    <label class="ms-0">Kode Batch <span class="text-warning">*</span></label>
-                    <input class="multisteps-form__input form-control" name="kode_batch" type="text" placeholder="" required="">
-                </div>
-
-                <div class="col-lg-1 col-12 mt-lg-2 mt-3 mb-lg-0 mb-3">
-                    <label class="ms-0 text-white d-lg-block d-none">-</label>
-                    <button type="button" class="btn btn-icon-only btn-disabled mb-0 w-100 disabled" data-id="2"><i class="fas fa-trash" aria-hidden="true"></i></button>                
-                </div>
-
-                <div class="col-lg-5 col-12 mt-2">
-                    <label class="ms-0">Tanggal Inseminasi Buatan <span class="text-warning">*</span></label>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <span class="me-2 nomor-sub">2.</span>
-                        <input class="multisteps-form__input form-control border-2" value="" type="date" name="tgl_ib[]" required="">
+                    <div class="col-lg-2 col-12 mt-2">
+                        <label class="ms-0">Jenis Semen Beku <span class="text-warning">*</span></label>
+                        <select class="form-control select2" name="sexing[]" required>
+                            <option selected="" disabled="">- Pilih Jenis -</option>
+                            <option value="x">Sexing x</option>
+                            <option value="y">Sexing y</option>
+                            <option value="n">Unsexing</option>
+                        </select>
                     </div>
-                    
+
+                    <div class="col-lg-2 col-12 mt-2">
+                        <label class="ms-0">Kode Batch <span class="text-warning">*</span></label>
+                        <input class="multisteps-form__input form-control" name="kode_batch[]" type="text" placeholder="" required="">
+                    </div>
+
+                    <div class="col-lg-1 col-12 mt-lg-2 mt-3 mb-lg-0 mb-3">
+                        <label class="ms-0 text-white d-lg-block d-none mt-1">-</label>
+                        <button type="button" class="btn btn-icon-only btn-danger mb-0 w-100 btn-remove d-none" data-id="1"><i class="fas fa-trash" aria-hidden="true"></i></button>                
+                    </div>
                 </div>
 
-                <div class="col-lg-2 col-12 mt-2">
-                    <label class="ms-0">Bull <i class="fw-normal">(Kode Bull - Nama Bull) </i><span class="text-warning">*</span></label>
-                    <select class="form-control select2" name="bull_id" required>
-                        <option selected="" disabled="">- Pilih Bull -</option>
-                        <?php foreach($bull->result() as $b){ ?>
-                            <option value="<?= $b->id ?>"><?= $b->kode . " - " . $b->bull . " - " . $b->rumpun ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                
-                <div class="col-lg-2 col-12 mt-2">
-                    <label class="ms-0">Jenis Semen Beku <span class="text-warning">*</span></label>
-                    <select class="form-control" name="sexing" required>
-                        <option selected="" disabled="">- Pilih Jenis -</option>
-                        <option value="x">Sexing x</option>
-                        <option value="y">Sexing y</option>
-                        <option value="n">Unsexing</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-2 col-12 mt-2">
-                    <label class="ms-0">Kode Batch <span class="text-warning">*</span></label>
-                    <input class="multisteps-form__input form-control" name="kode_batch" type="text" placeholder="" required="">
-                </div>
-
-                <div class="col-lg-1 col-12 mt-lg-2 mt-3 mb-lg-0 mb-3">
-                    <label class="ms-0 text-white d-lg-block d-none">-</label>
-                    <button type="button" class="btn btn-icon-only btn-danger mb-0 w-100" data-id="2"><i class="fas fa-trash" aria-hidden="true"></i></button>                
-                </div>
 
                 <div class="hasil">
 
                 </div>
 
                 <div class="col-12 mt-4">
-                    <button type="button" class="btn btn-sm mb-0 btn-outline-light mx-auto w-100 text-dark btn-add-tgl">
+                    <button type="button" class="btn btn-sm mb-0 btn-outline-light mx-auto w-100 text-dark" id="cloneDiv">
                         <i class="fas fa-plus me-2" aria-hidden="true"></i>Tanggal Inseminasi Buatan
                     </button>              
                 </div>

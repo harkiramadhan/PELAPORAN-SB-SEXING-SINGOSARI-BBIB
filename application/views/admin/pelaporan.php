@@ -86,8 +86,6 @@
 								<th class="text-uppercase text-sm" width="1px">Peternak</th>
 								<th class="text-uppercase text-sm text-center" width="1px">Tanggal</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">Akseptor</th>
-                                <th class="text-uppercase text-sm text-center" width="1px">Bull</th>
-                                <th class="text-uppercase text-sm text-center" width="1px">Kode Batch</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">IB</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">PKB</th>
 								<th class="text-uppercase text-sm text-center" width="1px">LAHIR</th>
@@ -110,18 +108,6 @@
 									<td class="fw-normal text-sm align-top text-center">
 										<?= $row->akseptor ?>
 									</td>
-									<td class="fw-normal text-sm align-top text-left">
-										<p class="text-sm mb-0">
-											<span class="fw-bold text-sm"><?= $row->nama_bull ?></span>, 
-											<br><?= $row->kode_bull ?>
-										</p>
-										<p class="fw-normal text-sm align-top text-sm mb-0" style="margin-top: -2px;">
-											<?= ($row->sexing == 'y') ? 'Sexing y' : 
-											(($row->sexing == 'x') ? 'Sexing x' : 
-											(($row->sexing == 'n') ? 'Unsexing' : '')) ?>	
-										</p>
-									</td>
-									<td class="fw-normal text-sm align-top text-center"><?= $row->kode_batch ?></td>
 									<td class="fw-normal text-sm align-top text-center">
 										<?php if($ib->num_rows() > 0): ?>
 											<div class="d-flex justify-content-center">

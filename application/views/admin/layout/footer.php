@@ -227,6 +227,55 @@
             }
         });
     });
+
+    $('#select-peternak').change(function(){
+      var id = $(this).val()
+
+      $.ajax({
+        url: '<?= site_url('admin/pelaporan/getNomorAnggota') ?>',
+        type: 'get',
+        data: {id: id},
+        beforeSend: function(){
+
+        }, success: function(res){
+          $('#no-anggota').val(res)
+        }
+      })
+    })
+
+    function selectRefresh() {
+      $('select:not(.normal)').each(function () {
+          $(this).select2();
+      });
+    }
+
+    $('#cloneDiv').click(function(){
+      $('select').select2('destroy')
+
+      var length = $(".tanggal-ib").length
+      var increment = length + 1
+      var newId = "clone-" + increment
+      var clone = $("#clone-1").clone()
+
+      clone.attr("id", newId)
+      clone.find(".btn-remove").removeClass("d-none")
+      clone.find(".btn-remove").attr("data-id", increment)
+      clone.find(".nomor-sub").text( increment + ". ")
+      clone.find("input").val("")
+      
+      $(".hasil").append(clone)
+      selectRefresh()
+
+      $('.btn-remove').click(function(){
+        var id = $(this).attr('data-id')
+        $('#clone-' + id).remove()
+      })
+    });
+
+    $('.btn-remove').click(function(){
+      var id = $(this).attr('data-id')
+      $('#clone-' + id).remove()
+    })
   </script>
 
   <script>
