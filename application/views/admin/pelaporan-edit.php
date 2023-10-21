@@ -100,7 +100,7 @@
                     <label class="ms-0">Upload Foto Akseptor </label>
                     <div class="row">
                         <div class="col-10">
-                            <input class="form-control" name="img" type="file" id="image-source" onchange="previewImage();">
+                            <input class="form-control" name="img" type="file" id="image-source" onchange="previewImage();" accept="image/png, image/gif, image/jpeg">
                         </div>
                         <?php if($detail->img): ?>
                             <div class="col-2"> 
