@@ -13,6 +13,41 @@
             </div>
         </footer>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">
+              <i class="fas fa-upload fa-md text-dark me-2 ms-1" aria-hidden="true"></i>Import Laporan Petugas
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <form action="http://localhost/simsd-naurahhuda/admin/siswa/import" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12 col">
+                  <label>Upload file excel <small class="text-warning ms-1">*</small>
+                  </label>
+                  <input class="form-control form-control-lg" name="fileImport" type="file">
+                </div>
+                <div class="col-12 mt-3 text-center">
+                  <p class="text-sm font-12 mb-2" for="">Belum punya template?</p>
+                  <a href="#" class="btn btn-outline-secondary btn-sm py-1 btn-block mb-2" download="">Download Template</a>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn m-0 me-2" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn bg-gradient-primary m-0">Upload Data</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
   </main>
   <!--   Core JS Files   -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

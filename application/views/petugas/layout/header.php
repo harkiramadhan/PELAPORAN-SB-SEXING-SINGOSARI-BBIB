@@ -45,7 +45,13 @@
 			</div>
 			<hr class="horizontal dark mt-0">
 			<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+
+				<div class="text-center px-3">
+					<!-- <p class="text-xs font-weight-bold mb-2">Import Laporan</p> -->
+					<a href="#" class="btn bg-gradient-dark btn-sm w-100 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-upload me-2"></i>Import Laporan</a>
+				</div>
 				<ul class="navbar-nav">
+					<hr class="horizontal dark mt-1 mb-2">
 					<li class="nav-item">
 						<a class="nav-link <?= ($this->uri->segment(2) == 'dashboard') ? 'active' : '' ?>" href="<?= site_url('petugas/dashboard') ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -95,7 +101,7 @@
 							<li class="nav-item d-flex align-items-center">
 								<a href="
 									<?= site_url('auth/logout') ?>" class="nav-link text-white font-weight-bold px-0 bg-gradient-dark shadow py-3 px-4 rounded-pill">
-									<i class="fa fa-user me-sm-1"></i>
+									<i class="fas fa-sign-out-alt me-sm-1"></i>
 									<span class="d-sm-inline d-none">
 									<strong>LOGOUT </span>
 								</a>
