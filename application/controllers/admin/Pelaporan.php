@@ -248,6 +248,11 @@ class Pelaporan extends CI_Controller{
     }
 
     function remove($id){
+        $laporan = $this->db->get_where('laporan', ['id' => $id])->row();
+        if(@$laporan->img){
+            @unlink('./uploads/' . @$laporan->img);
+        }
+
         $this->db->where('id_laporan', $id)->delete('ib');
         $this->db->where('id', $id)->delete('laporan');
         if($this->db->affected_rows() > 0){

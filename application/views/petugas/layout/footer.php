@@ -423,6 +423,104 @@
     });
 
   </script>
+  <script>
+    $("#provinsi").change(function() {
+        var provinsi_id = $(this).val();
+        $.ajax({
+            url: "<?= site_url('admin/pelaporan/getKabupaten'); ?>",
+            method: "POST",
+            data: { provinsi_id: provinsi_id },
+            dataType: "json",
+            success: function(data) {
+              $("#kabupaten").html('<option value="">Pilih Kabupaten</option>');
+              data.forEach(function(item) {
+                  $("#kabupaten").append('<option value="' + item.code + '">' + item.name + '</option>');
+              });
+            }
+        });
+    });
+
+    $("#kabupaten").change(function() {
+        var kabupaten_id = $(this).val();
+        $.ajax({
+            url: "<?= site_url('admin/pelaporan/getKecamatan'); ?>",
+            method: "POST",
+            data: { kabupaten_id: kabupaten_id },
+            dataType: "json",
+            success: function(data) {
+              $("#kecamatan").html('<option value="">Pilih Kecamatan</option>');
+              data.forEach(function(item) {
+                  $("#kecamatan").append('<option value="' + item.code + '">' + item.name + '</option>');
+              });
+            }
+        });
+    });
+
+    $("#kecamatan").change(function() {
+        var kecamatan_id = $(this).val();
+        $.ajax({
+            url: "<?= site_url('admin/pelaporan/getKelurahan'); ?>",
+            method: "POST",
+            data: { kecamatan_id: kecamatan_id },
+            dataType: "json",
+            success: function(data) {
+              $("#kelurahan").html('<option value="">Pilih Kelurahan</option>');
+              data.forEach(function(item) {
+                  $("#kelurahan").append('<option value="' + item.code + '">' + item.name + '</option>');
+              });
+            }
+        });
+    });
+
+    $('#select-peternak').change(function(){
+      var id = $(this).val()
+
+      $.ajax({
+        url: '<?= site_url('admin/pelaporan/getNomorAnggota') ?>',
+        type: 'get',
+        data: {id: id},
+        beforeSend: function(){
+
+        }, success: function(res){
+          $('#no-anggota').val(res)
+        }
+      })
+    })
+
+    function selectRefresh() {
+      $('select:not(.normal)').each(function () {
+          $(this).select2();
+      });
+    }
+
+    $('#cloneDiv').click(function(){
+      $('select').select2('destroy')
+
+      var length = $(".tanggal-ib").length
+      var increment = length + 1
+      var newId = "clone-" + increment
+      var clone = $("#clone-1").clone()
+
+      clone.attr("id", newId)
+      clone.find(".btn-remove").removeClass("d-none")
+      clone.find(".btn-remove").attr("data-id", increment)
+      clone.find(".nomor-sub").text( increment + ". ")
+      clone.find("input").val("")
+      
+      $(".hasil").append(clone)
+      selectRefresh()
+
+      $('.btn-remove').click(function(){
+        var id = $(this).attr('data-id')
+        $('#clone-' + id).remove()
+      })
+    });
+
+    $('.btn-remove').click(function(){
+      var id = $(this).attr('data-id')
+      $('#clone-' + id).remove()
+    })
+  </script>
 </body>
 
 </html>

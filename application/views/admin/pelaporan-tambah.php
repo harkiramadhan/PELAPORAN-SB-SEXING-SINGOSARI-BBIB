@@ -97,7 +97,7 @@
                 
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Upload Foto Akseptor </label>
-                    <input class="form-control" name="img" type="file" id="image-source" onchange="previewImage();" accept="image/png, image/gif, image/jpeg">>
+                    <input class="form-control" name="img" type="file" id="image-source" onchange="previewImage();" accept="image/png, image/gif, image/jpeg">
                 </div>
 
                 <hr class="horizontal dark mt-4 mb-3">
