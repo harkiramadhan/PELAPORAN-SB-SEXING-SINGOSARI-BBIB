@@ -9,7 +9,7 @@ class Excel extends CI_Controller{
     function __construct(){
         parent::__construct();
 
-        if(!$this->session->userdata('role') == 1){
+        if(!$this->session->userdata('user_id')){
             $this->session->set_flashdata('error', "Silahkah Login Terlebih Dahulu");
             redirect('auth','refresh');
         }

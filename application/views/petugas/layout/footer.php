@@ -25,7 +25,7 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form action="http://localhost/simsd-naurahhuda/admin/siswa/import" method="POST" enctype="multipart/form-data">
+          <form action="<?= site_url('excel/importLaporan') ?>" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="row">
                 <div class="col-12 col">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-12 mt-3 text-center">
                   <p class="text-sm font-12 mb-2" for="">Belum punya template?</p>
-                  <a href="#" class="btn btn-outline-secondary btn-sm py-1 btn-block mb-2" download="">Download Template</a>
+                  <a href="<?= site_url('admin/excel/importFormat') ?>" class="btn btn-outline-secondary btn-sm py-1 btn-block mb-2 w-100"><i class="fas fa-download me-2"></i>Download Template</a>
                 </div>
               </div>
             </div>
