@@ -465,4 +465,352 @@ class Excel extends CI_Controller{
         // Save the Excel file to the browser
         $writer->save('php://output');
     }
+
+    /* Format Import */
+    function importFormat(){
+        /* Master Data */
+        $petugas = $this->db->get('user')->result();
+        $kota = $this->db->select('*')->from('regencies')->where(['code' => '35.07'])->or_where(['code' => '35.73'])->get()->result();
+        $kecamatan = $this->db->select('*')->from('districts')->where(['regency_code' => '35.07'])->or_where(['regency_code' => '35.73'])->get()->result();
+        $kelurahan = $this->db->select('v.*')
+                                ->from('villages v')
+                                ->join('districts d', 'v.district_code = d.code')
+                                ->where([
+                                    'd.regency_code' => '35.07'
+                                ])->or_where([
+                                    'd.regency_code' => '35.73'  
+                                ])->get()->result();
+        $peternak = $this->db->get('peternak')->result();
+        $bull = $this->db->get('bull')->result();
+
+        $spreadsheet = new Spreadsheet();
+        
+        /* Master Data */
+        $spreadsheet->createSheet();
+        $masterSheet = $spreadsheet->getSheet(1);
+        $masterSheet->setTitle('MasterDataSheet');
+
+        $masterSheet->setCellValue('A1', 'Master Data Pegawai');
+        $masterSheet->setCellValue('B1', 'Master Data Kota');
+        $masterSheet->setCellValue('C1', 'Master Data Kecamatan');
+        $masterSheet->setCellValue('D1', 'Master Data Kelurahan');
+        $masterSheet->setCellValue('E1', 'Master Data Peternak');
+        $masterSheet->setCellValue('F1', 'Master Data Bull');
+
+        $masterSheet->getColumnDimension('A')->setAutoSize(true);
+        $masterSheet->getColumnDimension('B')->setAutoSize(true);
+        $masterSheet->getColumnDimension('C')->setAutoSize(true);
+        $masterSheet->getColumnDimension('D')->setAutoSize(true);
+        $masterSheet->getColumnDimension('E')->setAutoSize(true);
+        $masterSheet->getColumnDimension('F')->setAutoSize(true);
+
+        $lastRowPetugas = 0;
+        $rowPetugas = 2;
+        foreach($petugas as $p){
+            $masterSheet->setCellValue('A' . $rowPetugas, $p->id . " - " . $p->nama);
+            $lastRowPetugas = $rowPetugas++;
+        }
+
+        $lastRowKota = 0;
+        $rowKota = 2;
+        foreach($kota as $k){
+            $masterSheet->setCellValue('B' . $rowKota, $k->code . " - " . $k->name);
+            $lastRowKota = $rowKota++;
+        }
+
+        $lastRowKecamatan = 0;
+        $rowKecamatan = 2;
+        foreach($kecamatan as $kc){
+            $masterSheet->setCellValue('C' . $rowKecamatan, $kc->code . " - " . $kc->name);
+            $lastRowKecamatan = $rowKecamatan++;
+        }
+
+        $lastRowKelurahan = 0;
+        $rowKelurahan = 2;
+        foreach($kelurahan as $kl){
+            $masterSheet->setCellValue('D' . $rowKelurahan, $kl->code . " - " . $kl->name);
+            $lastRowKelurahan = $rowKelurahan++;
+        }
+
+        $lastRowPeternak = 0;
+        $rowPeternak = 2;
+        foreach($peternak as $pt){
+            $masterSheet->setCellValue('E' . $rowPeternak, $pt->id . " - " . $pt->no_anggota . " - " . $pt->nama);
+            $lastRowPeternak = $rowPeternak++;
+        }
+
+        $lastRowBull = 0;
+        $rowBull = 2;
+        foreach($bull as $b){
+            $masterSheet->setCellValue('F' . $rowBull, $b->id . " - " . $b->kode . " - " . $b->bull);
+            $lastRowBull = $rowBull++;
+        }
+
+        /* Format Import */
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        $activeWorksheet->setTitle('Format Import');
+
+        $activeWorksheet->mergeCells('A1:F1');
+        $activeWorksheet->mergeCells('A2:F2');
+        $activeWorksheet->setCellValue('A1', 'FORMAT IMPORT LAPORAN PELAKSANAAN IB SEMEN BEKU SEXING');
+        $activeWorksheet->setCellValue('A2', 'BBIB SINGOSARI');
+
+        $activeWorksheet->getStyle('A1:F2')->applyFromArray([
+            'font' => ['bold' => true, 'size' => 18, 'name' => 'Calibri'],
+            'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
+        ]);
+
+        $activeWorksheet->getStyle('A4:F4')->applyFromArray([
+            'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
+        ]);
+
+        $activeWorksheet->getStyle('A12:F12')->applyFromArray([
+            'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
+        ]);
+
+        $activeWorksheet->getStyle('A19:F20')->applyFromArray([
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ],
+        ]);
+
+        $activeWorksheet->getStyle('A4:F20')->applyFromArray([
+            'font' => ['bold' => true, 'size' => 12, 'name' => 'Calibri'],
+        ]);
+
+        $activeWorksheet->getStyle('A4:F4')
+                        ->getFill()
+                        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        ->getStartColor()
+                        ->setARGB('FFFF00');
+
+        $activeWorksheet->getStyle('A12:F12')
+                        ->getFill()
+                        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        ->getStartColor()
+                        ->setARGB('FFFF00');
+
+        $activeWorksheet->getStyle('A19:F20')
+                        ->getFill()
+                        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        ->getStartColor()
+                        ->setARGB('E6E6E6');
+
+        $activeWorksheet->getColumnDimension('A')->setWidth(30);
+        $activeWorksheet->getColumnDimension('B')->setWidth(15);
+        $activeWorksheet->getColumnDimension('E')->setWidth(12);
+        $activeWorksheet->getColumnDimension('F')->setWidth(15);
+
+        $activeWorksheet->mergeCells('A4:F4');
+        $activeWorksheet->mergeCells('B5:F5');
+        $activeWorksheet->mergeCells('B6:F6');
+        $activeWorksheet->mergeCells('B7:F7');
+        $activeWorksheet->mergeCells('B8:F8');
+        $activeWorksheet->mergeCells('B9:F9');
+        $activeWorksheet->mergeCells('B10:F10');
+        $activeWorksheet->mergeCells('B11:F11');
+        $activeWorksheet->mergeCells('A12:F12');
+        $activeWorksheet->mergeCells('B13:F13');
+        $activeWorksheet->mergeCells('B14:F14');
+        $activeWorksheet->mergeCells('B15:F15');
+        $activeWorksheet->mergeCells('B16:F16');
+        $activeWorksheet->mergeCells('B17:F17');
+
+        $activeWorksheet->setCellValue('A4', 'LAPORAN');
+        $activeWorksheet->setCellValue('A5', 'PETUGAS');
+        $activeWorksheet->setCellValue('A6', 'METODE SEXING');
+        $activeWorksheet->setCellValue('A7', 'KOTA / KABUPATEN');
+        $activeWorksheet->setCellValue('A8', 'KECAMATAN');
+        $activeWorksheet->setCellValue('A9', 'KELURAHAN');
+        $activeWorksheet->setCellValue('A10', 'PETERNAK');
+        $activeWorksheet->setCellValue('A11', 'AKSEPTOR');
+        $activeWorksheet->setCellValue('A12', 'LAPORAN PKB');
+        $activeWorksheet->setCellValue('A13', 'TANGGAL PKB');
+        $activeWorksheet->setCellValue('B13', date('Y-m-d'));
+        $activeWorksheet->setCellValue('A14', 'STATUS PKB');
+
+        $activeWorksheet->setCellValue('A15', 'TANGGAL KELAHIRAN');
+        $activeWorksheet->setCellValue('B15', date('Y-m-d'));
+        $activeWorksheet->setCellValue('A16', 'STATUS KELAHIRAN');
+        $activeWorksheet->setCellValue('A17', 'KETERANGAN');
+
+        /* Format Input Tanggal IB */
+        $activeWorksheet->mergeCells('A19:A20');
+        $activeWorksheet->mergeCells('B19:B20');
+        $activeWorksheet->mergeCells('C19:D19');
+        $activeWorksheet->mergeCells('E19:E20');
+        $activeWorksheet->mergeCells('F19:F20');
+
+        $activeWorksheet->setCellValue('A19', 'BULL');
+        $activeWorksheet->setCellValue('B19', 'KODE BATCH');
+        $activeWorksheet->setCellValue('C19', 'SEXING');
+        $activeWorksheet->setCellValue('C20', 'X');
+        $activeWorksheet->setCellValue('D20', 'y');
+        $activeWorksheet->setCellValue('E19', 'UNSEXING');
+        $activeWorksheet->setCellValue('F19', 'TANGGAL IB');
+
+        /* Contoh Inputan Data IB */
+        $activeWorksheet->getStyle('A21:F21')->applyFromArray([
+            'font' => ['bold' => true],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ],
+        ]);
+
+        $activeWorksheet->getStyle('A21:F21')
+                        ->getFill()
+                        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        ->getStartColor()
+                        ->setARGB('FFFF00');
+
+        $activeWorksheet->setCellValue('A21', '201873- DAMAR');
+        $activeWorksheet->setCellValue('B21', 'B0001');
+        $activeWorksheet->setCellValue('C21', '');
+        $activeWorksheet->setCellValue('D21', 'v');
+        $activeWorksheet->setCellValue('E21', '');
+        $activeWorksheet->setCellValue('F21', date('Y-m-d'));
+
+        /* Dropdown Petugas */
+        $dropdownPetugas = $activeWorksheet->getCell('B5')->getDataValidation();
+        $dropdownPetugas->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownPetugas->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownPetugas->setErrorTitle('Input error');
+        $dropdownPetugas->setError('Value is not in list.');
+        $dropdownPetugas->setPromptTitle('Pick from list');
+        $dropdownPetugas->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownPetugas->setShowDropDown(true);
+        $dropdownPetugas->setShowErrorMessage(true);
+        $dropdownPetugas->setAllowBlank(false);
+        $dropdownPetugas->setFormula1('MasterDataSheet!$A$2:$A$' . $lastRowPetugas);
+        $activeWorksheet->getCell('B5')->setValue(' - PILIH PETUGAS - ');
+
+        /* Dropdown Metode Sexing */
+        $dropdownMetodeSexing = $activeWorksheet->getCell('B6')->getDataValidation();
+        $dropdownMetodeSexing->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownMetodeSexing->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownMetodeSexing->setErrorTitle('Input error');
+        $dropdownMetodeSexing->setError('Value is not in list.');
+        $dropdownMetodeSexing->setPromptTitle('Pick from list');
+        $dropdownMetodeSexing->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownMetodeSexing->setShowDropDown(true);
+        $dropdownMetodeSexing->setShowErrorMessage(true);
+        $dropdownMetodeSexing->setAllowBlank(false);
+        $dropdownMetodeSexing->setFormula1('"1,0"');
+        $activeWorksheet->getCell('B6')->setValue(' - PILIH METODE SEXING -'); 
+
+        /* Dropdown Kota */
+        $dropdownKota = $activeWorksheet->getCell('B7')->getDataValidation();
+        $dropdownKota->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownKota->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownKota->setErrorTitle('Input error');
+        $dropdownKota->setError('Value is not in list.');
+        $dropdownKota->setPromptTitle('Pick from list');
+        $dropdownKota->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownKota->setShowDropDown(true);
+        $dropdownKota->setShowErrorMessage(true);
+        $dropdownKota->setAllowBlank(false);
+        $dropdownKota->setFormula1('MasterDataSheet!$B$2:$B$' . $lastRowKota);
+        $activeWorksheet->getCell('B7')->setValue(' - PILIH KOTA - ');
+
+        /* Dropdown Kecamatan */
+        $dropdownKecamatan = $activeWorksheet->getCell('B8')->getDataValidation();
+        $dropdownKecamatan->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownKecamatan->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownKecamatan->setErrorTitle('Input error');
+        $dropdownKecamatan->setError('Value is not in list.');
+        $dropdownKecamatan->setPromptTitle('Pick from list');
+        $dropdownKecamatan->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownKecamatan->setShowDropDown(true);
+        $dropdownKecamatan->setShowErrorMessage(true);
+        $dropdownKecamatan->setAllowBlank(false);
+        $dropdownKecamatan->setFormula1('MasterDataSheet!$C$2:$C$' . $lastRowKecamatan);
+        $activeWorksheet->getCell('B8')->setValue(' - PILIH KECAMATAN -'); 
+
+        /* Dropdown Kelurahan */
+        $dropdownKelurahan = $activeWorksheet->getCell('B9')->getDataValidation();
+        $dropdownKelurahan->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownKelurahan->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownKelurahan->setErrorTitle('Input error');
+        $dropdownKelurahan->setError('Value is not in list.');
+        $dropdownKelurahan->setPromptTitle('Pick from list');
+        $dropdownKelurahan->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownKelurahan->setShowDropDown(true);
+        $dropdownKelurahan->setShowErrorMessage(true);
+        $dropdownKelurahan->setAllowBlank(false);
+        $dropdownKelurahan->setFormula1('MasterDataSheet!$D$2:$D$' . $lastRowKelurahan);
+        $activeWorksheet->getCell('B9')->setValue(' - PILIH KELURAHAN -'); 
+
+        /* Dropdown Peternak */
+        $dropdownPeternak = $activeWorksheet->getCell('B10')->getDataValidation();
+        $dropdownPeternak->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownPeternak->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownPeternak->setErrorTitle('Input error');
+        $dropdownPeternak->setError('Value is not in list.');
+        $dropdownPeternak->setPromptTitle('Pick from list');
+        $dropdownPeternak->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownPeternak->setShowDropDown(true);
+        $dropdownPeternak->setShowErrorMessage(true);
+        $dropdownPeternak->setAllowBlank(false);
+        $dropdownPeternak->setFormula1('MasterDataSheet!$E$2:$E$' . $lastRowPeternak);
+        $activeWorksheet->getCell('B10')->setValue(' - PILIH PETERNAK -'); 
+
+        /* Dropdown Status PKB */
+        $dropdownStatusPKB = $activeWorksheet->getCell('B14')->getDataValidation();
+        $dropdownStatusPKB->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownStatusPKB->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownStatusPKB->setErrorTitle('Input error');
+        $dropdownStatusPKB->setError('Value is not in list.');
+        $dropdownStatusPKB->setPromptTitle('Pick from list');
+        $dropdownStatusPKB->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownStatusPKB->setShowDropDown(true);
+        $dropdownStatusPKB->setShowErrorMessage(true);
+        $dropdownStatusPKB->setAllowBlank(false);
+        $dropdownStatusPKB->setFormula1('"1 - BUNTING,0 - TIDAK BUNTING"');
+        $activeWorksheet->getCell('B14')->setValue(' - PILIH STATUS PKB -'); 
+
+        /* Dropdown Status Kelahiran */
+        $dropdownStatusKelahiran = $activeWorksheet->getCell('B16')->getDataValidation();
+        $dropdownStatusKelahiran->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $dropdownStatusKelahiran->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $dropdownStatusKelahiran->setErrorTitle('Input error');
+        $dropdownStatusKelahiran->setError('Value is not in list.');
+        $dropdownStatusKelahiran->setPromptTitle('Pick from list');
+        $dropdownStatusKelahiran->setPrompt('Please pick a value from the drop-down list.');
+        $dropdownStatusKelahiran->setShowDropDown(true);
+        $dropdownStatusKelahiran->setShowErrorMessage(true);
+        $dropdownStatusKelahiran->setAllowBlank(false);
+        $dropdownStatusKelahiran->setFormula1('"1 - JANTAN,0 - BETINA"');
+        $activeWorksheet->getCell('B16')->setValue(' - PILIH STATUS KELAHIRAN -'); 
+
+        /* Dropdown Bull */
+        foreach(range(22, 50) as $r){
+            $activeWorksheet->getStyle('A' . $r)->applyFromArray([
+                'font' => ['bold' => true]
+            ]);
+            $dropdownBull = $activeWorksheet->getCell('A' . $r)->getDataValidation();
+            $dropdownBull->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+            $dropdownBull->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+            $dropdownBull->setErrorTitle('Input error');
+            $dropdownBull->setError('Value is not in list.');
+            $dropdownBull->setPromptTitle('Pick from list');
+            $dropdownBull->setPrompt('Please pick a value from the drop-down list.');
+            $dropdownBull->setShowDropDown(true);
+            $dropdownBull->setShowErrorMessage(true);
+            $dropdownBull->setAllowBlank(false);
+            $dropdownBull->setFormula1('MasterDataSheet!$F$2:$F$' . $lastRowBull);
+            $activeWorksheet->getCell('A' . $r)->setValue(' - PILIH BULL -'); 
+        }
+
+        $spreadsheet->getSheetByName('MasterDataSheet')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VERYHIDDEN);
+
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'FORMAT IMPORT LAPORAN PELAKSANAAN IB SEMEN BEKU SEXING BBIB SINGOSARI.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
 }   
