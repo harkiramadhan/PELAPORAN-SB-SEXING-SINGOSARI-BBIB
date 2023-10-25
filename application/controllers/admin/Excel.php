@@ -484,7 +484,7 @@ class Excel extends CI_Controller{
         $bull = $this->db->get('bull')->result();
 
         $spreadsheet = new Spreadsheet();
-        
+
         /* Master Data */
         $spreadsheet->createSheet();
         $masterSheet = $spreadsheet->getSheet(1);
@@ -617,6 +617,9 @@ class Excel extends CI_Controller{
         $activeWorksheet->mergeCells('B16:F16');
         $activeWorksheet->mergeCells('B17:F17');
 
+        $activeWorksheet->getStyle('B13')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+        $activeWorksheet->getStyle('B15')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+
         $activeWorksheet->setCellValue('A4', 'LAPORAN');
         $activeWorksheet->setCellValue('A5', 'PETUGAS');
         $activeWorksheet->setCellValue('A6', 'METODE SEXING');
@@ -649,6 +652,7 @@ class Excel extends CI_Controller{
         $activeWorksheet->setCellValue('D20', 'y');
         $activeWorksheet->setCellValue('E19', 'UNSEXING');
         $activeWorksheet->setCellValue('F19', 'TANGGAL IB');
+        
 
         /* Contoh Inputan Data IB */
         $activeWorksheet->getStyle('A21:F21')->applyFromArray([
@@ -786,6 +790,8 @@ class Excel extends CI_Controller{
 
         /* Dropdown Bull */
         foreach(range(22, 50) as $r){
+            $activeWorksheet->getStyle('F' . $r)
+                            ->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
             $activeWorksheet->getStyle('A' . $r)->applyFromArray([
                 'font' => ['bold' => true]
             ]);
@@ -812,5 +818,65 @@ class Excel extends CI_Controller{
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
+    }
+
+    function importLaporan(){
+        $spreadsheet = new Spreadsheet();
+        $inputFileName = './uploads/IMPORT.xlsx';
+
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $PETUGAS = explode(' - ', $worksheet->getCell('B5')->getValue());
+        $METODE = $worksheet->getCell('B6')->getValue();
+        $KOTA = explode(' - ', $worksheet->getCell('B7')->getValue());
+        $KECAMATAN = explode(' - ', $worksheet->getCell('B8')->getValue());
+        $KELURAHAN = explode(' - ', $worksheet->getCell('B9')->getValue());
+        $PETERNAK = explode(' - ', $worksheet->getCell('B10')->getValue());
+        $AKSEPTOR = $worksheet->getCell('B11')->getValue();
+        $TANGGAL_PKB = $worksheet->getCell('B13')->getFormattedValue();
+        $STATUS_PKB = explode(' - ', $worksheet->getCell('B14')->getValue());
+        $TANGGAL_KELAHIRAN = $worksheet->getCell('B15')->getFormattedValue();
+        $STATUS_KELAHIRAN = explode(' - ', $worksheet->getCell('B16')->getValue());
+        $KETERANGAN = $worksheet->getCell('B17')->getValue();
+        
+
+        $data = [
+            'user_id' => $PETUGAS[0],
+            'metode' => $METODE,
+            'kabupaten_id' => $KOTA[0],
+            'kecamatan_id' => $KECAMATAN[0],
+            'kelurahan_id' => $KELURAHAN[0],
+            'peternak_id' => $PETERNAK[0],
+            'akseptor' => $AKSEPTOR,
+            'tgl_pkb' => date('Y-m-d', strtotime($TANGGAL_PKB)),
+            'bunting' => $STATUS_PKB[0],
+            'tgl_kelahiran' => date('Y-m-d', strtotime($TANGGAL_KELAHIRAN)),
+            'kelamin' => $STATUS_KELAHIRAN[0],
+            'keterangan' => $KETERANGAN,
+        ];
+
+        $dataLaporan = [];
+        $endRow = $worksheet->getHighestRow();
+        for($row = 22; $row <= $endRow; $row++){
+            if($worksheet->getCell('A'. $row)->getValue() != NULL && $worksheet->getCell('A'. $row)->getValue() != ' - PILIH BULL -'){
+                $BULL = $worksheet->getCell('A'. $row)->getValue();
+                $sexing = ($worksheet->getCell('C'. $row)->getValue() == 'v') ? 'x' : (($worksheet->getCell('D'. $row)->getValue() == 'v') ? 'y' : (($worksheet->getCell('E'. $row)->getValue() == 'v') ? 'n' : NULL));
+                $dataLaporan[] = [
+                    'bull_id' => $BULL[0],
+                    'kode_batch' => $worksheet->getCell('B'. $row)->getValue(),
+                    'sexing' => $sexing,
+                    'tgl' => date('Y-m-d', strtotime($worksheet->getCell('F'. $row)->getFormattedValue()))
+                ];
+            }
+        }
+
+        $dataToImport = [
+            'LAPORAN' => $data,
+            'IB' => $dataLaporan
+        ];
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($dataToImport));
+        
     }
 }   
