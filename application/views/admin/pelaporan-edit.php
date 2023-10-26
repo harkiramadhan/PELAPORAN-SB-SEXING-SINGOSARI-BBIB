@@ -29,25 +29,6 @@
                 <?php else: ?>
                     <input type="hidden" name="user_id" value="<?= $this->session->userdata('user_id') ?>">
                 <?php endif; ?>
-
-                <div class="col-lg-4 col-12 mt-2">
-                    <label class="ms-0">Tanggal Laporan <span class="text-warning">*</span></label>
-                    <input class="multisteps-form__input form-control" name="date" type="date" value="<?= $detail->date ?>" placeholder="" required="">
-                </div>
-
-                <div class="col-lg-4 col-12 mt-2">
-                    <label class="ms-0">Metode Sexing <span class="text-warning">*</span></label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="metode" value="1" id="customRadioMetode1" <?= ($detail->metode == 1) ? 'checked' : '' ?> required>
-                        <label class="custom-control-label" for="customRadioMetode1"><strong><i class="fas fa-star me-2"></i></strong></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="metode" value="0" id="customRadioMetode2" <?= ($detail->metode == 0) ? 'checked' : '' ?> required>
-                        <label class="custom-control-label" for="customRadioMetode2"><strong><i class="fa fa-star-o me-2"></i></strong></label>
-                    </div>
-                </div>
-
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-4 col-12 mt-2">
@@ -116,9 +97,9 @@
                 <h6 class="text-sm text-secondary mb-2 text-uppercase">INSEMINASI BUATAN</h6>
 
                 <?php if($ib->num_rows() > 0): ?>
-                    <?php $no=1; foreach($ib->result() as $row){ ?>
+                    <?php $no=1; $nol=0; foreach($ib->result() as $row){ ?>
                         <div class="row tanggal-ib" id="clone-<?= $no ?>">
-                            <div class="col-lg-5 col-12 mt-2">
+                            <div class="col-lg-3 col-12 mt-2">
                                 <label class="ms-0">Tanggal Inseminasi Buatan <span class="text-warning">*</span></label>
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span class="me-2 nomor-sub"><?= $no ?>.</span>
@@ -147,6 +128,19 @@
                             </div>
 
                             <div class="col-lg-2 col-12 mt-2">
+                                <label class="ms-0">Metode Sexing <span class="text-warning">*</span></label>
+                                <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input custom-check1-<?= $no ?>" type="radio" name="metode[<?= $nol ?>]" value="1" id="customRadioMetode1_<?= $row->id ?>" <?= ($row->metode == 1 && $row->metode != NULL) ? 'checked' : '' ?> required>
+                                    <label class="custom-control-label" for="customRadioMetode1"><strong><i class="fas fa-star me-2"></i></strong></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input custom-check2-<?= $no ?>" type="radio" name="metode[<?= $nol ?>]" value="0" id="customRadioMetode2_<?= $row->id ?>" <?= ($row->metode == 0 && $row->metode != NULL) ? 'checked' : '' ?> required>
+                                    <label class="custom-control-label" for="customRadioMetode2"><strong><i class="fa fa-star-o me-2"></i></strong></label>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-12 mt-2">
                                 <label class="ms-0">Kode Batch <span class="text-warning">*</span></label>
                                 <input class="multisteps-form__input form-control" name="kode_batch[]" value="<?= $row->kode_batch ?>" type="text" placeholder="" required="">
                             </div>
@@ -156,10 +150,10 @@
                                 <button type="button" class="btn btn-icon-only btn-danger mb-0 w-100 btn-remove" data-id="<?= $no ?>"><i class="fas fa-trash" aria-hidden="true"></i></button>                
                             </div>
                         </div>
-                    <?php $no++; } ?>
+                    <?php $no++; $nol++; } ?>
                 <?php else: ?>
                     <div class="row tanggal-ib" id="clone-1">
-                        <div class="col-lg-5 col-12 mt-2">
+                        <div class="col-lg-3 col-12 mt-2">
                             <label class="ms-0">Tanggal Inseminasi Buatan <span class="text-warning">*</span></label>
                             <div class="d-flex align-items-center justify-content-between">
                                 <span class="me-2 nomor-sub">1.</span>
@@ -185,6 +179,19 @@
                                 <option value="y">Sexing y</option>
                                 <option value="n">Unsexing</option>
                             </select>
+                        </div>
+
+                        <div class="col-lg-2 col-12 mt-2">
+                            <label class="ms-0">Metode Sexing <span class="text-warning">*</span></label>
+                            <br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="metode[0]" value="1" id="customRadioMetode1" required>
+                                <label class="custom-control-label" for="customRadioMetode1"><strong><i class="fas fa-star me-2"></i></strong></label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="metode[0]" value="0" id="customRadioMetode2" required>
+                                <label class="custom-control-label" for="customRadioMetode2"><strong><i class="fa fa-star-o me-2"></i></strong></label>
+                            </div>
                         </div>
 
                         <div class="col-lg-2 col-12 mt-2">

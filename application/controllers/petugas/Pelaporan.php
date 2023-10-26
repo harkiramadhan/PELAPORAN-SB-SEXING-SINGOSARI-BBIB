@@ -118,7 +118,6 @@ class Pelaporan extends CI_Controller{
 
             $this->db->insert('laporan', [
                 'user_id' => $this->input->post('user_id', TRUE),
-                'date' => $this->input->post('date', TRUE),
                 'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
                 'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
                 'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
@@ -129,7 +128,6 @@ class Pelaporan extends CI_Controller{
                 'tgl_kelahiran' => $this->input->post('tgl_kelahiran', TRUE),
                 'kelamin' => $this->input->post('kelamin', TRUE),
                 'keterangan' => $this->input->post('keterangan', TRUE),
-                'metode' => $this->input->post('metode', TRUE),
                 'img' => $filename
             ]);
         }else{
@@ -142,7 +140,6 @@ class Pelaporan extends CI_Controller{
                 $peternakid = $this->db->insert_id();
                 $this->db->insert('laporan', [
                     'user_id' => $this->input->post('user_id', TRUE),
-                    'date' => $this->input->post('date', TRUE),
                     'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
                     'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
                     'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
@@ -153,7 +150,6 @@ class Pelaporan extends CI_Controller{
                     'tgl_kelahiran' => $this->input->post('tgl_kelahiran', TRUE),
                     'kelamin' => $this->input->post('kelamin', TRUE),
                     'keterangan' => $this->input->post('keterangan', TRUE),
-                    'metode' => $this->input->post('metode', TRUE),
                     'img' => $filename
                 ]);
             }
@@ -166,6 +162,7 @@ class Pelaporan extends CI_Controller{
             $bullid = $this->input->post('bull_id[]', TRUE);
             $sexing = $this->input->post('sexing[]', TRUE);
             $kodebatch = $this->input->post('kode_batch[]', TRUE);
+            $metode = $this->input->post('metode[]', TRUE);
 
             foreach($tglib as $key => $val){
                 $this->db->insert('ib', [
@@ -173,12 +170,13 @@ class Pelaporan extends CI_Controller{
                     'tgl' => $val,
                     'bull_id' => $bullid[$key],
                     'sexing' => $sexing[$key],
-                    'kode_batch' => $kodebatch[$key]
+                    'kode_batch' => $kodebatch[$key],
+                    'metode' => $metode[$key]
                 ]);
             }
 
             $this->session->set_flashdata('sukses', "Laporan Berhasil Di Tambahkan");
-            redirect('admin/pelaporan');
+            redirect('petugas/pelaporan');
         }else{
             $this->session->set_flashdata('error', "Laporan Gagal Di Tambahkan");
             redirect($_SERVER['HTTP_REFERER']);
@@ -210,6 +208,7 @@ class Pelaporan extends CI_Controller{
             $bullid = $this->input->post('bull_id[]', TRUE);
             $sexing = $this->input->post('sexing[]', TRUE);
             $kodebatch = $this->input->post('kode_batch[]', TRUE);
+            $metode = $this->input->post('metode[]', TRUE);
 
             foreach($tglib as $key => $val){
                 $this->db->insert('ib', [
@@ -217,14 +216,14 @@ class Pelaporan extends CI_Controller{
                     'tgl' => $val,
                     'bull_id' => $bullid[$key],
                     'sexing' => $sexing[$key],
-                    'kode_batch' => $kodebatch[$key]
+                    'kode_batch' => $kodebatch[$key],
+                    'metode' => $metode[$key]
                 ]);
             }
         }
 
         $this->db->where('id', $id)->update('laporan', [
             'user_id' => $this->input->post('user_id', TRUE),
-            'date' => $this->input->post('date', TRUE),
             'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
             'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
             'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
@@ -235,7 +234,6 @@ class Pelaporan extends CI_Controller{
             'tgl_kelahiran' => $this->input->post('tgl_kelahiran', TRUE),
             'kelamin' => $this->input->post('kelamin', TRUE),
             'keterangan' => $this->input->post('keterangan', TRUE),
-            'metode' => $this->input->post('metode', TRUE),
             'img' => $filename
         ]);
         if($this->db->affected_rows() > 0){

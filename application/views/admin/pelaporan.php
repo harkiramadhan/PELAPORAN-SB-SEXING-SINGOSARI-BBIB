@@ -84,7 +84,6 @@
                                 <th class="text-uppercase text-sm" width="1px">#</th>
 								<th class="text-uppercase text-sm">Petugas</th>
 								<th class="text-uppercase text-sm" width="1px">Peternak</th>
-								<th class="text-uppercase text-sm text-center" width="1px">Tanggal</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">Akseptor</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">IB</th>
                                 <th class="text-uppercase text-sm text-center" width="1px">PKB</th>
@@ -104,7 +103,6 @@
                                         <p class="fw-normal text-sm text-sm mb-0" style="margin-top: -2px;"><?= $row->lokasi ?></p>
 									</td>
 									<td class="fw-normal text-sm align-top"><?= $row->peternak ?></td>
-									<td class="fw-normal text-sm align-top"><?= longdate_indo(date('Y-m-d', strtotime($row->date))) ?></td>
 									<td class="fw-normal text-sm align-top text-center">
 										<?= $row->akseptor ?>
 									</td>

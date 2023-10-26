@@ -182,6 +182,12 @@
       clone.find(".btn-remove").attr("data-id", increment)
       clone.find(".nomor-sub").text( increment + ". ")
       clone.find("input").val("")
+
+      clone.find('.custom-check1-1').removeClass('custom-check1-1').attr('id', 'customRadioMetode1_' + newId).prop('name', 'metode[' + length + ']').prop('value', '1')
+      clone.find('.custom-check2-1').removeClass('custom-check2-1').attr('id', 'customRadioMetode2_' + newId).prop('name', 'metode[' + length + ']').prop('value', '0')
+
+      clone.find('#customRadioMetode1').attr('id', 'customRadioMetode1_' + newId).prop('name', 'metode[' + length + ']').prop('value', '1')
+      clone.find('#customRadioMetode2').attr('id', 'customRadioMetode2_' + newId).prop('name', 'metode[' + length + ']').prop('value', '0')
       
       $(".hasil").append(clone)
       selectRefresh()

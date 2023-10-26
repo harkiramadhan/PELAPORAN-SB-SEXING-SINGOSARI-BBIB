@@ -30,25 +30,7 @@
                 <?php else: ?>
                     <input type="hidden" name="user_id" value="<?= $this->session->userdata('user_id') ?>">
                 <?php endif; ?>
-
-                <div class="col-lg-4 col-12 mt-2">
-                    <label class="ms-0">Tanggal Laporan <span class="text-warning">*</span></label>
-                    <input class="multisteps-form__input form-control" name="date" type="date" placeholder="" required="">
-                </div>
-
-                <div class="col-lg-4 col-12 mt-2">
-                    <label class="ms-0">Metode Sexing <span class="text-warning">*</span></label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="metode" value="1" id="customRadioMetode1" required>
-                        <label class="custom-control-label" for="customRadioMetode1"><strong><i class="fas fa-star me-2"></i></strong></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="metode" value="0" id="customRadioMetode2" required>
-                        <label class="custom-control-label" for="customRadioMetode2"><strong><i class="fa fa-star-o me-2"></i></strong></label>
-                    </div>
-                </div>
-
+                
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-4 col-12 mt-2">
@@ -106,7 +88,7 @@
                 <h6 class="text-sm text-secondary mb-2 text-uppercase">INSEMINASI BUATAN</h6>
 
                 <div class="row tanggal-ib" id="clone-1">
-                    <div class="col-lg-5 col-12 mt-2">
+                    <div class="col-lg-3 col-12 mt-2">
                         <label class="ms-0">Tanggal Inseminasi Buatan <span class="text-warning">*</span></label>
                         <div class="d-flex align-items-center justify-content-between">
                             <span class="me-2 nomor-sub">1.</span>
@@ -134,6 +116,19 @@
                         </select>
                     </div>
 
+                    <div class="col-lg-2 col-12 mt-2">
+                        <label class="ms-0">Metode Sexing <span class="text-warning">*</span></label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="metode[0]" value="1" id="customRadioMetode1" required>
+                            <label class="custom-control-label" for="customRadioMetode1"><strong><i class="fas fa-star me-2"></i></strong></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="metode[0]" value="0" id="customRadioMetode2" required>
+                            <label class="custom-control-label" for="customRadioMetode2"><strong><i class="fa fa-star-o me-2"></i></strong></label>
+                        </div>
+                    </div>
+                    
                     <div class="col-lg-2 col-12 mt-2">
                         <label class="ms-0">Kode Batch <span class="text-warning">*</span></label>
                         <input class="multisteps-form__input form-control" name="kode_batch[]" type="text" placeholder="" required="">

@@ -89,7 +89,7 @@
             <div class="col-lg-12">
                 <div class="card z-index-2 mt-4">
                     <div class="card-header p-3 pb-0">
-                        <p class="text-sm mb-0 text-uppercase font-weight-bold">JENIS SEXING <?= date('Y') ?></p>
+                        <p class="text-sm mb-0 text-uppercase font-weight-bold">JENIS SEMEN BEKU <?= date('Y') ?></p>
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">

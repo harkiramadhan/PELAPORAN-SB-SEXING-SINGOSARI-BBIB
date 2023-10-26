@@ -29,9 +29,9 @@ class Dashboard extends CI_Controller{
 
         $data = [];
         foreach($months as $m){
-            $getLaporan = $this->db->select('id')->get_where('laporan', [
-                'MONTH(date)' => $m,
-                'YEAR(date)' => $year
+            $getLaporan = $this->db->select('id')->get_where('ib', [
+                'MONTH(tgl)' => $m,
+                'YEAR(tgl)' => $year
             ])->num_rows();
 
             array_push($data, $getLaporan);
