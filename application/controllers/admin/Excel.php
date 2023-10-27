@@ -466,6 +466,137 @@ class Excel extends CI_Controller{
         $writer->save('php://output');
     }
 
+    /* Export Laporan */
+    function exportLaporan(){
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        $activeWorksheet->mergeCells('A1:G1');
+        $activeWorksheet->mergeCells('A2:G2');
+        $activeWorksheet->setCellValue('A1', 'LAPORAN PELAKSANAAN IB SEMEN BEKU SEXING');
+        $activeWorksheet->setCellValue('A2', 'BBIB SINGOSARI');
+
+        $activeWorksheet->getStyle('A1:G2')->applyFromArray([
+            'font' => ['bold' => true, 'size' => 18, 'name' => 'Calibri'],
+            'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
+        ]);
+
+        $laporan = $this->db->select('l.*, u.username, u.nama, p.nama peternak, p.no_anggota')
+                            ->select("kab.name as kabupaten_name")
+                            ->select("kec.name as kecamatan_name")
+                            ->select("kel.name as kelurahan_name")
+                            ->from('laporan l')
+                            ->join('user u', 'l.user_id = u.id')
+                            ->join('peternak p', 'l.peternak_id = p.id')
+                            ->join('regencies kab', 'l.kabupaten_id = kab.code', 'LEFT')
+                            ->join('districts kec', 'l.kecamatan_id = kec.code', 'LEFT')
+                            ->join('villages kel', 'l.kelurahan_id = kel.code', 'LEFT')
+                            ->get();
+
+        $activeWorksheet->getColumnDimension('A')->setWidth(30);
+        $activeWorksheet->getColumnDimension('B')->setWidth(15);
+        $activeWorksheet->getColumnDimension('C')->setWidth(20);
+        $activeWorksheet->getColumnDimension('E')->setWidth(12);
+        $activeWorksheet->getColumnDimension('F')->setWidth(15);
+        $activeWorksheet->getColumnDimension('G')->setWidth(15);
+
+        $excel_row = 4;
+        foreach($laporan->result() as $row){
+            $formatExport = [
+                'LAPORAN' => [
+                    'data' => '',
+                    'style' => [
+                        'merge' => ['A', 'G']
+                    ]
+                ],
+                'PETUGAS' => [
+                    'data' => $row->nama,
+                    'style' => []
+                ],
+                'KOTA / KABUPATEN' => [
+                    'data' => $row->kabupaten_name,
+                    'style' => []
+                ],
+                'KECAMATAN' => [
+                    'data' => $row->kecamatan_name,
+                    'style' => []
+                ],
+                'KELURAHAN' => [
+                    'data' => $row->kelurahan_name,
+                    'style' => []
+                ],
+                'PETERNAK' => [
+                    'data' => $row->peternak,
+                    'style' => []
+                ],
+                'AKSEPTOR' => [
+                    'data' => $row->akseptor,
+                    'style' => []
+                ],
+                'LAPORAN PKB' => [
+                    'data' => '',
+                    'style' => [
+                        'merge' => ['A', 'G']
+                    ]
+                ],
+                'TANGGAL PKB' => [
+                    'data' => $row->tgl_pkb,
+                    'style' => []
+                ],
+                'STATUS PKB' => [
+                    'data' => '',
+                    'style' => []
+                ],
+                'TANGGAL KELAHIRAN' => [
+                    'data' => $row->tgl_kelahiran,
+                    'style' => []
+                ],
+                'STATUS KELAHIRAN' => [
+                    'data' => '',
+                    'style' => []
+                ],
+                'KETERANGAN' => [
+                    'data' => $row->keterangan,
+                    'style' => []
+                ],
+            ];
+
+            $row = 4;
+            foreach($formatExport as $key => $val){
+                if(@$val['style'] == ''){
+                    echo @$val['style']['merge'][0] . $row . ':' . @$val['style']['merge'][1] . $row;
+                    if(@$val['style']['merge']){
+                        $activeWorksheet->mergeCells(@$val['style']['merge'][0] . $row . ':' . @$val['style']['merge'][1] . $row);
+                    }
+                    $activeWorksheet->getStyle('A' . $row . ':G' . $row)
+                        ->getFill()
+                        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        ->getStartColor()
+                        ->setARGB('E6E6E6');
+                }
+                $activeWorksheet->setCellValue( 'A' . $row, $key);
+                $activeWorksheet->setCellValue( 'B' . $row, $val['data']);
+                $row+18;
+                $row++;
+            }
+
+            $excel_row+18;
+            $excel_row++;
+        }
+
+        die();
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'LAPORAN PELAKSANAAN IB SEMEN BEKU SEXING BBIB SINGOSARI.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
+
+    function exportHtml(){
+        $this->load->view('laporanExport');
+    }
+
     /* Format Import */
     function importFormat(){
         /* Master Data */

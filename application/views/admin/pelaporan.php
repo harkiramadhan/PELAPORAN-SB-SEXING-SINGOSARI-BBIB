@@ -8,23 +8,7 @@
 					</div>
 					<div class="col-lg-4 col-12 d-flex justify-content-lg-end justify-content-center">
 						<div class="d-flex">
-							<div class="dropdown me-2">
-								<a href="#" class="btn btn-outline-dark dropdown-toggle mb-0" data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
-									<i class="fas  fa-file-pdf me-2 mb-0"></i> Export Dokumen
-								</a>
-								<ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdownMenuLink2">
-									<li>
-										<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalExportSatuBulan">
-											<i class="fas  fa-file-pdf me-2"></i> 1 Bulan
-										</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalExportBulanan">
-											<i class="fas  fa-file-pdf me-2"></i> > 1 Bulan
-										</a>
-									</li>
-								</ul>
-							</div>
+							<a href="<?= site_url('admin/excel/exportLaporan') ?>" class="btn btn-outline-dark mb-0 me-2"><i class="fas  fa-file-excel me-2 mb-0"></i> Export Dokumen</a>
 							<a href="<?= site_url('admin/pelaporan/tambah') ?>" class="btn bg-gradient-dark mb-0 d-inline"><i class="fas fa-plus me-2"></i> LAPORAN</a>
 						</div>
 					</div>
