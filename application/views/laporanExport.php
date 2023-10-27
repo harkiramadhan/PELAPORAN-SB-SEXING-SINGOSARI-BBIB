@@ -1,295 +1,100 @@
-<?php 
+<table>
+    <tbody>
+        <tr>
+            <td style="text-align: center !important; font-weight: bold; font-size: 18px" colspan="19">LAPORAN PELAKSANAAN IB SEMEN BEKU SEXING</td>
+        </tr>
+        <tr>
+            <td style="text-align: center !important; font-weight: bold; font-size: 18px" colspan="19">BBIB SINGOSARI</td>
+        </tr>
 
-    header('Content-Disposition: attachment; filename="export.xls"');
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Transfer-Encoding: binary');
-    header('Cache-Control: must-revalidate');
-    header('Pragma: public');
+        <tr>
+            <td colspan="19"></td>
+        </tr>
+
+        <tr>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;PETUGAS&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;LOKASI&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;PETERNAK&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;AKSEPTOR&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;NAMA BULL&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;KODE BULL&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;METODE&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;KODE BATCH&nbsp;&nbsp;</td>
+            <td colspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;SEXING&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;UNSEXING&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;TANGGAL IB&nbsp;&nbsp;</td>
+            <td colspan="3" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;PKB&nbsp;&nbsp;</td>
+            <td colspan="3" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;KELAHIRAN&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;KEBERHASILAN&nbsp;&nbsp;</td>
+            <td rowspan="2" style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;">&nbsp;&nbsp;KETERANGAN&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;x&nbsp;&nbsp;</td>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;y&nbsp;&nbsp;</td>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;TANGGAL&nbsp;&nbsp;</td>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;+&nbsp;&nbsp;</td>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;TANGGAL&nbsp;&nbsp;</td>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;JTN&nbsp;&nbsp;</td>
+            <td style="background-color: #E0E0E0; text-align: center; font-weight: bold; white-space: nowrap;" >&nbsp;&nbsp;BTN&nbsp;&nbsp;</td>
+        </tr>
+        
+        <?php foreach($data->result() as $row){ 
+            $ib = $this->db->select('b.bull, b.kode, ib.*')
+                            ->from('ib')
+                            ->join('bull b', 'ib.bull_id = b.id')
+                            ->where('ib.id_laporan', $row->id)->get();
+            $rowspanIb = $ib->num_rows();
 
 
-?>
-<!DOCTYPE html>
-<html>
-	<body>
-		<table>
-			<tbody>
-				<tr>
-					<td style="text-align: center !important; font-weight: bold; font-size: 18px" colspan="7">LAPORAN PELAKSANAAN IB SEMEN BEKU SEXING</td>
-				</tr>
-				<tr>
-					<td style="text-align: center !important; font-weight: bold; font-size: 18px" colspan="7">BBIB SINGOSARI</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td colspan="7" bgcolor="yellow" style="text-align: center !important; font-weight: bold;">LAPORAN 1</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">PETUGAS</td>
-					<td colspan="6">4 - Ahmad Harki Ramadhan</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KOTA / KABUPATEN</td>
-					<td colspan="6">35.73 - KOTA MALANG</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KECAMATAN</td>
-					<td colspan="6">35.07.06 - Ampelgading</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KELURAHAN</td>
-					<td colspan="6">35.07.01.2004 - Tlogosari</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">PETERNAK</td>
-					<td colspan="6">3 - 00002 - harkiramadhan</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">AKSEPTOR</td>
-					<td colspan="6">AK0001</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td colspan="6"></td>
-				</tr>
-				<tr>
-					<td colspan="7" bgcolor="yellow" style="text-align: center !important; font-weight: bold;">LAPORAN PKB</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">TANGGAL PKB</td>
-					<td colspan="6">2023-10-26</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">STATUS PKB</td>
-					<td colspan="6">0 - TIDAK BUNTING</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">TANGGAL KELAHIRAN</td>
-					<td colspan="6">2023-10-26</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">STATUS KELAHIRAN</td>
-					<td colspan="6">1 - JANTAN</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KETERANGAN</td>
-					<td colspan="6">Laporan IB Sexing BBIB</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">BULL</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">KODE BATCH</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">METODE SEXING</td>
-					<td style="font-weight: bold; text-align: center !important;" colspan="2">SEXING</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">UNSEXING</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">TANGGAL IB</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold; text-align: center !important;">x</td>
-					<td style="font-weight: bold; text-align: center !important;">y</td>
-				</tr>
-				<tr>
-					<td>201873- DAMAR</td>
-					<td>B0001</td>
-					<td>1</td>
-					<td></td>
-					<td>v</td>
-					<td></td>
-					<td>2023-10-26</td>
-				</tr>
-				<tr>
-					<td>4 - 201878 - Kosta</td>
-					<td>BS001</td>
-					<td>1</td>
-					<td>v</td>
-					<td></td>
-					<td></td>
-					<td>2023-01-20</td>
-				</tr>
-				<tr>
-					<td>70 - 22046 - GRATI TIRTA</td>
-					<td>BS002</td>
-					<td>0</td>
-					<td></td>
-					<td>v</td>
-					<td></td>
-					<td>2023-02-02</td>
-				</tr>
-				<tr>
-					<td>9 - 201986 - Adara</td>
-					<td>BS003</td>
-					<td>1</td>
-					<td></td>
-					<td></td>
-					<td>v</td>
-					<td>2023-04-01</td>
-				</tr>
-				<tr>
-					<td>4 - 201878 - Kosta</td>
-					<td>BS004</td>
-					<td>1</td>
-					<td></td>
-					<td>v</td>
-					<td></td>
-					<td>2023-02-01</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td colspan="7" bgcolor="yellow" style="text-align: center !important; font-weight: bold;">LAPORAN 2</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">PETUGAS</td>
-					<td colspan="6">4 - Ahmad Harki Ramadhan</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KOTA / KABUPATEN</td>
-					<td colspan="6">35.73 - KOTA MALANG</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KECAMATAN</td>
-					<td colspan="6">35.07.06 - Ampelgading</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KELURAHAN</td>
-					<td colspan="6">35.07.01.2004 - Tlogosari</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">PETERNAK</td>
-					<td colspan="6">3 - 00002 - harkiramadhan</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">AKSEPTOR</td>
-					<td colspan="6">AK0001</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td colspan="6"></td>
-				</tr>
-				<tr>
-					<td colspan="7" bgcolor="yellow" style="text-align: center !important; font-weight: bold;">LAPORAN PKB</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">TANGGAL PKB</td>
-					<td colspan="6">2023-10-26</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">STATUS PKB</td>
-					<td colspan="6">0 - TIDAK BUNTING</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">TANGGAL KELAHIRAN</td>
-					<td colspan="6">2023-10-26</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">STATUS KELAHIRAN</td>
-					<td colspan="6">1 - JANTAN</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold;">KETERANGAN</td>
-					<td colspan="6">Laporan IB Sexing BBIB</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">BULL</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">KODE BATCH</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">METODE SEXING</td>
-					<td style="font-weight: bold; text-align: center !important;" colspan="2">SEXING</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">UNSEXING</td>
-					<td style="font-weight: bold; text-align: center !important;" rowspan="2">TANGGAL IB</td>
-				</tr>
-				<tr>
-					<td style="font-weight: bold; text-align: center !important;">x</td>
-					<td style="font-weight: bold; text-align: center !important;">y</td>
-				</tr>
-				<tr>
-					<td>201873- DAMAR</td>
-					<td>B0001</td>
-					<td>1</td>
-					<td></td>
-					<td>v</td>
-					<td></td>
-					<td>2023-10-26</td>
-				</tr>
-				<tr>
-					<td>4 - 201878 - Kosta</td>
-					<td>BS001</td>
-					<td>1</td>
-					<td>v</td>
-					<td></td>
-					<td></td>
-					<td>2023-01-20</td>
-				</tr>
-				<tr>
-					<td>70 - 22046 - GRATI TIRTA</td>
-					<td>BS002</td>
-					<td>0</td>
-					<td></td>
-					<td>v</td>
-					<td></td>
-					<td>2023-02-02</td>
-				</tr>
-				<tr>
-					<td>9 - 201986 - Adara</td>
-					<td>BS003</td>
-					<td>1</td>
-					<td></td>
-					<td></td>
-					<td>v</td>
-					<td>2023-04-01</td>
-				</tr>
-				<tr>
-					<td>4 - 201878 - Kosta</td>
-					<td>BS004</td>
-					<td>1</td>
-					<td></td>
-					<td>v</td>
-					<td></td>
-					<td>2023-02-01</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-	</body>
-</html>
+            $currentLaporanId = '';
+            $bunting = ($row->bunting == 1 && $row->bunting != NULL) ? 'v' : '-';
+            $tdk_bunting = ($row->bunting == 0 && $row->bunting != NULL) ? 'v' : '-';
+            $jantan = ($row->kelamin == 1 && $row->kelamin != NULL) ? 'v' : '-';
+            $betina = ($row->kelamin == 0 && $row->kelamin != NULL) ? 'v' : '-';
+
+            foreach($ib->result() as $i){
+                $lapid = $row->id;
+                $x = ($i->sexing == 'x' && $i->sexing != NULL) ? 'v' : '-';
+                $y = ($i->sexing == 'y' && $i->sexing != NULL) ? 'v' : '-';
+                $n = ($i->sexing == 'n' && $i->sexing != NULL) ? 'v' : '-';
+
+                if($lapid !== $currentLaporanId){
+                    $currentLaporanId = $lapid;
+                    echo "<tr>";
+                    echo "<td style='white-space: nowrap;' rowspan='$rowspanIb'> $row->nama </td>";
+                    echo "<td style='white-space: nowrap;' rowspan='$rowspanIb'> " . $row->kabupaten_name . ",  " . $row->kecamatan_name . " </td>";
+                    echo "<td style='white-space: nowrap;' rowspan='$rowspanIb'> $row->peternak </td>";
+                    echo "<td style='white-space: nowrap;' rowspan='$rowspanIb'> $row->akseptor </td>";
+                    echo "<td style='white-space: nowrap;'> $i->bull </td>";
+                    echo "<td style='white-space: nowrap;'> $i->kode </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;'> $i->metode </td>";
+                    echo "<td style='white-space: nowrap;'> $i->kode_batch </td>";
+                    echo "<td style='text-align: center'> $x </td>";
+                    echo "<td style='text-align: center'> $y </td>";
+                    echo "<td style='text-align: center'> $n </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;' rowspan='$rowspanIb'> " . longdate_indo(date('Y-m-d', strtotime($i->tgl))) . " </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;' rowspan='$rowspanIb'> " . longdate_indo(date('Y-m-d', strtotime($row->tgl_pkb))) . " </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;' rowspan='$rowspanIb'> $bunting </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;' rowspan='$rowspanIb'> $tdk_bunting </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;' rowspan='$rowspanIb'> " . longdate_indo(date('Y-m-d', strtotime($row->tgl_kelahiran))) . " </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;' rowspan='$rowspanIb'> $jantan </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;' rowspan='$rowspanIb'> $betina </td>";
+                    echo "<td rowspan='$rowspanIb'></td>";
+                    echo "<td rowspan='$rowspanIb'> $row->keterangan </td>";
+                }else{
+                    echo "<tr>";
+                    echo "<td style='white-space: nowrap;'> $i->bull </td>";
+                    echo "<td style='white-space: nowrap;'> $i->kode </td>";
+                    echo "<td style='text-align: center; white-space: nowrap;'> $i->metode </td>";
+                    echo "<td style='white-space: nowrap;'> $i->kode_batch </td>";
+                    echo "<td style='text-align: center'> $x </td>";
+                    echo "<td style='text-align: center'> $y </td>";
+                    echo "<td style='text-align: center'> $n </td>";
+                }
+
+                echo "</tr>";
+            }
+        } ?>
+    </tbody>
+</table>

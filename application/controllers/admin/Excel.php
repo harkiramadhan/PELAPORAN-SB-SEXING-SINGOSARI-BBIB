@@ -593,8 +593,93 @@ class Excel extends CI_Controller{
         $writer->save('php://output');
     }
 
-    function exportHtml(){
-        $this->load->view('laporanExport');
+    function export($userid = FALSE){
+        ($userid) ? $this->db->where('l.user_id', $userid) : NULL;
+        $var['data'] = $this->db->select('l.*, u.username, u.nama, p.nama peternak, p.no_anggota')
+                                ->select("kab.name as kabupaten_name")
+                                ->select("kec.name as kecamatan_name")
+                                ->select("kel.name as kelurahan_name")
+                                ->from('laporan l')
+                                ->join('user u', 'l.user_id = u.id')
+                                ->join('peternak p', 'l.peternak_id = p.id')
+                                ->join('regencies kab', 'l.kabupaten_id = kab.code', 'LEFT')
+                                ->join('districts kec', 'l.kecamatan_id = kec.code', 'LEFT')
+                                ->join('villages kel', 'l.kelurahan_id = kel.code', 'LEFT')
+                                ->get();
+
+        $htmlString = $this->load->view('laporanExport', $var, TRUE);
+
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+        $spreadsheet = $reader->loadFromString($htmlString);
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+
+        $activeWorksheet->getColumnDimension('A')->setAutoSize(TRUE);
+        $activeWorksheet->getColumnDimension('B')->setAutoSize(TRUE);
+        $activeWorksheet->getColumnDimension('C')->setAutoSize(TRUE);
+        $activeWorksheet->getColumnDimension('D')->setWidth(12);
+        $activeWorksheet->getColumnDimension('E')->setWidth(12);
+        $activeWorksheet->getColumnDimension('G')->setWidth(15);
+        $activeWorksheet->getColumnDimension('J')->setWidth(10);
+        $activeWorksheet->getColumnDimension('L')->setWidth(20);
+        $activeWorksheet->getColumnDimension('M')->setWidth(20);
+        $activeWorksheet->getColumnDimension('P')->setWidth(20);
+        $activeWorksheet->getColumnDimension('R')->setAutoSize(TRUE);
+        $activeWorksheet->getColumnDimension('S')->setAutoSize(TRUE);
+        $activeWorksheet->getColumnDimension('T')->setAutoSize(TRUE);
+
+        $activeWorksheet->getStyle('A:T')->getAlignment()->setVertical('top');
+
+        $activeWorksheet->getStyle('A1:T2')->applyFromArray([
+            'font' => ['bold' => true, 'size' => 18, 'name' => 'Calibri'],
+            'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
+        ]);
+
+        $borders = [
+            'bottom' => [
+                'borderStyle' => 'hair', 
+                'color' => ['argb' => ' 0F0F0F']
+            ],'top' => [
+                'borderStyle' => 'hair', 
+                'color' => ['argb' => ' 0F0F0F']
+            ],'right' => [
+                'borderStyle' => 'hair', 
+                'color' => ['argb' => ' 0F0F0F']
+            ],'left' => [
+                'borderStyle' => 'hair', 
+                'color' => ['argb' => ' 0F0F0F']
+            ]
+        ];
+        foreach(range('A', 'T') as $st){
+            $activeWorksheet->getStyle($st . '4')->applyFromArray([
+                'alignment' => [
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+                'borders' => $borders,
+            ]);    
+
+            $activeWorksheet->getStyle($st . '5')->applyFromArray([
+                'alignment' => [
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+                'borders' => $borders,
+            ]);    
+        }
+        $activeWorksheet->getStyle('A4:T5')->applyFromArray([
+            'font' => ['bold' => true, 'size' => 12, 'name' => 'Calibri'],
+            'alignment' => [
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+            'borders' => $borders
+        ]);
+
+        $activeWorksheet->freezePane('E6');
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="LAPORAN PELAKSANAAN IB SEMEN BEKU SEXING BBIB SINGOSARI.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
     }
 
     /* Format Import */
