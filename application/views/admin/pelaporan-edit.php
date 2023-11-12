@@ -59,7 +59,7 @@
 
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Peternak <span class="text-warning">*</span></label>
-                    <select class="form-control select2-tags" name="peternak_id" id="select-peternak" required>
+                    <select class="form-control select2-tags normal" name="peternak_id" id="select-peternak" required>
                         <option selected="" disabled="">- Pilih Peternak -</option>
                         <?php foreach($peternak->result() as $p){ ?>
                             <option <?= ($p->id == $detail->peternak_id) ? 'selected' : '' ?> value="<?= $p->id ?>"><?= $p->nama ?></option>
@@ -69,7 +69,7 @@
 
                 <div class="col-lg-6 col-12 mt-2">
                     <label class="ms-0">Nomor Anggota  <i class="fw-normal">(Kosongkan jika tidak ada)</i></label>
-                    <input class="multisteps-form__input form-control" value="<?= $detail->no_anggota ?>" name="no_anggota" type="text" placeholder="" id="no-anggota">
+                    <input class="multisteps-form__input form-control" value="<?= @$detail->no_anggota ?>" name="no_anggota" type="text" placeholder="" id="no-anggota">
                 </div>
                 
                 <div class="col-lg-6 col-12 mt-2">

@@ -222,12 +222,29 @@ class Pelaporan extends CI_Controller{
             }
         }
 
+        if(is_numeric($this->input->post('peternak_id', TRUE))){
+            $peternakid = $this->input->post('peternak_id', TRUE);
+            $cekPeternak = $this->db->get_where('peternak', ['id' => $peternakid])->row();
+            if($this->input->post('no_anggota', TRUE) != $cekPeternak->no_anggota){
+                $this->db->where('id', $peternakid)->update('peternak', [
+                    'no_anggota' => $this->input->post('no_anggota', TRUE)
+                ]);
+            }
+        }else{
+            $this->db->insert('peternak', [
+                'nama' => $this->input->post('peternak_id', TRUE),
+                'no_anggota' => $this->input->post('no_anggota', TRUE)
+            ]);
+            $peternakid = $this->db->insert_id();
+        }
+
+
         $this->db->where('id', $id)->update('laporan', [
             'user_id' => $this->input->post('user_id', TRUE),
             'kabupaten_id' => $this->input->post('kabupaten_id', TRUE),
             'kecamatan_id' => $this->input->post('kecamatan_id', TRUE),
             'kelurahan_id' => $this->input->post('kelurahan_id', TRUE),
-            'peternak_id' => $this->input->post('peternak_id', TRUE),
+            'peternak_id' => $peternakid,
             'akseptor' => $this->input->post('akseptor', TRUE),
             'tgl_pkb' => $this->input->post('tgl_pkb', TRUE),
             'bunting' => $this->input->post('bunting', TRUE),

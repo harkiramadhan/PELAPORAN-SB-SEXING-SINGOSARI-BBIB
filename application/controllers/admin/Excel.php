@@ -955,13 +955,10 @@ class Excel extends CI_Controller{
         /* Dropdown Peternak */
         $dropdownPeternak = $activeWorksheet->getCell('B9')->getDataValidation();
         $dropdownPeternak->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
-        $dropdownPeternak->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
-        $dropdownPeternak->setErrorTitle('Input error');
-        $dropdownPeternak->setError('Value is not in list.');
         $dropdownPeternak->setPromptTitle('Pick from list');
         $dropdownPeternak->setPrompt('Please pick a value from the drop-down list.');
         $dropdownPeternak->setShowDropDown(true);
-        $dropdownPeternak->setShowErrorMessage(true);
+        $dropdownPeternak->setShowErrorMessage(false);
         $dropdownPeternak->setAllowBlank(false);
         $dropdownPeternak->setFormula1('MasterDataSheet!$E$2:$E$' . $lastRowPeternak);
         $activeWorksheet->getCell('B9')->setValue(' - PILIH PETERNAK -'); 
@@ -1073,13 +1070,20 @@ class Excel extends CI_Controller{
             $TANGGAL_KELAHIRAN = $worksheet->getCell('B15')->getFormattedValue();
             $STATUS_KELAHIRAN = explode(' - ', $worksheet->getCell('B16')->getValue());
             $KETERANGAN = $worksheet->getCell('B17')->getValue();
-            
+
+            if(is_numeric($PETERNAK[0])){
+                $peternakid = $PETERNAK[0];
+            }else{
+                $this->db->insert('peternak', ['nama' => $PETERNAK[0]]);
+                $peternakid = $this->db->insert_id();
+            }
+
             $this->db->insert('laporan', [
                 'user_id' => $PETUGAS[0],
                 'kabupaten_id' => $KOTA[0],
                 'kecamatan_id' => $KECAMATAN[0],
                 'kelurahan_id' => $KELURAHAN[0],
-                'peternak_id' => $PETERNAK[0],
+                'peternak_id' => $peternakid,
                 'akseptor' => $AKSEPTOR,
                 'tgl_pkb' => date('Y-m-d', strtotime($TANGGAL_PKB)),
                 'bunting' => $STATUS_PKB[0],
@@ -1087,6 +1091,7 @@ class Excel extends CI_Controller{
                 'kelamin' => $STATUS_KELAHIRAN[0],
                 'keterangan' => $KETERANGAN,
             ]);
+            
             if($this->db->affected_rows() > 0){
                 $laporainId = $this->db->insert_id();
                 $endRow = $worksheet->getHighestRow();
