@@ -49,6 +49,7 @@ class Peternak extends CI_Controller{
             'nama' => $this->input->post('nama', TRUE),
             'jenkel' => $this->input->post('jenkel', TRUE),
             'nowa' => $this->input->post('nowa', TRUE),
+            'no_anggota' => $this->input->post('no_anggota', TRUE)
         ]);
         if($this->db->affected_rows() > 0){
             $this->session->set_flashdata('sukses', "Peternak " . $this->input->post('nama', TRUE) . " Berhasil Di Tambahkan");
@@ -64,6 +65,7 @@ class Peternak extends CI_Controller{
             'nama' => $this->input->post('nama', TRUE),
             'jenkel' => $this->input->post('jenkel', TRUE),
             'nowa' => $this->input->post('nowa', TRUE),
+            'no_anggota' => $this->input->post('no_anggota', TRUE)
         ]);
         if($this->db->affected_rows() > 0){
             $this->session->set_flashdata('sukses', "Peternak " . $this->input->post('nama', TRUE) . " Berhasil Di Simpan");

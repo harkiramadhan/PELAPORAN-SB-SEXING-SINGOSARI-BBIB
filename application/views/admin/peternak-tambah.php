@@ -15,6 +15,10 @@
                     <input class="multisteps-form__input form-control" name="nama" type="text" placeholder="" value="" required="">
                 </div>
                 <div class="col-12 mt-2">
+                    <label class="ms-0">Nomor Anggota</label>
+                    <input class="multisteps-form__input form-control" name="no_anggota" type="number" placeholder="" required="">
+                </div>
+                <div class="col-12 mt-2">
                     <label class="ms-0">Jenis Kelamin</label>
                     <select class="form-control" name="jenkel">
                         <option selected="" disabled="">- Pilih Jenis Kelamin -</option>
