@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-12 mt-2">
                     <label class="ms-0">Nomor Anggota</label>
-                    <input class="multisteps-form__input form-control" name="no_anggota" type="number" placeholder="" required="">
+                    <input class="multisteps-form__input form-control" name="no_anggota" type="text" placeholder="" required="">
                 </div>
                 <div class="col-12 mt-2">
                     <label class="ms-0">Jenis Kelamin</label>

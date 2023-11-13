@@ -18,6 +18,7 @@
 							<tr>
                                 <th class="text-uppercase text-sm text-center" width="1px">#</th>
 								<th class="text-uppercase text-sm">Nama</th>
+								<th class="text-uppercase text-sm" width="1px">No. Anggota</th>
 								<th class="text-uppercase text-sm" width="1px">No. WA</th>
 								<th class="text-uppercase text-sm" width="1px">L/P</th>
 								<th class="text-uppercase text-sm text-center" width="1px">Aksi</th>
@@ -28,6 +29,7 @@
                                 <tr>
                                     <td class="text-sm text-center"><?= $no++ ?>. </td>
                                     <td class="text-sm fw-normal"><?= $row->nama ?></td>
+									<td class="text-sm fw-normal"><?= $row->no_anggota ?></td>
 									<td class="text-sm fw-normal"><?= $row->nowa ?></td>
 									<td class="text-sm fw-normal"><?= $row->jenkel ?></td>
                                     <td class="text-sm fw-normal">
